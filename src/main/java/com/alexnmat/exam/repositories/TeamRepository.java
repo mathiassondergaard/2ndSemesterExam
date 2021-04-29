@@ -1,4 +1,4 @@
 package com.alexnmat.exam.repositories;
 
-public class TeamRepository {
+public interface TeamRepository {
 }
