@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/head :: head">
+    <title>WishCloud Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+</head>
+
+<body>
+
+<section class="hero is-fullheight">
+    <div class="hero-body has-text-centered">
+        <div class="container">
+            <div class="box">
+                <img th:src="@{/images/wishcloud.png}" class="img-responsive center-block" width="300" height="300"
+                     alt="Logo"/>
+                <form th:action="@{/login}" method="POST" class="form-signin">
+                    <h3 class="title is-3">Welcome to WishCloud</h3>
+                    <br>
+                    <label for="username"></label>
+                    <input style="width: 300px" type="text" id="username" name="user_name" placeholder="Username"
+                           class="input is-primary is-medium"/>
+                    <br>
+                    <br>
+                    <label for="password"></label>
+                    <input style="width: 300px" type="password" th:placeholder="Password"
+                           id="password" name="password" class="input is-primary is-medium"/>
+                    <br>
+                    <div align="center" th:if="${param.error}">
+                        <br>
+                        <p style="font-size: 20px; color: #FF1C19;"><strong>Username or password is invalid!</strong></p>
+                    </div>
+                    <br>
+                    <button class="button is-success" name="Submit" value="Login" type="Submit"
+                            th:text="Login"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
