@@ -34,6 +34,9 @@ public class User implements Serializable {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    private Person person;
 
     public User() {
     }
@@ -72,5 +75,13 @@ public class User implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
