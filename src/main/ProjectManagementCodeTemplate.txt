@@ -179,7 +179,7 @@ STRUCTURE:
 					Methods:
 						- public Project findByProjectId(long projectId);
 						- public List<Project> findAll();
-						- public void save(Project project);
+						- public Project save(Project project);
 						- public void delete(Project project);
 						- public int calculateAllocatedHours(Date startDate);
 						- public int calculateTimeSpent(int subprojectTimeSpent);
@@ -188,20 +188,19 @@ STRUCTURE:
 			- TeamService
 				
 					Methods:
-						- public Teams findByProjectId(long projectId);
-						- public void saveTeams(Team team);
-						- public void deleteTeams(Team team);
-						- public List<Team> findByTeamsId(long teamsId);
+						- public Team findById(long teamId);
+						- public Team save(Team team);
+						- public void deleteTeam(Team team);
 						
 						
 			- SubprojectService
 					
 					Methods:
 						- public List<Subproject> findAllForProjectId(long projectId);
-						- public void save(Subproject subproject);
-						- public void updateHours(Subproject subproject);
-						- public void complete(Subproject subproject);
-						- public void delete(Subproject subproject);
+						- public SubProject save(SubProject subproject);
+						- public void updateHours(SubProject subproject);
+						- public void complete(SubProject subproject);
+						- public void delete(SubProject subproject);
 						- public int calculateTimeSpent(int taskTimeSpent)
 						
 						
@@ -210,23 +209,22 @@ STRUCTURE:
 					
 					Methods:
 						- public List<Tasks> getAllTasksForSubprojectId(long subprojectId)
-						- public void save(Task task);
-						- public void updateHours(Task task);
+						- public Task save(Task task);
 						- public void delete(Task task);
 						- public void complete(Task task);
 						- public int calculateTimeSpent(maybe hours from person??)
 						
 						- public List<Subtasks> getAllSubTasksForTaskId(long taskId)
-						- public void saveSubtask(Subtask subtask, long taskId);
-						- public void deleteSubtask(Subtask subtask, long taskId);
-						- public void completeSubtask(Subtask subtask, long taskId);
+						- public SubTask saveSubtask(SubTask subtask, long taskId);
+						- public void deleteSubtask(SubTask subtask, long taskId);
+						- public void completeSubtask(SubTask subtask, long taskId);
 							- taskId is maybe the whole object here...
 					
 					
 			- EffortService
 					
 					Methods:
-						- public void save(Effort effort, long projectId);
+						- public Effort save(Effort effort, long projectId);
 						- public void delete(Effort effort, long projectId);
 						- public void update(Effort effort, long projectId);
 						- public void calculateHours(long personId);
@@ -239,16 +237,14 @@ STRUCTURE:
 				- Includes DEPARTMENT;
 						
 					Methods:
-						- public void save(Departments departments, long personId)
-						- public void delete(Departments departments, long personId)
-						
-						- public void saveDepartment(Department department)
-						- public void deleteDepartment(Department department)
+					    - public Department findById(long id);
+						- public Department save(Department departments)
+						- public void delete(Department departments)
 			
 			- HoursService
 					
 					Methods:
-						- public void save(Hours hours, long projectId, long personId)
+						- public Hours save(Hours hours, long projectId, long personId)
 						- public void calculateTotalHours() // maybe??
 						- public void deleteHours(Hours hours, long projectId, long personId)
 						- public void updateHours(Hours hours, long projectId, long personId)
@@ -257,10 +253,9 @@ STRUCTURE:
 			- PersonService (MAYBE INTERFACE)
 			
 					Methods:
-						- public void save(Person person)
+						- public Person save(Person person)
 						- public void findAllByDepartmentId(long departmentId)
 						- public void delete(Person person)
-						- public void update(Person person)
 						
 						no need for anything other than findBy if Persons are hardcoded.
 			
