@@ -19,13 +19,8 @@ public class Team implements Serializable {
     private String teamName;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "teams_id", referencedColumnName = "teams_id")
-    private Teams teams;
-
-
-
-    @OneToMany(mappedBy = "team", cascade = CascadeType.MERGE)
-    private List<Person> persons;
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     public Team() {
     }
@@ -46,19 +41,11 @@ public class Team implements Serializable {
         this.teamName = teamName;
     }
 
-    public Teams getTeams() {
-        return teams;
+    public Project getProject() {
+        return project;
     }
 
-    public void setTeams(Teams teams) {
-        this.teams = teams;
-    }
-
-    public List<Person> getPersons() {
-        return persons;
-    }
-
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

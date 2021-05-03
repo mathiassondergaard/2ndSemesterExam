@@ -18,10 +18,6 @@ public class Hours implements Serializable {
     @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     private Project project;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    private Person person;
-
     @Column(name = "hours")
     private int hours;
 
@@ -42,14 +38,6 @@ public class Hours implements Serializable {
 
     public void setProject(Project project) {
         this.project = project;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public int getHours() {

@@ -26,15 +26,16 @@ public class Person implements Serializable {
     private String lastName;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "person_departments", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "departments_id"))
-    private Set<Departments> departments;
+    @JoinTable(name = "person_departments", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
+    private Set<Department> departments;
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    private List<Hours> hours;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "person_hours", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "hours_id"))
+    private Set<Hours> hours;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "team_id", referencedColumnName = "team_id")
-    private Team team;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "person_teams", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private Set<Team> teams;
 
     @OneToOne(mappedBy = "person")
     private Project project;
@@ -77,28 +78,28 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public Set<Departments> getDepartments() {
+    public Set<Department> getDepartments() {
         return departments;
     }
 
-    public void setDepartments(Set<Departments> departments) {
+    public void setDepartments(Set<Department> departments) {
         this.departments = departments;
     }
 
-    public List<Hours> getHours() {
+    public Set<Hours> getHours() {
         return hours;
     }
 
-    public void setHours(List<Hours> hours) {
+    public void setHours(Set<Hours> hours) {
         this.hours = hours;
     }
 
-    public Team getTeam() {
-        return team;
+    public Set<Team> getTeams() {
+        return teams;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
     public Project getProject() {

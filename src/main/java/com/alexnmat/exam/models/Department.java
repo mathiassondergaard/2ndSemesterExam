@@ -19,9 +19,6 @@ public class Department implements Serializable {
     @Column(name = "competence")
     private String competence;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "departments_id", referencedColumnName = "departments_id")
-    private Departments departments;
 
     public Department() {
     }
@@ -50,11 +47,5 @@ public class Department implements Serializable {
         this.competence = competence;
     }
 
-    public Departments getDepartments() {
-        return departments;
-    }
 
-    public void setDepartments(Departments departments) {
-        this.departments = departments;
-    }
 }

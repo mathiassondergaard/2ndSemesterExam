@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -40,7 +41,7 @@ public class Project implements Serializable {
     private Person person;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
-    private List<Teams> teams;
+    private List<Team> teams;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
     private List<Effort> efforts;
@@ -115,11 +116,11 @@ public class Project implements Serializable {
         this.person = person;
     }
 
-    public List<Teams> getTeams() {
+    public List<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(List<Teams> teams) {
+    public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
 
