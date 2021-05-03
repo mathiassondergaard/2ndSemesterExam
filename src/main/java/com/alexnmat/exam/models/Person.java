@@ -37,11 +37,11 @@ public class Person implements Serializable {
     @JoinTable(name = "person_teams", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
     private Set<Team> teams;
 
-    @OneToOne(mappedBy = "person")
-    private Project project;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
+    private List<Project> projects;
 
-    @OneToOne(mappedBy = "person")
-    private SubProject subProject;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
+    private List<SubProject> subProjects;
 
     public Person() {
     }
@@ -102,21 +102,19 @@ public class Person implements Serializable {
         this.teams = teams;
     }
 
-    public Project getProject() {
-        return project;
+    public List<Project> getProjects() {
+        return projects;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
-    public SubProject getSubProject() {
-        return subProject;
+    public List<SubProject> getSubProjects() {
+        return subProjects;
     }
 
-    public void setSubProject(SubProject subProject) {
-        this.subProject = subProject;
+    public void setSubProjects(List<SubProject> subProjects) {
+        this.subProjects = subProjects;
     }
-
-
 }

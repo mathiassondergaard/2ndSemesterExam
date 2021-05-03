@@ -2,6 +2,7 @@ package com.alexnmat.exam.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -15,20 +16,14 @@ public class SubProject implements Serializable {
     @Column(name = "sub_project_id")
     private long id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_manager", referencedColumnName = "person_id")
-    private Person person;
-
     @Column(name = "sub_project_name")
     private String subProjectName;
 
     @Column(name = "start_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilStartDate;
+    private LocalDate utilStartDate;
 
     @Column(name = "end_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilEndDate;
+    private LocalDate utilEndDate;
 
     @Column(name = "completed")
     private Boolean completed;
@@ -37,7 +32,7 @@ public class SubProject implements Serializable {
     private String description;
 
     @Column(name = "allocated_hours")
-    private int allocatedHours;
+    private long allocatedHours;
 
     @Column(name = "total_time_spent")
     private int totalTimeSpent;
@@ -45,9 +40,13 @@ public class SubProject implements Serializable {
     @OneToMany(mappedBy = "subProject", cascade = CascadeType.MERGE)
     private List<Task> tasks;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @ManyToOne(cascade=CascadeType.MERGE)
+    @JoinColumn(name = "project_manager", referencedColumnName = "person_id")
+    private Person person;
 
     public SubProject() {
     }
@@ -76,19 +75,19 @@ public class SubProject implements Serializable {
         this.subProjectName = subProjectName;
     }
 
-    public Date getUtilStartDate() {
+    public LocalDate getUtilStartDate() {
         return utilStartDate;
     }
 
-    public void setUtilStartDate(Date utilStartDate) {
+    public void setUtilStartDate(LocalDate utilStartDate) {
         this.utilStartDate = utilStartDate;
     }
 
-    public Date getUtilEndDate() {
+    public LocalDate getUtilEndDate() {
         return utilEndDate;
     }
 
-    public void setUtilEndDate(Date utilEndDate) {
+    public void setUtilEndDate(LocalDate utilEndDate) {
         this.utilEndDate = utilEndDate;
     }
 
@@ -108,7 +107,7 @@ public class SubProject implements Serializable {
         this.description = description;
     }
 
-    public int getAllocatedHours() {
+    public long getAllocatedHours() {
         return allocatedHours;
     }
 

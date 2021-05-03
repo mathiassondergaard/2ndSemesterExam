@@ -2,6 +2,7 @@ package com.alexnmat.exam.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -22,12 +23,10 @@ public class SubTask implements Serializable {
     private String name;
 
     @Column(name = "start_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilStartDate;
+    private LocalDate utilStartDate;
 
     @Column(name = "end_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilEndDate;
+    private LocalDate utilEndDate;
 
     @Column(name = "completed")
     private Boolean completed;
@@ -65,19 +64,19 @@ public class SubTask implements Serializable {
         this.name = name;
     }
 
-    public Date getUtilStartDate() {
+    public LocalDate getUtilStartDate() {
         return utilStartDate;
     }
 
-    public void setUtilStartDate(Date utilStartDate) {
+    public void setUtilStartDate(LocalDate utilStartDate) {
         this.utilStartDate = utilStartDate;
     }
 
-    public Date getUtilEndDate() {
+    public LocalDate getUtilEndDate() {
         return utilEndDate;
     }
 
-    public void setUtilEndDate(Date utilEndDate) {
+    public void setUtilEndDate(LocalDate utilEndDate) {
         this.utilEndDate = utilEndDate;
     }
 

@@ -2,6 +2,7 @@ package com.alexnmat.exam.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -20,24 +21,22 @@ public class Project implements Serializable {
     private String projectName;
 
     @Column(name = "start_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilStartDate;
+    private LocalDate utilStartDate;
 
     @Column(name = "end_date")
-    @Temporal(TemporalType.DATE)
-    private java.util.Date utilEndDate;
+    private LocalDate utilEndDate;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "allocated_hours")
-    private int allocatedHours;
+    private long allocatedHours;
 
     @Column(name = "total_time_spent")
     private int totalTimeSpent;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_manager", referencedColumnName = "person_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "project_owner", referencedColumnName = "person_id")
     private Person person;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
@@ -71,19 +70,19 @@ public class Project implements Serializable {
         this.projectName = projectName;
     }
 
-    public Date getUtilStartDate() {
+    public LocalDate getUtilStartDate() {
         return utilStartDate;
     }
 
-    public void setUtilStartDate(Date utilStartDate) {
+    public void setUtilStartDate(LocalDate utilStartDate) {
         this.utilStartDate = utilStartDate;
     }
 
-    public Date getUtilEndDate() {
+    public LocalDate getUtilEndDate() {
         return utilEndDate;
     }
 
-    public void setUtilEndDate(Date utilEndDate) {
+    public void setUtilEndDate(LocalDate utilEndDate) {
         this.utilEndDate = utilEndDate;
     }
 
@@ -95,11 +94,11 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public int getAllocatedHours() {
+    public long getAllocatedHours() {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(int allocatedHours) {
+    public void setAllocatedHours(long allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 

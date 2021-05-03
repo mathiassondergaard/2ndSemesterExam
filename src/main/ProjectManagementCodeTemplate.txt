@@ -180,8 +180,8 @@ STRUCTURE:
 						- public Project findByProjectId(long projectId);
 						- public List<Project> findAll();
 						- public Project save(Project project);
-						- public void delete(Project project);
-						- public int calculateAllocatedHours(Date startDate);
+						- public void delete(long projectId);
+						- public int calculateAllocatedHours(long projectId);
 						- public int calculateTimeSpent(int subprojectTimeSpent);
 						
 						
@@ -190,7 +190,7 @@ STRUCTURE:
 					Methods:
 						- public Team findById(long teamId);
 						- public Team save(Team team);
-						- public void deleteTeam(Team team);
+						- public void deleteTeam(long teamId);
 						
 						
 			- SubprojectService
@@ -200,7 +200,7 @@ STRUCTURE:
 						- public SubProject save(SubProject subproject);
 						- public void updateHours(SubProject subproject);
 						- public void complete(SubProject subproject);
-						- public void delete(SubProject subproject);
+						- public void delete(long subProjectId);
 						- public int calculateTimeSpent(int taskTimeSpent)
 						
 						
@@ -210,7 +210,7 @@ STRUCTURE:
 					Methods:
 						- public List<Tasks> getAllTasksForSubprojectId(long subprojectId)
 						- public Task save(Task task);
-						- public void delete(Task task);
+						- public void delete(long taskId);
 						- public void complete(Task task);
 						- public int calculateTimeSpent(maybe hours from person??)
 						
@@ -225,7 +225,7 @@ STRUCTURE:
 					
 					Methods:
 						- public Effort save(Effort effort, long projectId);
-						- public void delete(Effort effort, long projectId);
+						- public void delete(long effortId, long projectId);
 						- public void update(Effort effort, long projectId);
 						- public void calculateHours(long personId);
 						- public void calculateTotal();
@@ -246,7 +246,7 @@ STRUCTURE:
 					Methods:
 						- public Hours save(Hours hours, long projectId, long personId)
 						- public void calculateTotalHours() // maybe??
-						- public void deleteHours(Hours hours, long projectId, long personId)
+						- public void deleteHours(long hoursId, long projectId, long personId)
 						- public void updateHours(Hours hours, long projectId, long personId)
 						
 						
@@ -255,7 +255,7 @@ STRUCTURE:
 					Methods:
 						- public Person save(Person person)
 						- public void findAllByDepartmentId(long departmentId)
-						- public void delete(Person person)
+						- public void delete(long personId)
 						
 						no need for anything other than findBy if Persons are hardcoded.
 			
