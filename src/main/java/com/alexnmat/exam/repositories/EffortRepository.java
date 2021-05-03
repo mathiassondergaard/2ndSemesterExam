@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EffortRepository extends JpaRepository<Effort, Long> {
+
+    Effort findById(long id);
+
 }
