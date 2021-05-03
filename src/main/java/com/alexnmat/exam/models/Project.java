@@ -49,6 +49,9 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
     private List<Hours> hours;
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
+    private List<SubProject> subProjects;
+
     public Project() {
     }
 
@@ -138,5 +141,13 @@ public class Project implements Serializable {
 
     public void setHours(List<Hours> hours) {
         this.hours = hours;
+    }
+
+    public List<SubProject> getSubProjects() {
+        return subProjects;
+    }
+
+    public void setSubProjects(List<SubProject> subProjects) {
+        this.subProjects = subProjects;
     }
 }
