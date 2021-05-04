@@ -16,7 +16,7 @@ public class SubTask implements Serializable {
     private long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "task_id", referencedColumnName = "task_id")
     private Task task;
 
     @Column(name = "sub_task_name")

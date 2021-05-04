@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface SubProjectRepository extends JpaRepository<SubProject, Long> {
 
-    SubProject findById(long id);
-
     SubProject findBySubProjectName(String subProjectName);
 
     SubProject findByCompleted(boolean completed);

@@ -41,7 +41,7 @@ public class SubProject implements Serializable {
     private List<Task> tasks;
 
     @ManyToOne(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", referencedColumnName = "person_id")
     private Project project;
 
     @ManyToOne(cascade=CascadeType.MERGE)
@@ -111,7 +111,7 @@ public class SubProject implements Serializable {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(int allocatedHours) {
+    public void setAllocatedHours(long allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 

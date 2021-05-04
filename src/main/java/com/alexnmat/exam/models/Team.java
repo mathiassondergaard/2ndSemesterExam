@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "team")
@@ -19,8 +20,12 @@ public class Team implements Serializable {
     private String teamName;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     private Project project;
+
+    @ManyToMany(mappedBy = "team", cascade = CascadeType.MERGE)
+    @JoinTable(name = "team_members", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
+    private List<Person> persons;
 
     public Team() {
     }
@@ -36,6 +41,8 @@ public class Team implements Serializable {
     public String getTeamName() {
         return teamName;
     }
+
+
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;

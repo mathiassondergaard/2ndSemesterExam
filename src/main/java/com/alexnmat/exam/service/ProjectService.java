@@ -4,14 +4,17 @@ import com.alexnmat.exam.models.Project;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class ProjectService {
+public class ProjectService extends AllocatedHoursCalculator {
 
     private ProjectRepository projectRepository;
     private PersonRepository personRepository;
@@ -23,25 +26,32 @@ public class ProjectService {
     }
 
     public ProjectService() {
-
     }
 
     public Project findByProjectId(long projectId) {
-        return projectRepository.findById(projectId);
+        return projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId));
     }
 
     public List<Project> findAll() {
-        return projectRepository.findAll();
+        if (projectRepository.findAll().size() == 0) {
+            throw new NoResultException("No projects available in database");
+        }
+        else {
+            return projectRepository.findAll();
+        }
     }
 
     public Project save(Project project, long personId) {
-        project.setPerson(personRepository.findById(personId));
-        project.setAllocatedHours(calculateAllocatedHours(project.getUtilStartDate(), project.getUtilEndDate()));
+        project.setPerson(personRepository.findById(personId)
+                .orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
+
+        project.setAllocatedHours(calculateTotalWorkdayHours(project.getUtilStartDate(), project.getUtilEndDate()));
         return projectRepository.save(project);
     }
 
-    public void delete(long id) {
-        Project project = projectRepository.findById(id);
+    public void delete(long projectId) {
+        Project project = findByProjectId(projectId);
         projectRepository.delete(project);
     }
     /*
@@ -60,32 +70,6 @@ public class ProjectService {
         wishlistRepository.delete(wishlist);
     }
      */
-
-    public long calculateAllocatedHours(LocalDate startDate, LocalDate endDate) {
-        //Get startDay's value and endDay's value
-        final int startDay = startDate.getDayOfWeek().getValue();
-        final int endDay = endDate.getDayOfWeek().getValue();
-
-        //Get days between start and end date
-        final long days = ChronoUnit.DAYS.between(startDate, endDate);
-        //Removes weekends from days
-        long result = days - 2*(days/7);
-
-        //Deal with the rest of the days
-        if (days % 7 != 0) {
-            if (startDay == 7) {
-                result -= 1;
-            } else if (endDay == 7) { //both days cant be sunday, would mean result == 0
-                result -= 1;
-            } else if (endDay < startDay) { //another weekend included.
-                result -= 2;
-            }
-        }
-        //One workday equals 8 hours
-        int workdayHours = 8;
-
-        return result * workdayHours;
-    }
 
 
 }

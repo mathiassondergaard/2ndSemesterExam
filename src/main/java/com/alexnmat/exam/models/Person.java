@@ -25,7 +25,7 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     @JoinTable(name = "person_departments", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
     private Set<Department> departments;
 
