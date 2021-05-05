@@ -36,19 +36,19 @@ public class Project implements Serializable {
     private int totalTimeSpent;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "project_owner", referencedColumnName = "person_id")
+    @JoinColumn(name = "project_owner")
     private Person person;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<TeamMember> teamMembers;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Effort> efforts;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Hours> hours;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<SubProject> subProjects;
 
     public Project() {

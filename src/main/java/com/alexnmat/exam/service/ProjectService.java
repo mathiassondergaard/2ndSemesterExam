@@ -1,8 +1,11 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.models.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
+import com.alexnmat.exam.repositories.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,11 +21,13 @@ public class ProjectService extends AllocatedHoursCalculator {
 
     private ProjectRepository projectRepository;
     private PersonRepository personRepository;
+    private TeamMemberRepository teamMemberRepository;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, PersonRepository personRepository) {
+    public ProjectService(ProjectRepository projectRepository, PersonRepository personRepository, TeamMemberRepository teamMemberRepository) {
         this.projectRepository = projectRepository;
         this.personRepository = personRepository;
+        this.teamMemberRepository = teamMemberRepository;
     }
 
     public ProjectService() {
@@ -34,7 +39,7 @@ public class ProjectService extends AllocatedHoursCalculator {
     }
 
     public List<Project> findAll() {
-        if (projectRepository.findAll().size() == 0) {
+        if (projectRepository.findAll().isEmpty()) {
             throw new NoResultException("No projects available in database");
         }
         else {
@@ -70,6 +75,30 @@ public class ProjectService extends AllocatedHoursCalculator {
         wishlistRepository.delete(wishlist);
     }
      */
+
+    public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
+        teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
+        teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
+        return teamMemberRepository.save(teamMember);
+    }
+
+    public TeamMember getSingleTeamMember(long projectId) {
+        return teamMemberRepository.findSingleByProjectId(projectId);
+    }
+
+    public List<TeamMember> getAllTeamMembersForProject(long projectId) {
+        if (teamMemberRepository.findAllByProjectId(projectId).isEmpty()) {
+            throw new NoResultException("No team members available in database");
+        }
+        else {
+            return teamMemberRepository.findAllByProjectId(projectId);
+        }
+    }
+
+    public void removeTeamMember(long teamMemberId) {
+        TeamMember teamMember = teamMemberRepository.findById(teamMemberId).orElseThrow(() -> new NoResultException("Unable to find team member by id: " + teamMemberId));
+        teamMemberRepository.delete(teamMember);
+    }
 
 
 }

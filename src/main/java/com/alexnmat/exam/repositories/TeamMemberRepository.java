@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
 
-    List<TeamMember> findByProject(Project project);
+    List<TeamMember> findAllByProjectId(long projectId);
+
+    TeamMember findSingleByProjectId(long projectId);
 
 }
