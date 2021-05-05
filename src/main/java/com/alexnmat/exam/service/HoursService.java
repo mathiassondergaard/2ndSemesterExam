@@ -14,15 +14,13 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 @Service
-public class HoursService {
+public class HoursService extends Utilities {
 
     private HoursRepository hoursRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public HoursService(HoursRepository hoursRepository, UserRepository userRepository) {
+    public HoursService(HoursRepository hoursRepository) {
         this.hoursRepository = hoursRepository;
-        this.userRepository = userRepository;
     }
 
     public List<Hours> getHoursForPerson(Person person) {
@@ -59,12 +57,5 @@ public class HoursService {
         Hours hours = hoursRepository.findById(hoursId).orElseThrow(() -> new NoResultException("Unable to find hours by id: " + hoursId));
         hoursRepository.delete(hours);
     }
-
-    private Person getCurrentLoggedInPerson() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentLoggedInUsersUsername = authentication.getName();
-        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
-    }
-
 
 }

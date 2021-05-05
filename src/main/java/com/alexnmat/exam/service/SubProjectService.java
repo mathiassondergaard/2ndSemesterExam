@@ -11,7 +11,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 @Service
-public class SubProjectService extends AllocatedHoursCalculator {
+public class SubProjectService extends Utilities {
 
     private SubProjectRepository subProjectRepository;
     private ProjectRepository projectRepository;

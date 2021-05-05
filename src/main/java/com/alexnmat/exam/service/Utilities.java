@@ -1,9 +1,24 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.Person;
+import com.alexnmat.exam.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public abstract class AllocatedHoursCalculator {
+public abstract class Utilities {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public Person getCurrentLoggedInPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentLoggedInUsersUsername = authentication.getName();
+        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
+    }
 
     //from STACKO (find link)
     public long calculateTotalWorkdayHours(LocalDate startDate, LocalDate endDate) {

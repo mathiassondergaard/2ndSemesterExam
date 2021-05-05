@@ -1,23 +1,18 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.models.Project;
 import com.alexnmat.exam.models.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
 import com.alexnmat.exam.repositories.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ProjectService extends AllocatedHoursCalculator {
+public class ProjectService extends Utilities {
 
     private ProjectRepository projectRepository;
     private PersonRepository personRepository;
@@ -47,10 +42,8 @@ public class ProjectService extends AllocatedHoursCalculator {
         }
     }
 
-    public Project save(Project project, long personId) {
-        project.setPerson(personRepository.findById(personId)
-                .orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
-
+    public Project save(Project project) {
+        project.setPerson(getCurrentLoggedInPerson());
         project.setAllocatedHours(calculateTotalWorkdayHours(project.getUtilStartDate(), project.getUtilEndDate()));
         return projectRepository.save(project);
     }

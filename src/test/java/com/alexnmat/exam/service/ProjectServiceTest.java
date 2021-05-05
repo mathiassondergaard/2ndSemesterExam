@@ -1,13 +1,12 @@
 package com.alexnmat.exam.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProjectServiceTest extends AllocatedHoursCalculator {
+class ProjectServiceTest extends Utilities {
 
     @Test
     void calculateAllocatedHours() {
