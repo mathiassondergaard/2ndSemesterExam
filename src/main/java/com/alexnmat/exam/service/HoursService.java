@@ -1,7 +1,70 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.Hours;
+import com.alexnmat.exam.models.Person;
+import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.repositories.HoursRepository;
+import com.alexnmat.exam.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.NoResultException;
+import java.util.List;
 
 @Service
 public class HoursService {
+
+    private HoursRepository hoursRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public HoursService(HoursRepository hoursRepository, UserRepository userRepository) {
+        this.hoursRepository = hoursRepository;
+        this.userRepository = userRepository;
+    }
+
+    public List<Hours> getHoursForPerson(Person person) {
+        if (hoursRepository.findByPerson(person).isEmpty()) {
+            throw new NoResultException("No efforts for person available in database");
+        } else {
+            return hoursRepository.findByPerson(person);
+        }
+    }
+
+    public List<Hours> getHoursForPersonAndProject(Person person, Project project) {
+        if (hoursRepository.findByProjectAndPerson(project, person).isEmpty()) {
+            throw new NoResultException("No efforts for person and project available in database");
+        } else {
+            return hoursRepository.findByProjectAndPerson(project, person);
+        }
+    }
+
+    public List<Hours> getHoursForPersonAndProject(Project project) {
+        if (hoursRepository.findByProject(project).isEmpty()) {
+            throw new NoResultException("No efforts for project available in database");
+        } else {
+            return hoursRepository.findByProject(project);
+        }
+    }
+
+    public Hours addHours(Hours hours, Project project) {
+        hours.setPerson(getCurrentLoggedInPerson());
+        hours.setProject(project);
+        return hoursRepository.save(hours);
+    }
+
+    public void deleteHours(long hoursId) {
+        Hours hours = hoursRepository.findById(hoursId).orElseThrow(() -> new NoResultException("Unable to find hours by id: " + hoursId));
+        hoursRepository.delete(hours);
+    }
+
+    private Person getCurrentLoggedInPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentLoggedInUsersUsername = authentication.getName();
+        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
+    }
+
+
 }

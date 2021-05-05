@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface EffortRepository extends JpaRepository<Effort, Long> {
 
-    List<Effort> findByProject(Project project);
+    List<Effort> findByProjectId(long projectId);
+
 }
