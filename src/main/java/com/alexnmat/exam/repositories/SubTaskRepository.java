@@ -12,4 +12,6 @@ public interface SubTaskRepository extends JpaRepository<SubTask, Long> {
 
     List<SubTask> findByTask(Task task);
 
+    SubTask findByCompleted(Boolean completed);
+
 }
