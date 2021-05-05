@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface SubTaskRepository extends JpaRepository<SubTask, Long> {
 
-    SubTask findById(long id);
-
     List<SubTask> findByTask(Task task);
 
 }

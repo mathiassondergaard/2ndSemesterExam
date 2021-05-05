@@ -10,7 +10,5 @@ import java.util.List;
 @Repository
 public interface HoursRepository extends JpaRepository<Hours, Long> {
 
-    Hours findById(long id);
-
     List<Hours> findByProject(Project project);
 }

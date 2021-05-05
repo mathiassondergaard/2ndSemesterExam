@@ -8,11 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TeamRepository extends JpaRepository<TeamMember, Long> {
-
-    TeamMember findById(long id);
-
-    TeamMember findByTeamName(String name);
+public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
 
     List<TeamMember> findByProject(Project project);
 
