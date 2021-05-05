@@ -12,7 +12,8 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "person_id_seq", sequenceName = "person_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_seq")
     @Column(name = "person_id")
     private long id;
 
@@ -25,17 +26,14 @@ public class Person implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(mappedBy = "person", cascade = CascadeType.MERGE)
-    @JoinTable(name = "person_departments", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
-    private Set<Department> departments;
+    @Column(name = "competence")
+    private String competence;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "person_hours", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "hours_id"))
-    private Set<Hours> hours;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
+    private List<Hours> hours;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "person_teams", joinColumns = @JoinColumn(name = "person_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private Set<Team> teams;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
+    private List<TeamMember> teamMember;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     private List<Project> projects;
@@ -78,28 +76,28 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public Set<Department> getDepartments() {
-        return departments;
+    public String getCompetence() {
+        return competence;
     }
 
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
+    public void setCompetence(String competence) {
+        this.competence = competence;
     }
 
-    public Set<Hours> getHours() {
+    public List<Hours> getHours() {
         return hours;
     }
 
-    public void setHours(Set<Hours> hours) {
+    public void setHours(List<Hours> hours) {
         this.hours = hours;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
+    public List<TeamMember> getTeamMember() {
+        return teamMember;
     }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
+    public void setTeamMember(List<TeamMember> teamMember) {
+        this.teamMember = teamMember;
     }
 
     public List<Project> getProjects() {

@@ -80,7 +80,7 @@ STRUCTURE:
 				List<Hours> hours; (OTM)
 				List<SubProject> subProjects; (OTM)
 					
-				$$ TEAM (RLS: *PROJECT*)
+				$$ TEAM-MEMBER (RLS: *PROJECT*)
 						
 					Long id;
 					String name;

@@ -3,9 +3,7 @@ package com.alexnmat.exam.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -14,6 +12,8 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @SequenceGenerator(name = "project_id_seq", sequenceName = "project_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_id_seq")
     @Column(name = "project_id")
     private long id;
 
@@ -40,7 +40,7 @@ public class Project implements Serializable {
     private Person person;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
-    private List<Team> teams;
+    private List<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.MERGE)
     private List<Effort> efforts;
@@ -118,12 +118,12 @@ public class Project implements Serializable {
         this.person = person;
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public List<TeamMember> getTeamMembers() {
+        return teamMembers;
     }
 
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setTeamMembers(List<TeamMember> teams) {
+        this.teamMembers = teams;
     }
 
     public List<Effort> getEfforts() {

@@ -7,27 +7,26 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "team")
-public class Team implements Serializable {
+@Table(name = "team_member")
+public class TeamMember implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "team_id")
+    @SequenceGenerator(name = "team_member_id_seq", sequenceName = "team_member_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_member_id_seq")
+    @Column(name = "team_member_id")
     private long id;
-
-    @Column(name = "team_name")
-    private String teamName;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     private Project project;
 
-    @ManyToMany(mappedBy = "team", cascade = CascadeType.MERGE)
-    @JoinTable(name = "team_members", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private List<Person> persons;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    private Person person;
 
-    public Team() {
+    public TeamMember() {
     }
 
     public long getId() {
@@ -38,14 +37,12 @@ public class Team implements Serializable {
         this.id = id;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public Person getPerson() {
+        return person;
     }
 
-
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public Project getProject() {

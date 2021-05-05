@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 public abstract class AllocatedHoursCalculator {
 
+    //from STACKO (find link)
     public long calculateTotalWorkdayHours(LocalDate startDate, LocalDate endDate) {
         //Get startDay's value and endDay's value
         final int startDay = startDate.getDayOfWeek().getValue();

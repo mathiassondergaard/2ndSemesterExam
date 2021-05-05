@@ -1,6 +1,5 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Department;
 import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PersonService {
@@ -34,8 +32,7 @@ public class PersonService {
         }
     }
 
-    public Person save(Person person, Department department) {
-        person.setDepartments(();
+    public Person save(Person person) {
         return personRepository.save(person);
     }
 

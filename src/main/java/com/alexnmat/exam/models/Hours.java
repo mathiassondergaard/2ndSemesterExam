@@ -10,13 +10,18 @@ public class Hours implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "hours_id_seq", sequenceName = "hours_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hours_id_seq")
     @Column(name = "hours_id")
     private long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     private Project project;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    private Person person;
 
     @Column(name = "hours")
     private int hours;
@@ -34,6 +39,14 @@ public class Hours implements Serializable {
 
     public Project getProject() {
         return project;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public void setProject(Project project) {

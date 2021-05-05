@@ -1,19 +1,19 @@
 package com.alexnmat.exam.repositories;
 
 import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.Team;
+import com.alexnmat.exam.models.TeamMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team, Long> {
+public interface TeamRepository extends JpaRepository<TeamMember, Long> {
 
-    Team findById(long id);
+    TeamMember findById(long id);
 
-    Team findByTeamName(String name);
+    TeamMember findByTeamName(String name);
 
-    List<Team> findByProject(Project project);
+    List<TeamMember> findByProject(Project project);
 
 }

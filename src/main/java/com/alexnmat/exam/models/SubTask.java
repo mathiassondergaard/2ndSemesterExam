@@ -12,6 +12,8 @@ public class SubTask implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @SequenceGenerator(name = "sub_task_id_seq", sequenceName = "sub_task_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sub_task_id_seq")
     @Column(name = "sub_task_id")
     private long id;
 
