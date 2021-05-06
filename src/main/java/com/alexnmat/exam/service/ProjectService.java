@@ -1,5 +1,6 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.models.Project;
 import com.alexnmat.exam.models.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
@@ -69,8 +70,23 @@ public class ProjectService extends Utilities {
     }
      */
 
-    public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
-        teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
+    public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
+        Project project = findByProjectId(projectId);
+        List<TeamMember> teamMembersForProject = project.getTeamMembers();
+        for (int i = 0; i < teamMembersForProject.size(); i++) {
+            if (teamMembersForProject.get(i).getId() == teamMemberId) {
+                teamMembersForProject.remove(i);
+            }
+            else {
+                throw new NoResultException("No Team Member for id" + teamMemberId + "exists in project");
+            }
+        }
+        project.setTeamMembers(teamMembersForProject);
+        projectRepository.save(project);
+    }
+
+    public TeamMember saveTeamMemberForProject(TeamMember teamMember, Person person, long projectId) {
+        teamMember.setPerson(person);
         teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
         return teamMemberRepository.save(teamMember);
     }
