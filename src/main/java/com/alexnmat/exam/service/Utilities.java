@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public abstract class Utilities {
 
@@ -17,7 +19,21 @@ public abstract class Utilities {
     public Person getCurrentLoggedInPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentLoggedInUsersUsername = authentication.getName();
-        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
+        List<Person> personList = userRepository.findByUsername(currentLoggedInUsersUsername).getPersons();
+        long userId = userRepository.findByUsername(currentLoggedInUsersUsername).getId();
+        Person person = new Person();
+        for (int i = 0; i < personList.size(); i++) {
+            if (personList.get(i).getId() == userId) {
+                person.setId(personList.get(i).getId());
+                person.setName(personList.get(i).getName());
+                person.setLastName(personList.get(i).getLastName());
+                person.setCompetence(personList.get(i).getCompetence());
+            }
+            else {
+                throw new NoResultException("No person with id" + userId + "exists in database");
+            }
+        }
+        return person;
     }
 
     //from STACKO (find link)

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,7 +37,7 @@ public class User implements Serializable {
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_person", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
-    private Set<Person> persons;
+    private List<Person> persons;
 
     public User() {
     }
@@ -53,11 +54,11 @@ public class User implements Serializable {
         return roles;
     }
 
-    public Set<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(Set<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 
