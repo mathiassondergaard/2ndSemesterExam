@@ -437,6 +437,9 @@ STRUCTURE:
 			- Maybe for timeSpent graph
 			
 SQL SCRIPT:
+REPLACE INTO `roles` VALUES (1,'PROJECT_OWNER');
+REPLACE INTO `roles` VALUES (2,'PROJECT_MANAGER');
+REPLACE INTO `roles` VALUES (3,'TEAM_MEMBER');
 
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`) VALUES (1, 'alex', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`) VALUES (2, 'mathias', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1);
