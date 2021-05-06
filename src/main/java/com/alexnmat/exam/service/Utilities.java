@@ -19,6 +19,13 @@ public abstract class Utilities {
     public Person getCurrentLoggedInPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentLoggedInUsersUsername = authentication.getName();
+        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
+    }
+
+    /*
+    HACKER SNIPPET
+     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentLoggedInUsersUsername = authentication.getName();
         List<Person> personList = userRepository.findByUsername(currentLoggedInUsersUsername).getPersons();
         long userId = userRepository.findByUsername(currentLoggedInUsersUsername).getId();
         Person person = new Person();
@@ -34,7 +41,7 @@ public abstract class Utilities {
             }
         }
         return person;
-    }
+     */
 
     //from STACKO (find link)
     public long calculateTotalWorkdayHours(LocalDate startDate, LocalDate endDate) {
