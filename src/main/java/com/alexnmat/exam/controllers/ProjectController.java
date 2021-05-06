@@ -25,6 +25,8 @@ public class ProjectController {
     //Fragments in controller
     //Update methods, add methods, should they return fragment or dashboard?
     //Maybe Posts need to have "RequestMapping "....", RequestType=GET, POST
+    //TODO: Fix mappings:
+    // return "project/" + projectId + "/addTeamMember"; not sure if this work ^ go on stacko
 
     private ProjectService projectService;
     private PersonService personService;
