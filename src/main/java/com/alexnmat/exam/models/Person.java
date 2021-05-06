@@ -17,6 +17,9 @@ public class Person implements Serializable {
     @Column(name = "person_id")
     private long id;
 
+    @OneToOne(mappedBy = "person")
+    private User user;
+
     @Column(name = "name")
     private String name;
 
@@ -47,6 +50,14 @@ public class Person implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
