@@ -18,42 +18,34 @@
         <aside class="column is-1 is-fullheight" id="sideMenu">
             <p class="menu-label" id="sideMenu-label"><strong>Projects</strong></p>
             <ul class="menu-list" id="sideMenu-list">
-                <li>
-                    <a href="#" class="">
-                        Web App for John
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="">
-                        Project for dillermand
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="">
-                        Project 3 derp
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="">
-                         Project 4 herp
-                    </a>
+                <li th:each="project : ${projects}">
+                    <a th:href="@{/dashboard/projects/{id}(id=${project.id})}" th:text="${project.projectName}"></a>
                 </li>
             </ul>
         </aside>
+        <!-- this container probably needs to be a fragment as well -->
         <div class="container column is-10">
             <div class="section">
                 <div th:insert="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
                 <div class="card">
                     <div class="card-header">
-                        <p class="card-header-title">Header</p>
+                        <p class="card-header-title">Project information</p>
                     </div>
                     <div class="card-content">
-                        <div class="content">Content</div>
+                        <div class="content">
+                            <h1>Project Name:</h1>
+                            <p th:text="${currentProject.projectName}" id="currentProjectName"></p>
+                            <h1>Project Owner:</h1>
+                            <p th:text="${currentProject.person.name + currentProject.person.lastName}" id="currentProjectOwner"></p>
+                            <h1>Project Description:</h1>
+                            <p th:text="${currentProject.description}" id="currentProjectDescription"></p>
+                        </div>
                     </div>
                 </div>
                 <br/>
 
+                <!-- add a ADD TEAM MEMBER button here to this card -->
                 <div class="card">
                     <div class="card-header">
                         <p class="card-header-title">Header</p>

@@ -46,7 +46,7 @@ public class ProjectController {
 
     @GetMapping("project/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
-        model.addAttribute("selectedProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
     }
