@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head>
+<body>
+<div th:fragment="projectNavbar">
+<nav class="navbar" role="navigation" aria-label="project navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/dashboard/projects">
+            Project Home
+        </a>
+    </div>
+
+    <div id="projectNavbar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+                Sub projects
+            </a>
+
+            <a class="navbar-item">
+                Efforts
+            </a>
+
+            <a class="navbar-item">
+                Blabla?
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary">
+                        Complete
+                    </a>
+                    <a class="button is-light">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</div>
+</body>
+</html>

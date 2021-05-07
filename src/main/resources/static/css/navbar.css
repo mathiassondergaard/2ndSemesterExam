@@ -1,0 +1,28 @@
+@media screen and (max-width: 768px) {
+    #menu-toggle:checked + .nav-menu {
+        display: block;
+    }
+}
+
+#sideMenu {
+    padding-left: 10px;
+    padding-top: 35px;
+}
+
+#sideMenu-label {
+    padding-left: 25px;
+}
+
+
+#sideMenu-list {
+    padding-left: 10px;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+    text-decoration: none;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- for navbar icons: https://materialdesignicons.com/ -->
+<div th:fragment="navbar">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a href="/dashboard/projects" class="logo">PROJECTORY</a>
+    </div>
+
+    <div id="navBar" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">Home</a>
+            <a class="navbar-item">Add Project</a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-danger ">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</div>
+
+</body>
+</html>

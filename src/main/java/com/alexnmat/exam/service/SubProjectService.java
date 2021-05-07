@@ -30,12 +30,7 @@ public class SubProjectService extends Utilities {
     }
 
     public List<SubProject> findAll() {
-        if (subProjectRepository.findAll().size() == 0) {
-            throw new NoResultException("No projects available in database");
-        }
-        else {
-            return subProjectRepository.findAll();
-        }
+        return subProjectRepository.findAll();
     }
 
     public SubProject save(SubProject subProject, long personId, long projectId) {

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+
+<head th:insert="fragments/head.html :: head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+<div id="dashboard">
+    <div id="nav" th:insert="fragments/navbar.html :: navbar"></div>
+    <section class="main-content columns is-fullheight">
+        <aside class="column is-1 is-fullheight" id="sideMenu">
+            <p class="menu-label" id="sideMenu-label"><strong>Projects</strong></p>
+            <ul class="menu-list" id="sideMenu-list">
+                <li>
+                    <a href="#" class="">
+                        Web App for John
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="">
+                        Project for dillermand
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="">
+                        Project 3 derp
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="">
+                         Project 4 herp
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <div class="container column is-10">
+            <div class="section">
+                <div th:insert="fragments/project-navbar.html :: projectNavbar"></div>
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">Header</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="content">Content</div>
+                    </div>
+                </div>
+                <br/>
+
+            </div>
+        </div>
+
+    </section>
+</div>
+</body>
+<footer th:insert="fragments/footer.html :: footer">
+</footer>
+</html>

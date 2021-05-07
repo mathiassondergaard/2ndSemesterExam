@@ -24,12 +24,7 @@ public class PersonService {
     }
 
     public List<Person> findAll() {
-        if (personRepository.findAll().size() == 0) {
-            throw new NoResultException("No persons available in database");
-        }
-        else {
-            return personRepository.findAll();
-        }
+        return personRepository.findAll();
     }
 
     public Person save(Person person) {

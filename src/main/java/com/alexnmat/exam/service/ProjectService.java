@@ -35,12 +35,7 @@ public class ProjectService extends Utilities {
     }
 
     public List<Project> findAll() {
-        if (projectRepository.findAll().isEmpty()) {
-            throw new NoResultException("No projects available in database");
-        }
-        else {
-            return projectRepository.findAll();
-        }
+        return projectRepository.findAll();
     }
 
     public Project save(Project project) {
@@ -76,8 +71,7 @@ public class ProjectService extends Utilities {
         for (int i = 0; i < teamMembersForProject.size(); i++) {
             if (teamMembersForProject.get(i).getId() == teamMemberId) {
                 teamMembersForProject.remove(i);
-            }
-            else {
+            } else {
                 throw new NoResultException("No Team Member for id" + teamMemberId + "exists in project");
             }
         }
@@ -98,8 +92,7 @@ public class ProjectService extends Utilities {
     public List<TeamMember> getAllTeamMembersForProject(long projectId) {
         if (teamMemberRepository.findAllByProjectId(projectId).isEmpty()) {
             throw new NoResultException("No team members available in database");
-        }
-        else {
+        } else {
             return teamMemberRepository.findAllByProjectId(projectId);
         }
     }

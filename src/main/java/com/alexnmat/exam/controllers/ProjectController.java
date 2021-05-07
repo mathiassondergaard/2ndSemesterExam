@@ -27,6 +27,7 @@ public class ProjectController {
     //Maybe Posts need to have "RequestMapping "....", RequestType=GET, POST
     //TODO: Fix mappings:
     // return "project/" + projectId + "/addTeamMember"; not sure if this work ^ go on stacko
+    // also exception throwing in findAll methods is nogo
 
     private ProjectService projectService;
     private PersonService personService;
