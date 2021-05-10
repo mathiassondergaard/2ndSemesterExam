@@ -7,7 +7,6 @@
 
 <head th:insert="fragments/head.html :: head">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
     <title>Dashboard</title>
 </head>
 
@@ -32,18 +31,20 @@
                     <div class="card-header">
                         <p class="card-header-title">Project information</p>
                     </div>
+
                     <div class="card-content">
                         <div class="content">
                             <h1>Project Name:</h1>
-                            <p th:text="${currentProject.projectName}" id="currentProjectName"></p>
+                            <!-- <p th:text="${currentProject.projectName}" id="currentProjectName"></p> -->
                             <h1>Project Owner:</h1>
-                            <p th:text="${currentProject.person.name + currentProject.person.lastName}" id="currentProjectOwner"></p>
+                            <!-- <p th:text="${currentProject.person.name + currentProject.person.lastName}" id="currentProjectOwner"></p> -->
                             <h1>Project Description:</h1>
-                            <p th:text="${currentProject.description}" id="currentProjectDescription"></p>
+                            <!-- <p th:text="${currentProject.description}" id="currentProjectDescription"></p> -->
                         </div>
                     </div>
                 </div>
                 <br/>
+
 
                 <!-- add a ADD TEAM MEMBER button here to this card -->
                 <div class="card">
@@ -101,7 +102,8 @@
 
     </section>
 </div>
-</body>
-<footer th:insert="fragments/footer.html :: footer">
+<footer>
+    <div th:insert="fragments/footer.html :: footer"></div>
 </footer>
+</body>
 </html>
