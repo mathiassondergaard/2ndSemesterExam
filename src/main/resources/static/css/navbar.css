@@ -1,4 +1,8 @@
-
+@media screen and (max-width: 768px) {
+    #menu-toggle:checked + .nav-menu {
+        display: block;
+    }
+}
 
 #sideMenu {
     padding-left: 50px;
@@ -6,7 +10,6 @@
 }
 
 #sideMenu-label {
-    padding-top: 25px;
     padding-left: 25px;
 }
 
