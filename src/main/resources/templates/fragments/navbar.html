@@ -11,26 +11,27 @@
 <body>
 <!-- for navbar icons: https://materialdesignicons.com/ -->
 <div th:fragment="navbar">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a href="/dashboard/projects" class="logo">PROJECTORY</a>
-    </div>
-
-    <div id="navBar" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item" th:href="@{/dashboard/projects}">Home</a>
-            <a class="navbar-item" th:href="@{/dashboard/projects/createProject}">Add Project</a>
+    <!-- TODO: Add bottom border to navbar. Some beautiful styling lul -->
+    <nav class="navbar" id="main-menu" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a href="/dashboard/projects" class="logo">PROJECTORY</a>
         </div>
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-danger " th:href="@{/logout}">Sign out</a>
+        <div id="navBar" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" th:href="@{/dashboard/projects}">Home</a>
+                <a class="navbar-item" th:href="@{/dashboard/projects/createProject}">Add Project</a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-danger " th:href="@{/logout}">Sign out</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 </div>
 
 </body>

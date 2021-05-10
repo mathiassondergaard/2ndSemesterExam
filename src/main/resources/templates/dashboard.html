@@ -18,81 +18,98 @@
             <p class="menu-label" id="sideMenu-label"><strong>Projects</strong></p>
             <ul class="menu-list" id="sideMenu-list">
                 <li th:each="project : ${projects}">
+
+                    <!--
+                    if project is completed, do not display it on the list
+                    <span th:if="${true}">will be rendered</span>
+                    maybe use itemStat to get completed? otherwise add a big header that says COMPLETED
+                    so you can still view projects.
+                    -->
+
                     <a th:href="@{/dashboard/projects/{id}(id=${project.id})}" th:text="${project.projectName}"></a>
                 </li>
             </ul>
         </aside>
 
-        <!-- this container needs to be hidden if currentProject is null -->
+        <!--
+        this container needs to be hidden if currentProject is null
+        https://frontbackend.com/thymeleaf/using-conditions-in-thymeleaf
+        -->
         <div class="container column is-10">
             <div class="section">
-                <div th:insert="fragments/project-navbar.html :: projectNavbar"></div>
+                <div th:unless="${currentProject?.id} == null"
+                     th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
-                <div class="card">
-                    <div class="card-header">
-                        <p class="card-header-title">Project information</p>
-                    </div>
-
-                    <div class="card-content">
-                        <div class="content">
-                            <h1 class="title is-6">Project Name:</h1>
-                            <p th:text="${currentProject?.projectName}" id="currentProjectName"></p>
-                            <h1 class="title is-6">Project Owner:</h1>
-                            <p th:text="${currentProject?.person?.name + ' ' + currentProject?.person?.lastName}"
-                               id="currentProjectOwner"></p>
+                <!-- maybe wrap here -->
+                <!-- TODO: Idea is that you wrap everything below, thus only changing the "cards" in the middle when switching back and forth in the navbar.. -->
+                <div th:if="${currentProject?.id} == null"
+                     th:insert="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
+                <th:block th:unless="${currentProject?.id} == null">
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-header-title">Project information</p>
                         </div>
-                    </div>
-                </div>
-                <br/>
 
-                <div class="card">
-                    <div class="card-header">
-                        <p class="card-header-title">Project Description</p>
-                    </div>
-
-                    <div class="card-content">
-                        <div class="content">
-                            <p th:text="${currentProject?.description}" id="currentProjectDescription"></p>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-
-                <!-- add a ADD TEAM MEMBER button here to this card, refers to external page with ALL team members in a table
-                 where you can check them off = add them to the project-->
-                <div class="card" th:switch="${teamMembersForProject}">
-                    <div class="card-header">
-                        <p class="card-header-title">Team Members</p>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <div id="addTeamMemberButton">
-                                <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/addTeamMember'}" class="button is-primary is-small">Add Team Members</a>
+                        <div class="card-content">
+                            <div class="content">
+                                <h1 class="title is-6">Project Name:</h1>
+                                <p th:text="${currentProject?.projectName}" id="currentProjectName"></p>
+                                <h1 class="title is-6">Project Owner:</h1>
+                                <p th:text="${currentProject?.person?.name + ' ' + currentProject?.person?.lastName}"
+                                   id="currentProjectOwner"></p>
                             </div>
-                            <h1 class="title is-6" th:case="null">No Team Members registered!</h1>
-                            <div th:case="*">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Competence</th>
-                                            <!-- maybe add remove team member link as in student -->
-                                            <!-- add limiter for team members, pagination -->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="teamMembers : ${teamMembersForProject}">
-                                            <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
-                                            <td th:text="${teamMembers.person.competence}"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-header-title">Project Description</p>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="content">
+                                <p th:text="${currentProject?.description}" id="currentProjectDescription"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <div class="card" th:switch="${teamMembersForProject}">
+                        <div class="card-header">
+                            <p class="card-header-title">Team Members</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <div id="addTeamMemberButton">
+                                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/addTeamMember'}"
+                                       class="button is-primary is-small">Add Team Members</a>
+                                </div>
+                                <h1 class="title is-6" th:case="null">No Team Members registered!</h1>
+                                <div th:case="*">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Competence</th>
+                                                <!-- maybe add remove team member link as in student -->
+                                                <!-- add limiter for team members, pagination -->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="teamMembers : ${teamMembersForProject}">
+                                                <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
+                                                <td th:text="${teamMembers.person.competence}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
             </div>
         </div>
 

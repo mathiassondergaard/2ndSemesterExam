@@ -19,36 +19,6 @@
                         <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject.id} + '/addMember'}"
                               method="post" class="form-horizontal" th:object="${teamMember}"
                               role="form">
-                            <div class="form-group" th:switch="persons">
-                                <div class="column">
-                                    <p><strong>Person list</strong></p>
-                                    <h1 class="title is-6" th:case="null">No persons in DB!</h1>
-                                    <div th:case="*">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Competence</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="person : ${persons}">
-                                                    <td th:text="${person.id}"></td>
-                                                    <td th:text="${person.name + ' ' + person.lastName}"></td>
-                                                    <td th:text="${person.competence}"></td>
-                                                    <!--
-                                                    <td><label><input type="checkbox" name="teamMembers" th:field="person" th:value="${persons[__${itemStat.index}__]}"/></label></td>
-                                                    -->
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
                             <div class="column">
                                 <div class="form-group">
                                     <strong>
@@ -65,6 +35,35 @@
                         </form>
                     </div>
                 </div>
+            <div class="column">
+                <div class="form-group" th:switch="persons">
+                        <p><strong>Person list</strong></p>
+                        <h1 class="title is-6" th:case="null">No persons in DB!</h1>
+                        <div th:case="*">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Competence</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="person : ${persons}">
+                                        <td th:text="${person.id}"></td>
+                                        <td th:text="${person.name + ' ' + person.lastName}"></td>
+                                        <td th:text="${person.competence}"></td>
+                                        <!--
+                                        <td><label><input type="checkbox" name="teamMembers" th:field="person" th:value="${persons[__${itemStat.index}__]}"/></label></td>
+                                        -->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
             </div>
         </div>
     </div>

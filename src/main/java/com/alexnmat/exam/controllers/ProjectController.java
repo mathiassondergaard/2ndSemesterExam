@@ -44,10 +44,29 @@ public class ProjectController {
 
     @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
+        //TODO: Maybe client side shit
+        //TODO: like: add List<Projects> projectList = projectService.findAll(); and use that for grabbing shit and storting here.
+
+        List<Project> allProjects = projectService.findAll();
+
+
+
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
+    }
+
+    //Example of TODO ^
+    private Project findProjectById(long projectId) {
+        List<Project> allProjects = projectService.findAll();
+        Project foundProject = new Project();
+        for (Project allProject : allProjects) {
+            if (allProject.getId() == projectId) {
+                foundProject = allProject;
+            }
+        }
+        return foundProject;
     }
 
 
@@ -69,10 +88,10 @@ public class ProjectController {
     public String deleteProject(@PathVariable("projectId") long projectId, Model model) {
         projectService.delete(projectId);
         model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         return "redirect:/dashboard/projects";
     }
 
+    //TODO: Havent done these two yet
     @GetMapping("projects/{projectId}/edit")
     public String showUpdateProjectForm(@PathVariable("projectId") long projectId, Model model) {
         Project project = projectService.findByProjectId(projectId);
@@ -95,6 +114,8 @@ public class ProjectController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         return "redirect:/dashboard/projects/" + projectId;
     }
+
+    // TEAM MEMBERS
 
     //TODO: Maybe add so you can add many team members by checking them from a list??
     @GetMapping("projects/{projectId}/addTeamMember")
@@ -121,11 +142,12 @@ public class ProjectController {
         return "redirect:/dashboard/projects/" + projectId + "/addTeamMember";
     }
 
-    @GetMapping("projects/{projectId}/deleteTeamMember/{teamMemberId}")
+    @DeleteMapping("projects/{projectId}/deleteTeamMember/{teamMemberId}")
     public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
         projectService.removeTeamMemberFromProject(projectId, teamMemberId);
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         return "redirect:/dashboard/projects/" + projectId;
     }
+
 }
