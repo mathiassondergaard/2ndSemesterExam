@@ -1,5 +1,7 @@
 package com.alexnmat.exam.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,9 +23,11 @@ public class SubProject implements Serializable {
     @Column(name = "sub_project_name")
     private String subProjectName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     private LocalDate utilStartDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "end_date")
     private LocalDate utilEndDate;
 

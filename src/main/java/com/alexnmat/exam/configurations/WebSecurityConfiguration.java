@@ -26,19 +26,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService((userDetailsService)).passwordEncoder(bCryptPasswordEncoder);
     }
 
+    //TODO: Fix authorities for different pages
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //Needs authentication for different usertypes
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/dashboard/**").permitAll()
+                //.antMatchers("/dashboard/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/projectManagement/**").hasAuthority("USER").anyRequest()
+                .antMatchers("/dashboard/projects/**").hasAuthority("PROJECT_OWNER").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/dashboard/projects")
                 .usernameParameter("user_name")
                 .passwordParameter("password")
                 .and().logout()
@@ -46,6 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
     }
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

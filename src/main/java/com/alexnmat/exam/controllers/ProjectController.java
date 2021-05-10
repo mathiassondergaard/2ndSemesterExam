@@ -3,16 +3,14 @@ package com.alexnmat.exam.controllers;
 import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.models.Project;
 import com.alexnmat.exam.models.TeamMember;
+import com.alexnmat.exam.models.TeamMemberHelper;
 import com.alexnmat.exam.service.PersonService;
 import com.alexnmat.exam.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -44,9 +42,10 @@ public class ProjectController {
         return "dashboard";
     }
 
-    @GetMapping("project/{projectId}")
+    @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("projects", projectService.findAll());
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
     }
@@ -66,7 +65,7 @@ public class ProjectController {
         return "redirect:/dashboard/projects";
     }
 
-    @GetMapping("project/{projectId}/delete")
+    @GetMapping("projects/{projectId}/delete")
     public String deleteProject(@PathVariable("projectId") long projectId, Model model) {
         projectService.delete(projectId);
         model.addAttribute("projects", projectService.findAll());
@@ -74,7 +73,7 @@ public class ProjectController {
         return "redirect:/dashboard/projects";
     }
 
-    @GetMapping("project/{projectId}/edit")
+    @GetMapping("projects/{projectId}/edit")
     public String showUpdateProjectForm(@PathVariable("projectId") long projectId, Model model) {
         Project project = projectService.findByProjectId(projectId);
         model.addAttribute("currentProject", project);
@@ -83,7 +82,7 @@ public class ProjectController {
         return "update-project";
     }
 
-    @PostMapping("project/{projectId}/update")
+    @PostMapping("projects/{projectId}/update")
     public String updateProject(@PathVariable("projectId") long projectId, @Valid Project project, BindingResult result, Model model) {
         if(result.hasErrors()) {
             project.setId(projectId);
@@ -94,37 +93,39 @@ public class ProjectController {
         model.addAttribute("successMessage", "Project successfully updated!");
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        return "redirect:/dashboard/project/" + projectId;
+        return "redirect:/dashboard/projects/" + projectId;
     }
 
     //TODO: Maybe add so you can add many team members by checking them from a list??
-    @GetMapping("project/{projectId}/addTeamMember")
+    @GetMapping("projects/{projectId}/addTeamMember")
     public String showAddTeamMemberForm(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("persons", personService.findAll());
-        return "project/" + projectId + "/addMember";
+        model.addAttribute("teamMember", new TeamMemberHelper());
+        return "add-team-member";
     }
-
-    //TODO: Persons should be in a dropdown to be able to select
+    //TODO: Solution is fine, just needs to add a error checker in case person types in a personId that doesnt exist...
+    //And nullchecker for dashboard so it doesnt display the button if null.
+    //If redirect dont work, set modelandView instead.
     //See this for help: https://stackoverflow.com/questions/58795016/how-do-i-pass-the-selected-dropdown-value-to-a-controller-in-thymeleaf
-    @PostMapping("project/{projectId}/addMember")
-    public String addTeamMember(@PathVariable("projectId") long projectId, @Valid TeamMember teamMember, @Valid Person person, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            return "project/" + projectId + "/addTeamMember";
+    @PostMapping("projects/{projectId}/addMember")
+    public String addTeamMember(@PathVariable("projectId") long projectId, @Valid TeamMemberHelper teamMemberHelper, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "add-team-member";
         }
         model.addAttribute("persons", personService.findAll());
-        model.addAttribute("successMessage", "Team member successfully added!");
-        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("teamMember", teamMemberHelper);
+        model.addAttribute("message", "Team members successfully added!");
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        projectService.saveTeamMemberForProject(teamMember, person, projectId);
-        return "redirect:/dashboard/project/" + projectId;
+        projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
+        return "redirect:/dashboard/projects/" + projectId + "/addTeamMember";
     }
 
-    @GetMapping("project/{projectId}/deleteTeamMember/{teamMemberId}")
+    @GetMapping("projects/{projectId}/deleteTeamMember/{teamMemberId}")
     public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
         projectService.removeTeamMemberFromProject(projectId, teamMemberId);
         model.addAttribute("projects", projectService.findAll());
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        return "redirect:/dashboard/project/" + projectId;
+        return "redirect:/dashboard/projects/" + projectId;
     }
 }

@@ -79,10 +79,20 @@ public class ProjectService extends Utilities {
         projectRepository.save(project);
     }
 
-    public TeamMember saveTeamMemberForProject(TeamMember teamMember, Person person, long projectId) {
-        teamMember.setPerson(person);
+    public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
+        /*
+        for (int i = 0; i < teamMembers.size(); i++) {
+            TeamMember teamMember = new TeamMember();
+            teamMember.setPerson(teamMembers.get(i).getPerson());
+            teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
+            teamMemberRepository.save(teamMember);
+        }
+         */
+        teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
         teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
         return teamMemberRepository.save(teamMember);
+
+
     }
 
     public TeamMember getSingleTeamMember(long projectId) {
@@ -90,11 +100,7 @@ public class ProjectService extends Utilities {
     }
 
     public List<TeamMember> getAllTeamMembersForProject(long projectId) {
-        if (teamMemberRepository.findAllByProjectId(projectId).isEmpty()) {
-            throw new NoResultException("No team members available in database");
-        } else {
-            return teamMemberRepository.findAllByProjectId(projectId);
-        }
+        return teamMemberRepository.findAllByProjectId(projectId);
     }
 
     public void removeTeamMember(long teamMemberId) {

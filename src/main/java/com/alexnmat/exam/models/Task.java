@@ -1,5 +1,7 @@
 package com.alexnmat.exam.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -28,9 +30,11 @@ public class Task implements Serializable {
     @OneToMany(mappedBy = "task", cascade = CascadeType.MERGE)
     private List<SubTask> subTasks;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     private LocalDate utilStartDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "end_date")
     private LocalDate utilEndDate;
 

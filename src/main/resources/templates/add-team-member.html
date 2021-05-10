@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Add Project</title>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="container-row">
+            <h2 class="title is-4"><strong>Add Project</strong></h2>
+            <br>
+            <div class="columns is-mobile">
+                <div class="col-md-6 col-md-offset-3">
+
+                    <!-- for validiation messages -->
+                    <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
+                                           class="validation-message" -->
+                        <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject.id} + '/addMember'}"
+                              method="post" class="form-horizontal" th:object="${teamMember}"
+                              role="form">
+                            <div class="form-group" th:switch="persons">
+                                <div class="column">
+                                    <p><strong>Person list</strong></p>
+                                    <h1 class="title is-6" th:case="null">No persons in DB!</h1>
+                                    <div th:case="*">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Name</th>
+                                                    <th>Competence</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="person : ${persons}">
+                                                    <td th:text="${person.id}"></td>
+                                                    <td th:text="${person.name + ' ' + person.lastName}"></td>
+                                                    <td th:text="${person.competence}"></td>
+                                                    <!--
+                                                    <td><label><input type="checkbox" name="teamMembers" th:field="person" th:value="${persons[__${itemStat.index}__]}"/></label></td>
+                                                    -->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="form-group">
+                                    <strong>
+                                        <label for="personId">Person ID</label>
+                                    </strong>
+                                    <input type="text" th:field="*{personId}"
+                                           placeholder="Please input person ID" class="input is-primary is-normal" id="personId"
+                                           style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
+                                    <br>
+                                    <button type="submit" class="button is-success">Add Team Member</button>
+                                    <a th:href="@{/dashboard/projects/{id}(id=${currentProject.id})}" class="button is-primary">Back to Project</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" th:insert="fragments/footer :: footer">
+    </footer>
+</body>
+</html>

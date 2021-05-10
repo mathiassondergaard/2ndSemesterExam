@@ -4,3 +4,6 @@ body{
 .container-row{
     padding: 125px 20px;
 }
+textarea::placeholder {
+    color: #585858;
+}
