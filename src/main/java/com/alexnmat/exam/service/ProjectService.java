@@ -26,6 +26,9 @@ public class ProjectService extends Utilities {
         this.teamMemberRepository = teamMemberRepository;
     }
 
+    //TODO: Different methods for getting projects based by role
+    //TODO: Maybe fetch all projects one time, and thereafter ONLY when it updates? think about it
+
     public ProjectService() {
     }
 
@@ -48,22 +51,17 @@ public class ProjectService extends Utilities {
         Project project = findByProjectId(projectId);
         projectRepository.delete(project);
     }
-    /*
-    public void deleteWishlist(long id) {
-        Wishlist wishlist = wishlistRepository.findById(id);
-        boolean wishExists = true;
-        while(wishExists) {
-            if (wishRepository.findAll().contains(id)) {
-                Wish wish = wishRepository.findById(id);
-                wishlist.getWishes().remove(wish);
-            }
-            else {
-                wishExists = false;
+
+    // Database optimization. Since we fetch all projects many times in the controller, we iterate through them in java to get a single project instead of fetching from DB.
+    public Project findProjectById(long projectId, List<Project> projects) {
+        Project foundProject = new Project();
+        for (Project project : projects) {
+            if (project.getId() == projectId) {
+                foundProject = project;
             }
         }
-        wishlistRepository.delete(wishlist);
+        return foundProject;
     }
-     */
 
     public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
         Project project = findByProjectId(projectId);
@@ -80,19 +78,9 @@ public class ProjectService extends Utilities {
     }
 
     public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
-        /*
-        for (int i = 0; i < teamMembers.size(); i++) {
-            TeamMember teamMember = new TeamMember();
-            teamMember.setPerson(teamMembers.get(i).getPerson());
-            teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
-            teamMemberRepository.save(teamMember);
-        }
-         */
         teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
         teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
         return teamMemberRepository.save(teamMember);
-
-
     }
 
     public TeamMember getSingleTeamMember(long projectId) {

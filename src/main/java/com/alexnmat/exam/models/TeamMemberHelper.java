@@ -2,6 +2,7 @@ package com.alexnmat.exam.models;
 
 public class TeamMemberHelper {
 
+
     private long personId;
 
     public TeamMemberHelper(long personId) {

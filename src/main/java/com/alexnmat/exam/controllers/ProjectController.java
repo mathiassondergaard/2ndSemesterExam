@@ -22,18 +22,16 @@ public class ProjectController {
     //https://stackoverflow.com/questions/27461283/how-to-access-fragment-in-fragment-from-controller
     //Fragments in controller
     //Update methods, add methods, should they return fragment or dashboard?
-    //Maybe Posts need to have "RequestMapping "....", RequestType=GET, POST
-    //TODO: Fix mappings:
-    // return "project/" + projectId + "/addTeamMember"; not sure if this work ^ go on stacko
-    // also exception throwing in findAll methods is nogo
+    //TODO: exception throwing in findAll methods is nogo - use another method
+
+    //We fetch all projects from the database due to our left menu on dashboard, that enables you to navigate between projects.
+    //Database optimization is therefore done in Service class.
 
     private ProjectService projectService;
-    private PersonService personService;
 
     @Autowired
-    public ProjectController(ProjectService projectService, PersonService personService) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.personService = personService;
     }
 
     @GetMapping("projects")
@@ -44,31 +42,14 @@ public class ProjectController {
 
     @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
-        //TODO: Maybe client side shit
-        //TODO: like: add List<Projects> projectList = projectService.findAll(); and use that for grabbing shit and storting here.
+        List<Project> projects = projectService.findAll();
 
-        List<Project> allProjects = projectService.findAll();
+        model.addAttribute("currentProject", projectService.findProjectById(projectId, projects));
+        model.addAttribute("projects", projects);
 
-
-
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findAll());
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
     }
-
-    //Example of TODO ^
-    private Project findProjectById(long projectId) {
-        List<Project> allProjects = projectService.findAll();
-        Project foundProject = new Project();
-        for (Project allProject : allProjects) {
-            if (allProject.getId() == projectId) {
-                foundProject = allProject;
-            }
-        }
-        return foundProject;
-    }
-
 
     @GetMapping(value = "projects/createProject")
     public String showCreateProjectForm(Project project) { return "add-project"; }
@@ -103,6 +84,8 @@ public class ProjectController {
 
     @PostMapping("projects/{projectId}/update")
     public String updateProject(@PathVariable("projectId") long projectId, @Valid Project project, BindingResult result, Model model) {
+        List<Project> projects = projectService.findAll();
+
         if(result.hasErrors()) {
             project.setId(projectId);
             return "update-project";
@@ -110,44 +93,8 @@ public class ProjectController {
 
         projectService.save(project);
         model.addAttribute("successMessage", "Project successfully updated!");
-        model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentProject", projectService.findProjectById(projectId, projects));
         return "redirect:/dashboard/projects/" + projectId;
     }
-
-    // TEAM MEMBERS
-
-    //TODO: Maybe add so you can add many team members by checking them from a list??
-    @GetMapping("projects/{projectId}/addTeamMember")
-    public String showAddTeamMemberForm(@PathVariable("projectId") long projectId, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("persons", personService.findAll());
-        model.addAttribute("teamMember", new TeamMemberHelper());
-        return "add-team-member";
-    }
-    //TODO: Solution is fine, just needs to add a error checker in case person types in a personId that doesnt exist...
-    //And nullchecker for dashboard so it doesnt display the button if null.
-    //If redirect dont work, set modelandView instead.
-    //See this for help: https://stackoverflow.com/questions/58795016/how-do-i-pass-the-selected-dropdown-value-to-a-controller-in-thymeleaf
-    @PostMapping("projects/{projectId}/addMember")
-    public String addTeamMember(@PathVariable("projectId") long projectId, @Valid TeamMemberHelper teamMemberHelper, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "add-team-member";
-        }
-        model.addAttribute("persons", personService.findAll());
-        model.addAttribute("teamMember", teamMemberHelper);
-        model.addAttribute("message", "Team members successfully added!");
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
-        return "redirect:/dashboard/projects/" + projectId + "/addTeamMember";
-    }
-
-    @DeleteMapping("projects/{projectId}/deleteTeamMember/{teamMemberId}")
-    public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
-        projectService.removeTeamMemberFromProject(projectId, teamMemberId);
-        model.addAttribute("projects", projectService.findAll());
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        return "redirect:/dashboard/projects/" + projectId;
-    }
-
 }

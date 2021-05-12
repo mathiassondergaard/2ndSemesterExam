@@ -33,23 +33,25 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/delete'}" th:onclick="confirmChoice()" class="button is-danger" >Delete</a>
+                    <button th:onclick="confirmChoice()" class="button is-danger">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </nav>
-    <!-- make this work -->
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         function confirmChoice() {
             var returnValue = confirm("Delete project? (This cannot be undone)");
+            var currentProjectId = /*[[${currentProject?.id}]]*/ null;
             if (returnValue == true) {
-                return true;
+                return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
             }
             else {
                 return false;
             }
         }
+        /*]]>*/
     </script>
 </div>
 </body>

@@ -40,75 +40,11 @@
                 <div th:unless="${currentProject?.id} == null"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
-                <!-- maybe wrap here -->
                 <!-- TODO: Idea is that you wrap everything below, thus only changing the "cards" in the middle when switching back and forth in the navbar.. -->
                 <div th:if="${currentProject?.id} == null"
                      th:insert="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
                 <th:block th:unless="${currentProject?.id} == null">
-                    <div class="card">
-                        <div class="card-header">
-                            <p class="card-header-title">Project information</p>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="content">
-                                <h1 class="title is-6">Project Name:</h1>
-                                <p th:text="${currentProject?.projectName}" id="currentProjectName"></p>
-                                <h1 class="title is-6">Project Owner:</h1>
-                                <p th:text="${currentProject?.person?.name + ' ' + currentProject?.person?.lastName}"
-                                   id="currentProjectOwner"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <p class="card-header-title">Project Description</p>
-                        </div>
-
-                        <div class="card-content">
-                            <div class="content">
-                                <p th:text="${currentProject?.description}" id="currentProjectDescription"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-
-                    <div class="card" th:switch="${teamMembersForProject}">
-                        <div class="card-header">
-                            <p class="card-header-title">Team Members</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="content">
-                                <div id="addTeamMemberButton">
-                                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/addTeamMember'}"
-                                       class="button is-primary is-small">Add Team Members</a>
-                                </div>
-                                <h1 class="title is-6" th:case="null">No Team Members registered!</h1>
-                                <div th:case="*">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Competence</th>
-                                                <!-- maybe add remove team member link as in student -->
-                                                <!-- add limiter for team members, pagination -->
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="teamMembers : ${teamMembersForProject}">
-                                                <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
-                                                <td th:text="${teamMembers.person.competence}"></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div th:include="fragments/selected-project.html :: selectedProject"></div>
                 </th:block>
             </div>
         </div>
