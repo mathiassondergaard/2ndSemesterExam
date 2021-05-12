@@ -36,16 +36,14 @@ public class ProjectController {
 
     @GetMapping("projects")
     public String projectList(Model model) {
-        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         return "dashboard";
     }
 
     @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
-        List<Project> projects = projectService.findAll();
-
-        model.addAttribute("currentProject", projectService.findProjectById(projectId, projects));
-        model.addAttribute("projects", projects);
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
 
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
@@ -68,7 +66,7 @@ public class ProjectController {
     @GetMapping("projects/{projectId}/delete")
     public String deleteProject(@PathVariable("projectId") long projectId, Model model) {
         projectService.delete(projectId);
-        model.addAttribute("projects", projectService.findAll());
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         return "redirect:/dashboard/projects";
     }
 
@@ -84,8 +82,6 @@ public class ProjectController {
 
     @PostMapping("projects/{projectId}/update")
     public String updateProject(@PathVariable("projectId") long projectId, @Valid Project project, BindingResult result, Model model) {
-        List<Project> projects = projectService.findAll();
-
         if(result.hasErrors()) {
             project.setId(projectId);
             return "update-project";
@@ -93,8 +89,8 @@ public class ProjectController {
 
         projectService.save(project);
         model.addAttribute("successMessage", "Project successfully updated!");
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentProject", projectService.findProjectById(projectId, projects));
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         return "redirect:/dashboard/projects/" + projectId;
     }
 }

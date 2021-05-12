@@ -32,8 +32,6 @@ public class TeamMemberController {
 
     @GetMapping("{projectId}/addTeamMember")
     public String showAddTeamMemberForm(@PathVariable("projectId") long projectId, Model model) {
-        List<Project> projects = projectService.findAll();
-
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("persons", personService.findAll());
         model.addAttribute("teamMember", new TeamMemberHelper());
@@ -61,10 +59,9 @@ public class TeamMemberController {
 
     @GetMapping("{projectId}/deleteTeamMember/{teamMemberId}")
     public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
-        List<Project> projects = projectService.findAll();
         projectService.removeTeamMember(teamMemberId);
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentProject", projectService.findProjectById(projectId, projects));
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         return "redirect:/dashboard/projects/" + projectId;
     }
 }

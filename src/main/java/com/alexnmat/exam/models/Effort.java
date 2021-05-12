@@ -11,7 +11,7 @@ public class Effort implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "effort_id_seq", sequenceName = "effort_id_seq")
+    @SequenceGenerator(name = "effort_id_seq", sequenceName = "effort_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "effort_id_seq")
     @Column(name = "effort_id")
     private long id;

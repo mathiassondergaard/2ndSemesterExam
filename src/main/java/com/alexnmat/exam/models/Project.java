@@ -15,7 +15,7 @@ public class Project implements Serializable {
     //TODO: Add max length on project name etc.
     //TODO: Should project have a isCompleted boolean as in task?
     @Id
-    @SequenceGenerator(name = "project_id_seq", sequenceName = "project_id_seq")
+    @SequenceGenerator(name = "project_id_seq", sequenceName = "project_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_id_seq")
     @Column(name = "project_id")
     private long id;

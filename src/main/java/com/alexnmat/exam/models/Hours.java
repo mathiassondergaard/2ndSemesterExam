@@ -10,7 +10,7 @@ public class Hours implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "hours_id_seq", sequenceName = "hours_id_seq")
+    @SequenceGenerator(name = "hours_id_seq", sequenceName = "hours_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hours_id_seq")
     @Column(name = "hours_id")
     private long id;

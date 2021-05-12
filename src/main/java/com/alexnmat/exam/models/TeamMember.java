@@ -13,7 +13,7 @@ public class TeamMember implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "team_member_id_seq", sequenceName = "team_member_id_seq")
+    @SequenceGenerator(name = "team_member_id_seq", sequenceName = "team_member_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_member_id_seq")
     @Column(name = "team_member_id")
     private long id;

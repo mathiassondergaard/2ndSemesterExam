@@ -11,4 +11,6 @@ public interface EffortRepository extends JpaRepository<Effort, Long> {
 
     List<Effort> findByProjectId(long projectId);
 
+
+
 }

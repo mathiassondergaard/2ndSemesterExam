@@ -37,9 +37,11 @@ public class ProjectService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId));
     }
 
-    public List<Project> findAll() {
+    public List<Project> findAllProjects() {
         return projectRepository.findAll();
     }
+
+    public List<Project> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
 
     public Project save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());
@@ -52,6 +54,7 @@ public class ProjectService extends Utilities {
         projectRepository.delete(project);
     }
 
+    /*
     // Database optimization. Since we fetch all projects many times in the controller, we iterate through them in java to get a single project instead of fetching from DB.
     public Project findProjectById(long projectId, List<Project> projects) {
         Project foundProject = new Project();
@@ -62,6 +65,7 @@ public class ProjectService extends Utilities {
         }
         return foundProject;
     }
+     */
 
     public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
         Project project = findByProjectId(projectId);
