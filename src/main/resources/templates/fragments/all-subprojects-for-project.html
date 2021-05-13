@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div th:fragment="allSubProjectsForProject">
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Information</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <p>Insert some text here about how to get to tasks, navigate around etc. </p>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="card" th:switch="${subProjectsForProject}">
+        <div class="card-header">
+            <p class="card-header-title" th:text="'All Sub-Projects for Project: ' + ${currentProject?.projectName}"></p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <div id="addSubProjectButton">
+                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/subProjects/createSubProject'}"
+                       class="button is-primary is-small">Add Sub Project</a>
+                </div>
+                <h1 class="title is-6" th:case="null">No Sub Projects registered!</h1>
+                <div th:case="*">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Manager</th>
+                                <th>Completed?</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Utilities</th>
+                                <!-- add limiter, pagination -->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="subProject : ${subProjectsForProject}">
+                                <td><a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}(subProjectId=${subProject.id}, projectId=${currentProject?.id})}" th:text="${subProject.subProjectName}"></a></td>
+                                <td th:text="${subProject.person.name} + ' ' + ${subProject.person.lastName}"></td>
+                                <td th:text="${subProject.completed}"></td>
+                                <td th:text="${subProject.utilStartDate}"></td>
+                                <td th:text="${subProject.utilEndDate}"></td>
+                                <!-- TODO: add a onclick confirm here (maybe) -->
+                                <td><a th:href="@{/dashboard/projects/{projectId}/subProjects/delete/{subProjectId}(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
+                                       class="button is-danger is-small">Delete</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+</body>
+</html>

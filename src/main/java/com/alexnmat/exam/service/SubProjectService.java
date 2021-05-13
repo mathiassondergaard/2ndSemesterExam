@@ -45,7 +45,7 @@ public class SubProjectService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
 
         subProject.setAllocatedHours(calculateTotalWorkdayHours(subProject.getUtilStartDate(), subProject.getUtilEndDate()));
-
+        subProject.setCompleted(false);
         return subProjectRepository.save(subProject);
     }
 

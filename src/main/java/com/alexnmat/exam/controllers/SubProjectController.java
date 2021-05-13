@@ -54,10 +54,11 @@ public class SubProjectController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("projects", projectService.findProjectNamesAndIds());
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
+        model.addAttribute("tasks", taskService.getTaskDTOList(subProjectId));
         return "dashboard";
     }
 
-    @GetMapping(value = "{projectId}/subProjects/")
+    @GetMapping(value = "{projectId}/subProjects/createSubProject")
     public String showCreateSubProjectForm(@PathVariable("projectId") long projectId, SubProject subProject, Model model) {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         //TODO: maybe you need this as in TeamMemberController "model.addAttribute("teamMember", new TeamMemberHelper());"
@@ -74,6 +75,7 @@ public class SubProjectController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("projects", projectService.findProjectNamesAndIds());
         subProjectService.save(subProject, projectId);
+        //TODO: Fix bug with redirect in terms of thymeleaf
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/" + subProject.getId();
     }
 
@@ -85,6 +87,8 @@ public class SubProjectController {
         model.addAttribute("subProjectsForProject", subProjectService.findSubProjectsForProject(projectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
+
+    //TODO: Complete SubProject Mapping
 
     //TODO: Havent done these two yet
     @GetMapping("projects/{projectId}/edit")

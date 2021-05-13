@@ -43,9 +43,25 @@
                 <!-- TODO: Idea is that you wrap everything below, thus only changing the "cards" in the middle when switching back and forth in the navbar.. -->
                 <div th:if="${currentProject?.id} == null"
                      th:insert="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
-                <th:block th:unless="${currentProject?.id} == null">
-                    <div th:include="fragments/selected-project.html :: selectedProject"></div>
-                </th:block>
+                <!-- TODO: find some solution for hiding middle box when navigation between pages? otherwise keep these ifs and stuff, make a "default home page fragment" that is hidden if navbar is clicked
+                Second solution is returning fragments from the controller instead, which you probably should donkey-->
+                <div th:hidden="${currentSubProject?.id} != null">
+                    <div th:hidden="${subProjectsForProject} != null">
+                        <th:block th:unless="${currentProject?.id} == null">
+                            <div th:include="fragments/selected-project.html :: selectedProject"></div>
+                        </th:block>
+                    </div>
+                    <div th:hidden="${currentSubProject} != null">
+                        <th:block th:unless="${subProjectsForProject} == null">
+                            <div th:include="fragments/all-subprojects-for-project.html :: allSubProjectsForProject"></div>
+                        </th:block>
+                    </div>
+                </div>
+                <div>
+                    <th:block th:unless="${currentSubProject?.id} == null">
+                        <div th:include="fragments/selected-sub-project.html :: selectedSubProject"></div>
+                    </th:block>
+                </div>
             </div>
         </div>
 

@@ -17,8 +17,8 @@
 
     <div id="projectNavbar" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item">
-                Sub projects
+            <a class="navbar-item" th:href="@{/dashboard/projects/{projectId}/subProjects/(projectId=${currentProject?.id})}">
+                Sub Projects
             </a>
 
             <a class="navbar-item">

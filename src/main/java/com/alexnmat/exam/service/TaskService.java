@@ -1,9 +1,6 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.SubProject;
-import com.alexnmat.exam.models.SubTask;
-import com.alexnmat.exam.models.Task;
+import com.alexnmat.exam.models.*;
 import com.alexnmat.exam.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +40,9 @@ public class TaskService {
                 .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
     }
 
-
+    public List<TaskDTO> getTaskDTOList(long subProjectId) {
+        return taskRepository.findAllByProjectId(subProjectId);
+    }
 
     public List<Task> findAllTasksForSubProjectId(long subProjectId) {
         if (subProjectRepository.findAll().size() == 0) {
