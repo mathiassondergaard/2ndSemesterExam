@@ -1,7 +1,7 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Person;
 import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.models.ProjectDTO;
 import com.alexnmat.exam.models.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
@@ -41,7 +41,8 @@ public class ProjectService extends Utilities {
         return projectRepository.findAll();
     }
 
-    public List<Project> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
+    //TODO: We should maybe cache this
+    public List<ProjectDTO> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
 
     public Project save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());

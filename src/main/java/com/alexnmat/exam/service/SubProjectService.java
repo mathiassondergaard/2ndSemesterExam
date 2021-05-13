@@ -1,6 +1,7 @@
 package com.alexnmat.exam.service;
 
 import com.alexnmat.exam.models.SubProject;
+import com.alexnmat.exam.models.SubProjectDTO;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
 import com.alexnmat.exam.repositories.SubProjectRepository;
@@ -33,9 +34,12 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.findAll();
     }
 
-    public SubProject save(SubProject subProject, long personId, long projectId) {
-        subProject.setPerson(personRepository.findById(personId)
-                .orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
+    public List<SubProjectDTO> findSubProjectsForProject(long projectId) {
+        return subProjectRepository.findAllByProjectId(projectId);
+    }
+
+    public SubProject save(SubProject subProject, long projectId) {
+        subProject.setPerson(getCurrentLoggedInPerson());
 
         subProject.setProject(projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
@@ -49,22 +53,4 @@ public class SubProjectService extends Utilities {
         SubProject subProject = findBySubProjectId(subProjectId);
         subProjectRepository.delete(subProject);
     }
-
-    /*
-    public void deleteWishlist(long id) {
-        Wishlist wishlist = wishlistRepository.findById(id);
-        boolean wishExists = true;
-        while(wishExists) {
-            if (wishRepository.findAll().contains(id)) {
-                Wish wish = wishRepository.findById(id);
-                wishlist.getWishes().remove(wish);
-            }
-            else {
-                wishExists = false;
-            }
-        }
-        wishlistRepository.delete(wishlist);
-    }
-
-     */
 }

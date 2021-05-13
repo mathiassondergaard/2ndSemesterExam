@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Add Project</title>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="container-row">
+            <h2 class="title is-4"><strong>Add Project</strong></h2>
+            <br>
+            <div class="columns is-mobile">
+                <div class="col-md-6 col-md-offset-3">
+
+                    <!-- for validiation messages -->
+                    <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
+                                           class="validation-message" -->
+
+                    <form action="#" th:action="@{/dashboard/projects/addProject}"
+                          th:object="${project}" method="post" class="form-horizontal"
+                          role="form">
+                        <div class="form-group">
+                            <div class="column">
+                                <strong>
+                                    <label for="projectName">Project Name</label>
+                                </strong>
+                                <input type="text" th:field="*{projectName}"
+                                       placeholder="Name" class="input is-primary is-normal" id="projectName"
+                                       style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="column">
+                                <strong>
+                                    <label for="textarea">Project Description</label>
+                                </strong>
+                                <textarea id="textarea" onkeyup="textareaLengthCheck(this)" maxlength="250"
+                                          class="textarea" placeholder="Description"
+                                          th:field="*{description}" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"
+                                ></textarea>
+                                <p id="lblRemainingCount"></p>
+                                <!--
+                                <input type="text" th:field="*{projectName}"
+                                       placeholder="Project Description" class="input is-primary is-normal" id="projectDescription"
+                                       style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black; height: 100px"/>
+                            -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="column">
+                                <strong>
+                                    <label for="startDate">Start Date</label>
+                                </strong>
+                                <input style="color:black" type="date" th:value="*{utilStartDate}" th:field="*{utilStartDate}" placeholder="Start Date"
+                                       class="input is-normal" id="startDate"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="column">
+                                <strong>
+                                    <label for="endDate">End Date</label>
+                                </strong>
+                                <input style="color:black" type="date" th:value="*{utilEndDate}" th:field="*{utilEndDate}" placeholder="End Date"
+                                       class="input is-normal" id="endDate"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="column">
+                                <button type="submit" class="button is-success">Add Project</button>
+                                <a th:href="@{/dashboard/projects/}" class="button is-primary">Back to Dashboard</a>
+                            </div>
+                        </div>
+                        <h2 class="title is-4"><span class="text-success" th:utext="${successMessage}"></span></h2>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer" th:insert="fragments/footer :: footer">
+</footer>
+</body>
+<script>
+    function textareaLengthCheck(el) {
+        var textArea = el.value.length;
+        var charactersLeft = 250 - textArea;
+        var count = document.getElementById('lblRemainingCount');
+        count.innerHTML = "Characters left: " + charactersLeft;
+    }
+</script>
+</html>

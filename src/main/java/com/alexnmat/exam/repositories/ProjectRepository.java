@@ -1,6 +1,7 @@
 package com.alexnmat.exam.repositories;
 
 import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.models.ProjectDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,8 +13,10 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Project findByProjectName(String name);
 
-    //Custom query. Solved our problem of retrieving ALL projects with all data, instead of just what we need. Is in HQL
-    //SELECT object.attribute, object.attribute, FROM Entity object
-    @Query("SELECT proj.id, proj.projectName FROM Project proj")
-    List<Project> findProjectIdsAndNames();
+    //Custom query. Solved our problem of retrieving ALL projects with all data, instead of just what we need.
+    //https://thorben-janssen.com/spring-data-jpa-query-projections/ (13-05-2021)
+    //Uses JPQL to make a DTO Projection via. the constructor in ProjectDTO
+    @Query(value = "SELECT new com.alexnmat.exam.models.ProjectDTO(p.id, p.projectName) FROM Project p")
+    List<ProjectDTO> findProjectIdsAndNames();
+
 }
