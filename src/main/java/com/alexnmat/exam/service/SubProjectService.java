@@ -49,6 +49,12 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.save(subProject);
     }
 
+    public SubProject complete(long subProjectId) {
+        SubProject subProject = subProjectRepository.findById(subProjectId).orElseThrow(() -> new NoResultException("Unable to find Sub-Project by id: " + subProjectId));
+        subProject.setCompleted(true);
+        return subProjectRepository.save(subProject);
+    }
+
     public void delete(long subProjectId) {
         SubProject subProject = findBySubProjectId(subProjectId);
         subProjectRepository.delete(subProject);

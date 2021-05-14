@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -70,16 +67,15 @@ public class SubProjectController {
         if (bindingResult.hasErrors()) {
             return "add-sub-project";
         }
-        model.addAttribute("successMessage", "Sub project successfully created!");
+        model.addAttribute("successMessage", "Sub-Project successfully created!");
         model.addAttribute("subProject", subProject);
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("projects", projectService.findProjectNamesAndIds());
         subProjectService.save(subProject, projectId);
-        //TODO: Fix bug with redirect in terms of thymeleaf
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/" + subProject.getId();
     }
 
-    @GetMapping("{projectId}/subProjects/delete/{subProjectId}")
+    @GetMapping("{projectId}/subProjects/{subProjectId}/delete")
     public String deleteSubProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
         subProjectService.delete(subProjectId);
         model.addAttribute("projects", projectService.findProjectNamesAndIds());
@@ -89,6 +85,14 @@ public class SubProjectController {
     }
 
     //TODO: Complete SubProject Mapping
+    @GetMapping("{projectId}/subProjects/{subProjectId}/complete}")
+    public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
+        subProjectService.complete(subProjectId);
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
+        return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
+    }
 
     //TODO: Havent done these two yet
     @GetMapping("projects/{projectId}/edit")
