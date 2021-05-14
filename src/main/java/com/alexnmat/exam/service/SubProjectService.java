@@ -49,10 +49,24 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.save(subProject);
     }
 
-    public SubProject complete(long subProjectId) {
+    public void complete(long subProjectId) {
+        /*
         SubProject subProject = subProjectRepository.findById(subProjectId).orElseThrow(() -> new NoResultException("Unable to find Sub-Project by id: " + subProjectId));
+        subProject.setId(subProject.getId());
+        subProject.setSubProjectName(subProject.getSubProjectName());
+        subProject.setDescription(subProject.getDescription());
+        subProject.setUtilStartDate(subProject.getUtilStartDate());
+        subProject.setUtilEndDate(subProject.getUtilEndDate());
+        subProject.setPerson(subProject.getPerson());
+        subProject.setProject(subProject.getProject());
+        subProject.setTotalTimeSpent(subProject.getTotalTimeSpent());
+        subProject.setTasks(subProject.getTasks());
+        subProject.setAllocatedHours(subProject.getAllocatedHours());
+
         subProject.setCompleted(true);
         return subProjectRepository.save(subProject);
+        */
+        subProjectRepository.setCompleted(subProjectId);
     }
 
     public void delete(long subProjectId) {

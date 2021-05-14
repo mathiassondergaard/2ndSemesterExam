@@ -23,4 +23,6 @@ public interface SubProjectRepository extends JpaRepository<SubProject, Long> {
     @Query("SELECT new com.alexnmat.exam.models.SubProjectDTO(s.id, s.subProjectName, s.utilStartDate, s.utilEndDate, s.completed, s.person) FROM SubProject s WHERE s.project.id = :projectId")
     List<SubProjectDTO> findAllByProjectId(@Param("projectId") long projectId);
 
+    @Query("UPDATE SubProject SET completed = true WHERE id = :subProjectId")
+    void setCompleted(@Param("subProjectId") long subProjectId);
 }

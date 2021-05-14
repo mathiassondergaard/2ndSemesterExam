@@ -84,7 +84,7 @@ public class SubProjectController {
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 
-    //TODO: Complete SubProject Mapping
+    //TODO: Complete SubProject Mapping -Returns 404 atm, even with custom query
     @GetMapping("{projectId}/subProjects/{subProjectId}/complete}")
     public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
         subProjectService.complete(subProjectId);
