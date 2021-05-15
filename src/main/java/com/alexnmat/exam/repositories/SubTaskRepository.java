@@ -1,7 +1,7 @@
 package com.alexnmat.exam.repositories;
 
-import com.alexnmat.exam.models.SubTask;
-import com.alexnmat.exam.models.Task;
+import com.alexnmat.exam.models.entities.SubTask;
+import com.alexnmat.exam.models.entities.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

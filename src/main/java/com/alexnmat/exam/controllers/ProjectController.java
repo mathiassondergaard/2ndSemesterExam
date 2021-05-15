@@ -1,10 +1,6 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.Person;
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.TeamMember;
-import com.alexnmat.exam.models.TeamMemberHelper;
-import com.alexnmat.exam.service.PersonService;
+import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/dashboard/")

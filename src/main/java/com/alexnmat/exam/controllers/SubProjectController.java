@@ -1,7 +1,7 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.SubProject;
+import com.alexnmat.exam.models.entities.Project;
+import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.SubProjectService;
 import com.alexnmat.exam.service.TaskService;

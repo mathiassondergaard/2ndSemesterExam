@@ -1,23 +1,21 @@
-package com.alexnmat.exam.models;
+package com.alexnmat.exam.models.DTO;
 
 import java.time.LocalDate;
 
-public class SubProjectDTO {
+public class TaskDTO {
 
     private long id;
-    private String subProjectName;
+    private String taskName;
     private LocalDate utilStartDate;
     private LocalDate utilEndDate;
     private Boolean completed;
-    private Person person;
 
-    public SubProjectDTO(long id, String subProjectName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed, Person person) {
+    public TaskDTO(long id, String taskName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed) {
         this.id = id;
-        this.subProjectName = subProjectName;
+        this.taskName = taskName;
         this.utilStartDate = utilStartDate;
         this.utilEndDate = utilEndDate;
         this.completed = completed;
-        this.person = person;
     }
 
     public long getId() {
@@ -28,12 +26,12 @@ public class SubProjectDTO {
         this.id = id;
     }
 
-    public String getSubProjectName() {
-        return subProjectName;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setSubProjectName(String subProjectName) {
-        this.subProjectName = subProjectName;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
     public LocalDate getUtilStartDate() {
@@ -58,13 +56,5 @@ public class SubProjectDTO {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 }

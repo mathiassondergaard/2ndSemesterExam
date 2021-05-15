@@ -1,6 +1,9 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.*;
+import com.alexnmat.exam.models.DTO.TaskDTO;
+import com.alexnmat.exam.models.entities.SubProject;
+import com.alexnmat.exam.models.entities.SubTask;
+import com.alexnmat.exam.models.entities.Task;
 import com.alexnmat.exam.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

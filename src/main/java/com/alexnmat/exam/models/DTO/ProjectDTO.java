@@ -1,4 +1,4 @@
-package com.alexnmat.exam.models;
+package com.alexnmat.exam.models.DTO;
 
 import java.util.Objects;
 

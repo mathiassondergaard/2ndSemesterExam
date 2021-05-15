@@ -1,9 +1,8 @@
 package com.alexnmat.exam.repositories;
 
-import com.alexnmat.exam.models.SubProject;
-import com.alexnmat.exam.models.SubProjectDTO;
-import com.alexnmat.exam.models.Task;
-import com.alexnmat.exam.models.TaskDTO;
+import com.alexnmat.exam.models.entities.SubProject;
+import com.alexnmat.exam.models.entities.Task;
+import com.alexnmat.exam.models.DTO.TaskDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +19,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Task findByCompleted(Boolean completed);
 
-    @Query("SELECT new com.alexnmat.exam.models.TaskDTO(t.id, t.taskName, t.utilStartDate, t.utilEndDate, t.completed) FROM Task t WHERE t.subProject.id = :subProjectId")
+    @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.taskName, t.utilStartDate, t.utilEndDate, t.completed) FROM Task t WHERE t.subProject.id = :subProjectId")
     List<TaskDTO> findAllByProjectId(@Param("subProjectId") long subProjectId);
 
 }

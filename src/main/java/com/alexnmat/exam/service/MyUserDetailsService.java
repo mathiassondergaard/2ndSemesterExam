@@ -1,7 +1,7 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Role;
-import com.alexnmat.exam.models.User;
+import com.alexnmat.exam.models.entities.Role;
+import com.alexnmat.exam.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

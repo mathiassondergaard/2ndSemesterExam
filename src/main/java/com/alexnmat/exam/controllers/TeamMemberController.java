@@ -1,8 +1,7 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.TeamMember;
-import com.alexnmat.exam.models.TeamMemberHelper;
+import com.alexnmat.exam.models.entities.TeamMember;
+import com.alexnmat.exam.models.DTO.TeamMemberHelper;
 import com.alexnmat.exam.service.PersonService;
 import com.alexnmat.exam.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/dashboard/projects/")

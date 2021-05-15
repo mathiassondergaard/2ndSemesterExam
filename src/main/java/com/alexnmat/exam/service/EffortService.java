@@ -1,7 +1,7 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Effort;
-import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.models.entities.Effort;
+import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.repositories.EffortRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

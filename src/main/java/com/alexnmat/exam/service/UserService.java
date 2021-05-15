@@ -1,6 +1,6 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.User;
+import com.alexnmat.exam.models.entities.User;
 import com.alexnmat.exam.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,15 +1,13 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Person;
+import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 public abstract class Utilities {
 

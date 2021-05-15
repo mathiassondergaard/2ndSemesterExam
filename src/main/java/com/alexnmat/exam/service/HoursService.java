@@ -1,13 +1,10 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Hours;
-import com.alexnmat.exam.models.Person;
-import com.alexnmat.exam.models.Project;
+import com.alexnmat.exam.models.entities.Hours;
+import com.alexnmat.exam.models.entities.Person;
+import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.repositories.HoursRepository;
-import com.alexnmat.exam.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;

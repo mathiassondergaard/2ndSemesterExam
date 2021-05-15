@@ -1,11 +1,9 @@
-package com.alexnmat.exam.models;
+package com.alexnmat.exam.models.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "team_member")

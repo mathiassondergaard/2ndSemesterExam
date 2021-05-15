@@ -1,8 +1,8 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.ProjectDTO;
-import com.alexnmat.exam.models.TeamMember;
+import com.alexnmat.exam.models.entities.Project;
+import com.alexnmat.exam.models.DTO.ProjectDTO;
+import com.alexnmat.exam.models.entities.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
 import com.alexnmat.exam.repositories.TeamMemberRepository;

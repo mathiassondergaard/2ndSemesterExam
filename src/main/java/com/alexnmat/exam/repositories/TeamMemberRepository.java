@@ -1,7 +1,6 @@
 package com.alexnmat.exam.repositories;
 
-import com.alexnmat.exam.models.Project;
-import com.alexnmat.exam.models.TeamMember;
+import com.alexnmat.exam.models.entities.TeamMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

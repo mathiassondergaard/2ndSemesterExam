@@ -1,6 +1,6 @@
 package com.alexnmat.exam.repositories;
 
-import com.alexnmat.exam.models.Person;
+import com.alexnmat.exam.models.entities.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

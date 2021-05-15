@@ -1,7 +1,6 @@
-package com.alexnmat.exam.models;
+package com.alexnmat.exam.models.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 
 import org.hibernate.validator.constraints.Length;

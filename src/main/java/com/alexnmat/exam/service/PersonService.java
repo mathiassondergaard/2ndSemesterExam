@@ -1,6 +1,6 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.Person;
+import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

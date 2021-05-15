@@ -1,4 +1,4 @@
-package com.alexnmat.exam.models;
+package com.alexnmat.exam.models.entities;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,40 +8,35 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "task")
-public class Task implements Serializable {
+@Table(name = "sub_task")
+public class SubTask implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "task_id_seq", sequenceName = "task_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_id_seq")
-    @Column(name = "task_id")
+    @SequenceGenerator(name = "sub_task_id_seq", sequenceName = "sub_task_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sub_task_id_seq")
+    @Column(name = "sub_task_id")
     private long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "sub_project_id", referencedColumnName = "sub_project_id")
-    private SubProject subProject;
+    @JoinColumn(name = "task_id", referencedColumnName = "task_id")
+    private Task task;
 
-    @Column(name = "task_name")
+    @Column(name = "sub_task_name")
     @NotEmpty(message = "Please provide a name!")
-    private String taskName;
+    private String name;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.MERGE)
-    private List<SubTask> subTasks;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Please provide a date!")
     @Column(name = "start_date")
+    @NotNull(message = "Please provide a date!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilStartDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Please provide a date!")
     @Column(name = "end_date")
+    @NotNull(message = "Please provide a date!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilEndDate;
 
     @Column(name = "completed")
@@ -55,7 +50,7 @@ public class Task implements Serializable {
     @Column(name = "total_time_spent")
     private int totalTimeSpent;
 
-    public Task() {
+    public SubTask() {
     }
 
     public long getId() {
@@ -66,20 +61,20 @@ public class Task implements Serializable {
         this.id = id;
     }
 
-    public SubProject getSubProject() {
-        return subProject;
+    public Task getTask() {
+        return task;
     }
 
-    public void setSubProject(SubProject subProject) {
-        this.subProject = subProject;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-    public String getSubProjectName() {
-        return taskName;
+    public String getName() {
+        return name;
     }
 
-    public void setSubProjectName(String subProjectName) {
-        this.taskName = subProjectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDate getUtilStartDate() {
@@ -120,21 +115,5 @@ public class Task implements Serializable {
 
     public void setTotalTimeSpent(int totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public List<SubTask> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<SubTask> subTasks) {
-        this.subTasks = subTasks;
     }
 }
