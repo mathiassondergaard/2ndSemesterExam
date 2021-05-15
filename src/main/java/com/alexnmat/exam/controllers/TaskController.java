@@ -1,7 +1,7 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.SubProject;
-import com.alexnmat.exam.models.Task;
+import com.alexnmat.exam.models.entities.SubProject;
+import com.alexnmat.exam.models.entities.Task;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.SubProjectService;
 import com.alexnmat.exam.service.TaskService;
@@ -56,7 +56,7 @@ public class TaskController {
     }
 
 
-    @PostMapping(value = "{projectId}/subProjects/{subProjectId}//addTask")
+    @PostMapping(value = "{projectId}/subProjects/{subProjectId}/addTask")
     public String createNewTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @Valid SubProject subProject, @Valid Task task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-task";
@@ -66,6 +66,7 @@ public class TaskController {
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
 
         taskService.saveTask(task, subProjectId);
+        return "add-task";
     }
 
 
