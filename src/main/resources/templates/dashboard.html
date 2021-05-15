@@ -31,16 +31,12 @@
             </ul>
         </aside>
 
-        <!--
-        this container needs to be hidden if currentProject is null
-        https://frontbackend.com/thymeleaf/using-conditions-in-thymeleaf
-        -->
+        <!-- TODO: GO BACK BUTTONS EVERYWHERE! -->
         <div class="container column is-10">
             <div class="section">
                 <div th:unless="${currentProject?.id} == null"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
-                <!-- TODO: Idea is that you wrap everything below, thus only changing the "cards" in the middle when switching back and forth in the navbar.. -->
                 <div th:if="${currentProject?.id} == null"
                      th:insert="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
                 <!-- TODO: find some solution for hiding middle box when navigation between pages? otherwise keep these ifs and stuff, make a "default home page fragment" that is hidden if navbar is clicked

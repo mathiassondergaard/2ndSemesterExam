@@ -44,6 +44,11 @@ public class ProjectService extends Utilities {
     //TODO: We should maybe cache this
     public List<ProjectDTO> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
 
+    //If needed:
+    public ProjectDTO findProjectNameAndId(long projectId) {
+        return projectRepository.findProjectNameAndId(projectId);
+    }
+
     public Project save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());
         project.setAllocatedHours(calculateTotalWorkdayHours(project.getUtilStartDate(), project.getUtilEndDate()));
