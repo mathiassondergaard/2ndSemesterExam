@@ -27,8 +27,8 @@
 
         <div class="card-content">
             <div class="content">
-                <div id="addSubProjectButton">
-                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/subProjects/createSubProject'}"
+                <div id="addSubProjectButton" sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')">
+                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/subProjects/createSubProject'}"
                        class="button is-primary is-small">Add Sub Project</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Sub Projects registered!</h1>
