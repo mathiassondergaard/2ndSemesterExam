@@ -1,6 +1,7 @@
 package com.alexnmat.exam.controllers;
 
 import com.alexnmat.exam.models.entities.SubProject;
+import com.alexnmat.exam.models.entities.SubTask;
 import com.alexnmat.exam.models.entities.Task;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.SubProjectService;
@@ -25,19 +26,12 @@ public class TaskController {
     private SubProjectService subProjectService;
     private TaskService taskService;
 
+
+    @Autowired
     public TaskController(ProjectService projectService, SubProjectService subProjectService, TaskService taskService) {
         this.projectService = projectService;
         this.subProjectService = subProjectService;
         this.taskService = taskService;
-    }
-
-    @GetMapping("{projectId}/subProjects/{subProjectId}/tasks")
-    public String taskList(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
-        model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
-        model.addAttribute("tasks", taskService.findByTaskId(taskId));
-        return "dashboard";
     }
 
     @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId})")
@@ -45,6 +39,7 @@ public class TaskController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasksForSubProject", taskService.findAllTasksForSubProjectId(subProjectId));
+        model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));
         model.addAttribute("currentTask", taskService.findByTaskId(taskId));
         return "dashboard";
     }
@@ -61,10 +56,10 @@ public class TaskController {
         if (bindingResult.hasErrors()) {
             return "add-task";
         }
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("successMessage", "Task successfully created!");
         model.addAttribute("subProject", subProject);
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
-
         taskService.saveTask(task, subProjectId);
         return "add-task";
     }
