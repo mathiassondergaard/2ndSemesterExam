@@ -1,8 +1,10 @@
 package com.alexnmat.exam.models;
 
+import javax.validation.constraints.NotEmpty;
+
 public class TeamMemberHelper {
 
-
+    @NotEmpty(message = "Please provide a id!")
     private long personId;
 
     public TeamMemberHelper(long personId) {

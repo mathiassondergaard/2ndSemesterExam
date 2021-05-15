@@ -27,16 +27,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     //TODO: Fix authorities for different pages
+    //Maybe fetch a list where team member is present for projects, so that gets rendered instead of ALL PROJECTS when you log in as team member
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //Needs authentication for different usertypes
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                //.antMatchers("/dashboard/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/dashboard/projects/**").hasAuthority("PROJECT_OWNER").anyRequest()
+                .antMatchers("/dashboard/projects/**").hasAnyAuthority("PROJECT_OWNER", "PROJECT_MANAGER", "TEAM_MEMBER").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
                 .defaultSuccessUrl("/dashboard/projects")

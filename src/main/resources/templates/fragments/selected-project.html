@@ -47,7 +47,7 @@
             <div class="content">
                 <div id="addTeamMemberButton">
                     <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/addTeamMember'}"
-                       class="button is-primary is-small">Add Team Members</a>
+                       sec:authorize="hasAuthority('PROJECT_OWNER')" class="button is-primary is-small">Add Team Members</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Team Members registered!</h1>
                 <div th:case="*">
@@ -67,8 +67,10 @@
                                 <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
                                 <td th:text="${teamMembers.person.competence}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe) -->
-                                <td><a th:href="@{/dashboard/projects/{projectId}/deleteTeamMember/{teamMemberId}(teamMemberId=${teamMembers.id}, projectId=${currentProject?.id})}"
-                                    class="button is-danger is-small">Delete</a></td>
+                                <td>
+                                    <a sec:authorize="hasAuthority('PROJECT_OWNER')" th:href="@{/dashboard/projects/{projectId}/deleteTeamMember/{teamMemberId}(teamMemberId=${teamMembers.id}, projectId=${currentProject?.id})}"
+                                    class="button is-danger is-small">Delete</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

@@ -28,7 +28,7 @@
         <div class="card-content">
             <div class="content">
                 <div id="addSubProjectButton">
-                    <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/subProjects/createSubProject'}"
+                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/subProjects/createSubProject'}"
                        class="button is-primary is-small">Add Sub Project</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Sub Projects registered!</h1>
@@ -55,10 +55,10 @@
                                 <td th:text="${subProject.utilEndDate}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe) -->
                                 <td>
-                                    <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
+                                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
                                        class="button is-danger is-small">Delete</a>
                                     <th:block th:if="${subProject.completed} == false">
-                                        <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
+                                        <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
                                            class="button is-primary is-small">Complete</a>
                                     </th:block>
                                 </td>

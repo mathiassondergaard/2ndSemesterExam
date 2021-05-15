@@ -1,0 +1,14 @@
+TO DO LIST:
+
+TODO - Validiation:
+Effort
+Hours
+Person - done
+Project - done
+SubProject - done
+SubTask - done (missing fields in html)
+Task - done (missing fields in html)
+TeamMember - done
+
+TODO: Date Validiation
+Type up a date validiator that throws an exception or something if end date is before start date

@@ -49,8 +49,8 @@
         <div class="card-content">
             <div class="content">
                 <div id="addTeamMemberButton">
-                    <!-- TODO: add a add Task button -->
-                    <a
+                    <!-- TODO: add a add Task hyperlink here" -->
+                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')"
                        class="button is-primary is-small">Add Task</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Tasks registered!</h1>
@@ -76,7 +76,7 @@
                                 <td th:text="${task.utilEndDate}"></td>
                                 <td th:text="${task.completed}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe), idk if the delete button should be there tho? -->
-                                <td><a class="button is-danger is-small">Delete</a></td>
+                                <td><a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" class="button is-danger is-small">Delete</a></td>
                             </tr>
                             </tbody>
                         </table>

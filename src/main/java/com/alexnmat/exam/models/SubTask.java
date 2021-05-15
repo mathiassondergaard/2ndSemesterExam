@@ -1,8 +1,10 @@
 package com.alexnmat.exam.models;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -24,19 +26,24 @@ public class SubTask implements Serializable {
     private Task task;
 
     @Column(name = "sub_task_name")
+    @NotEmpty(message = "Please provide a name!")
     private String name;
 
     @Column(name = "start_date")
+    @NotEmpty(message = "Please provide a date!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilStartDate;
 
     @Column(name = "end_date")
+    @NotEmpty(message = "Please provide a date!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilEndDate;
 
     @Column(name = "completed")
     private Boolean completed;
 
+    @NotEmpty(message = "Please provide a description!")
+    @Length(max = 250, message = "Description cannot be longer than 250 characters!")
     @Column(name = "description")
     private String description;
 

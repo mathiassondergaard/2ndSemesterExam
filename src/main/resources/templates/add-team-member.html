@@ -20,7 +20,8 @@
                             <div class="column">
                                 <div class="form-group">
                                     <strong>
-                                        <label for="personId">Person ID</label>
+                                        <label for="personId" th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}"
+                                               class="validation-message">Person ID</label>
                                     </strong>
                                     <input type="text" th:field="*{personId}"
                                            placeholder="Please input person ID" class="input is-primary is-normal" id="personId"

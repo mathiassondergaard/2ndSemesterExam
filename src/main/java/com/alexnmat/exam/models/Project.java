@@ -1,8 +1,11 @@
 package com.alexnmat.exam.models;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,16 +24,21 @@ public class Project implements Serializable {
     private long id;
 
     @Column(name = "project_name")
+    @NotEmpty(message = "Please provide a name!")
     private String projectName;
 
     @Column(name = "start_date")
+    @NotEmpty(message = "Please provide a date!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilStartDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotEmpty(message = "Please provide a date!")
     @Column(name = "end_date")
     private LocalDate utilEndDate;
 
+    @NotEmpty(message = "Please provide a description!")
+    @Length(max = 250, message = "Description cannot be longer than 250 characters!")
     @Column(name = "description")
     private String description;
 

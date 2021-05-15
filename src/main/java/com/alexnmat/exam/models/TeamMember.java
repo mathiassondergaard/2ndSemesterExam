@@ -1,6 +1,7 @@
 package com.alexnmat.exam.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class TeamMember implements Serializable {
     private Project project;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @NotEmpty(message = "Please provide a ID!")
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
 

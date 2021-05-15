@@ -33,7 +33,7 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <button th:onclick="confirmChoice()" class="button is-danger">Delete</button>
+                    <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="confirmChoice()" class="button is-danger">Delete</button>
                 </div>
             </div>
         </div>
