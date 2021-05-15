@@ -1,5 +1,6 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.DTO.TaskDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.SubTask;
@@ -81,9 +82,8 @@ public class TaskService extends Utilities {
     }
 
 
-    public void completeTask(Task task, long taskId) {
-        taskRepository.findById(taskId);
-        task.setCompleted(true);
+    public void completeTask(long taskId) {
+        taskRepository.setCompleted(taskId);
     }
 
     public int calculateTimeSpent(long taskId) {
@@ -95,19 +95,8 @@ public class TaskService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
     }
 
-    public List<SubTask> findAllSubTasksForTask(long taskId) {
-        if (taskRepository.findAll().size() == 0) {
-            throw new NoResultException("No sub projects available in database");
-        } else {
-            List<SubTask> fullList = subTaskRepository.findAll();
-            List<SubTask> subTaskList = new ArrayList<>();
-            for (int i = 0; i < fullList.size(); i++) {
-                if (fullList.get(i).getTask().getId() == taskId) {
-                    subTaskList.add(fullList.get(i));
-                }
-            }
-            return subTaskList;
-        }
+    public List<SubTaskDTO> findAllSubTasksForTask(long taskId) {
+        return subTaskRepository.findDTOByTaskId(taskId);
     }
 
     public SubTask saveSubTask(SubTask subTask, long taskId) {
@@ -127,9 +116,8 @@ public class TaskService extends Utilities {
         subTaskRepository.delete(subTask);
     }
 
-    public void completeSubTask(SubTask subTask, long subTaskId) {
-        subTaskRepository.findById(subTaskId);
-        subTask.setCompleted(true);
+    public void completeSubTask(long subTaskId) {
+        subTaskRepository.setCompleted(subTaskId);
     }
 
 }
