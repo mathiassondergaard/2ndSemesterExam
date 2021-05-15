@@ -23,6 +23,7 @@
                         <div class="form-group">
                             <div class="column">
                                 <strong>
+                                    <label for="projectName">Project Name</label>
                                     <label for="projectName" th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}"
                                            class="validation-message">Project Name</label>
                                 </strong>
@@ -34,8 +35,9 @@
                         <div class="form-group">
                             <div class="column">
                                 <strong>
-                                    <label for="textarea" th:if="${#fields.hasErrors('textArea')}" th:errors="*{description}"
-                                           class="validation-message">Project Description</label>
+                                    <label for="textarea">Description</label>
+                                    <label for="textarea" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                           class="validation-message"></label>
                                 </strong>
                                 <textarea id="textarea" onkeyup="textareaLengthCheck(this)" maxlength="250"
                                           class="textarea" placeholder="Description"
@@ -52,7 +54,8 @@
                         <div class="form-group">
                             <div class="column">
                                 <strong>
-                                    <label for="startDate" th:if="${#fields.hasErrors('startDate')}" th:errors="*{utilStartDate}"
+                                    <label for="startDate">Start Date</label>
+                                    <label for="startDate" th:if="${#fields.hasErrors('utilStartDate')}" th:errors="*{utilStartDate}"
                                            class="validation-message">Start Date</label>
                                 </strong>
                                 <input style="color:black" type="date" th:value="*{utilStartDate}" th:field="*{utilStartDate}" placeholder="Start Date"
@@ -62,7 +65,8 @@
                         <div class="form-group">
                             <div class="column">
                                 <strong>
-                                    <label for="endDate" th:if="${#fields.hasErrors('endDate')}" th:errors="*{utilEndDate}"
+                                    <label for="endDate">End Date</label>
+                                    <label for="endDate" th:if="${#fields.hasErrors('utilEndDate')}" th:errors="*{utilEndDate}"
                                            class="validation-message">End Date</label>
                                 </strong>
                                 <input style="color:black" type="date" th:value="*{utilEndDate}" th:field="*{utilEndDate}" placeholder="End Date"

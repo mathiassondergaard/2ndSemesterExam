@@ -22,6 +22,10 @@ public abstract class Utilities {
         return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
     }
 
+    public boolean dateChecker(LocalDate startDate, LocalDate endDate) {
+        return endDate.isBefore(startDate);
+    }
+
     /*
     HACKER SNIPPET
      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

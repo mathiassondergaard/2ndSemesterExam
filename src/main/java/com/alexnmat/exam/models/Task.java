@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -34,12 +35,12 @@ public class Task implements Serializable {
     private List<SubTask> subTasks;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty(message = "Please provide a date!")
+    @NotNull(message = "Please provide a date!")
     @Column(name = "start_date")
     private LocalDate utilStartDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotEmpty(message = "Please provide a date!")
+    @NotNull(message = "Please provide a date!")
     @Column(name = "end_date")
     private LocalDate utilEndDate;
 

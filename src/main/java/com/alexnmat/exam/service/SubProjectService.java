@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
+import java.time.DateTimeException;
 import java.util.List;
 
 @Service
@@ -46,6 +47,9 @@ public class SubProjectService extends Utilities {
 
         subProject.setAllocatedHours(calculateTotalWorkdayHours(subProject.getUtilStartDate(), subProject.getUtilEndDate()));
         subProject.setCompleted(false);
+        if (dateChecker(subProject.getUtilStartDate(), subProject.getUtilEndDate())) {
+            throw new DateTimeException("End date cannot be before start date!");
+        }
         return subProjectRepository.save(subProject);
     }
 

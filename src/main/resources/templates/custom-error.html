@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Error</title>
+</head>
+<body>
+<section class="main-content columns is-fullheight">
+    <div class="container column is-10">
+        <div class="section">
+            <h1 class="title is-3">AN ERROR HAS OCCURED</h1>
+            <a th:href="@{/dashboard/projects}" class="button is-primary">Back to Dashboard</a>
+        </div>
+        <div class="section">
+            <p th:text="${url}">URL: </p>
+            <br>
+            <p th:text="${exception}">ERROR: </p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

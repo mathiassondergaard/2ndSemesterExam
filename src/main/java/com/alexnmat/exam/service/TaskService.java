@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TaskService {
+public class TaskService extends Utilities {
 
     private SubProjectRepository subProjectRepository;
 
@@ -63,6 +64,10 @@ public class TaskService {
     public Task saveTask(Task task, long subProjectId) {
         SubProject subProject = subProjectRepository.findById(subProjectId)
                 .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
+        if (dateChecker(task.getUtilStartDate(), task.getUtilEndDate())) {
+            throw new DateTimeException("End date cannot be before start date!");
+        }
+        task.setSubProject(subProject);
         return taskRepository.save(task);
     }
 
@@ -105,6 +110,10 @@ public class TaskService {
     public SubTask saveSubTask(SubTask subTask, long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
+        if (dateChecker(subTask.getUtilStartDate(), subTask.getUtilEndDate())) {
+            throw new DateTimeException("End date cannot be before start date!");
+        }
+        subTask.setTask(task);
         return subTaskRepository.save(subTask);
 
     }
