@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class ProjectController {
 
     //https://stackoverflow.com/questions/27461283/how-to-access-fragment-in-fragment-from-controller
-    //Fragments in controller
+    //Fragments in controller ( return "fragments/PAGE :: fragment"
     //Update methods, add methods, should they return fragment or dashboard?
     //TODO: exception throwing in findAll methods is nogo - use another method
 
