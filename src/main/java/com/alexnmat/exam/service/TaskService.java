@@ -45,6 +45,10 @@ public class TaskService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
     }
 
+    public TaskDTO findTaskIdAndNameBySubProjectId(long subProjectId) {
+        return taskRepository.findTaskIdAndNameBySubProjectId(subProjectId);
+    }
+
     public List<TaskDTO> getTaskDTOList(long subProjectId) {
         return taskRepository.findAllByProjectId(subProjectId);
     }
@@ -90,7 +94,7 @@ public class TaskService extends Utilities {
         return taskRepository.findById(taskId).get().getTotalTimeSpent();
     }
 
-    public SubProject findByTaskId(long taskId) {
+    public SubProject findSubTaskByTaskId(long taskId) {
         return subProjectRepository.findById(taskId)
                 .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
     }

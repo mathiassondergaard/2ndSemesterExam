@@ -38,6 +38,10 @@ public class ProjectService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId));
     }
 
+    public ProjectDTO findProjectNameAndId(long projectId) {
+        return projectRepository.findProjectNameAndId(projectId);
+    }
+
     public List<Project> findAllProjects() {
         return projectRepository.findAll();
     }
@@ -45,10 +49,6 @@ public class ProjectService extends Utilities {
     //TODO: We should maybe cache this
     public List<ProjectDTO> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
 
-    //If needed:
-    public ProjectDTO findProjectNameAndId(long projectId) {
-        return projectRepository.findProjectNameAndId(projectId);
-    }
 
     public Project save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());

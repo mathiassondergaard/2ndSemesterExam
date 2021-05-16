@@ -16,10 +16,8 @@ public class ProjectController {
 
     //https://stackoverflow.com/questions/27461283/how-to-access-fragment-in-fragment-from-controller
     //Fragments in controller ( return "fragments/PAGE :: fragment"
-    //Update methods, add methods, should they return fragment or dashboard?
-    //TODO: exception throwing in findAll methods is nogo - use another method
 
-    //We fetch all projects from the database due to our left menu on dashboard, that enables you to navigate between projects.
+    //We fetch all projects from the database due to our left menu on dashboard, that enables you to navigate between projects. However we only fetch name and ID.
     //Database optimization is therefore done in Service class.
 
     private ProjectService projectService;
@@ -31,15 +29,14 @@ public class ProjectController {
 
     @GetMapping("projects")
     public String projectList(Model model) {
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.getAttribute("projects");
         return "dashboard";
     }
 
     @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
-
+        model.addAttribute("type", 1);
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
         return "dashboard";
     }
@@ -61,7 +58,6 @@ public class ProjectController {
     @GetMapping("projects/{projectId}/delete")
     public String deleteProject(@PathVariable("projectId") long projectId, Model model) {
         projectService.delete(projectId);
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         return "redirect:/dashboard/projects";
     }
 
@@ -84,8 +80,6 @@ public class ProjectController {
 
         projectService.save(project);
         model.addAttribute("successMessage", "Project successfully updated!");
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         return "redirect:/dashboard/projects/" + projectId;
     }
 }

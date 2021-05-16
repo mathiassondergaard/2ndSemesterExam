@@ -12,3 +12,11 @@ TeamMember - done
 
 TODO: Date Validiation
 Type up a date validiator that throws an exception or something if end date is before start date
+
+
+TYPES:
+1: currentProject
+2: subprojects
+3: currentsubproject
+4: currentTask
+5: currentSubTask

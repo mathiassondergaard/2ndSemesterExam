@@ -40,24 +40,24 @@ public class SubProjectController {
     //TODO: Maybe you need a custom query, to ONLY fetch the ID from database?
     @GetMapping("{projectId}/subProjects")
     public String subProjectList(@PathVariable("projectId") long projectId, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         model.addAttribute("subProjectsForProject", subProjectService.findSubProjectsForProject(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.addAttribute("type", 2);
         return "dashboard";
     }
 
     @GetMapping("{projectId}/subProjects/{subProjectId}")
     public String currentProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasks", taskService.getTaskDTOList(subProjectId));
+        model.addAttribute("type", 3);
         return "dashboard";
     }
 
     @GetMapping(value = "{projectId}/subProjects/createSubProject")
     public String showCreateSubProjectForm(@PathVariable("projectId") long projectId, SubProject subProject, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         //TODO: maybe you need this as in TeamMemberController "model.addAttribute("teamMember", new TeamMemberHelper());"
         return "add-sub-project";
     }
@@ -69,8 +69,7 @@ public class SubProjectController {
         }
         model.addAttribute("successMessage", "Sub-Project successfully created!");
         model.addAttribute("subProject", subProject);
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         subProjectService.save(subProject, projectId);
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/" + subProject.getId();
     }
@@ -78,9 +77,7 @@ public class SubProjectController {
     @GetMapping("{projectId}/subProjects/{subProjectId}/delete")
     public String deleteSubProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
         subProjectService.delete(subProjectId);
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("subProjectsForProject", subProjectService.findSubProjectsForProject(projectId));
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 
@@ -88,9 +85,8 @@ public class SubProjectController {
     @GetMapping("{projectId}/subProjects/{subProjectId}/complete")
     public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
             subProjectService.complete(subProjectId);
-            model.addAttribute("projects", projectService.findProjectNamesAndIds());
-            model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-            model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
+            model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+            model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(subProjectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 

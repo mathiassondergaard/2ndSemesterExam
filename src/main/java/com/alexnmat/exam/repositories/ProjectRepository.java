@@ -20,6 +20,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) FROM Project p")
     List<ProjectDTO> findProjectIdsAndNames();
 
+    @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) FROM Project p")
+    ProjectDTO findSingleProjectIdAndName();
+
     //If needed
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) from Project p WHERE p.id = :projectId")
     ProjectDTO findProjectNameAndId(@Param("projectId") long projectId);

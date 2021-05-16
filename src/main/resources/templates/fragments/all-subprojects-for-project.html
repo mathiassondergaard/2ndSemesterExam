@@ -55,10 +55,10 @@
                                 <td th:text="${subProject.utilEndDate}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe) -->
                                 <td>
-                                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
+                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
                                        class="button is-danger is-small">Delete</a>
                                     <th:block th:if="${subProject.completed} == false">
-                                        <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
+                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
                                            class="button is-primary is-small">Complete</a>
                                     </th:block>
                                 </td>

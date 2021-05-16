@@ -18,6 +18,11 @@ public class TaskDTO {
         this.completed = completed;
     }
 
+    public TaskDTO(long id, String taskName) {
+        this.id = id;
+        this.taskName = taskName;
+    }
+
     public long getId() {
         return id;
     }

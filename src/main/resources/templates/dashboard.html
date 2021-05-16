@@ -37,10 +37,30 @@
                 <div th:unless="${currentProject?.id} == null"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
-                <div th:if="${currentProject?.id} == null"
-                     th:insert="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
-                <!-- TODO: find some solution for hiding middle box when navigation between pages? otherwise keep these ifs and stuff, make a "default home page fragment" that is hidden if navbar is clicked
-                Second solution is returning fragments from the controller instead, which you probably should donkey-->
+                <th:block th:if="${type} == null">
+                    <div th:replace="fragments/middle-of-dashboard.html :: middle-dashboard"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 1">
+                    <div th:replace="fragments/selected-project.html :: selectedProject"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 2">
+                    <div th:replace="fragments/all-subprojects-for-project.html :: allSubProjectsForProject"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 3">
+                    <div th:replace="fragments/selected-sub-project.html :: selectedSubProject"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 4">
+
+                </th:block>
+
+                <th:block th:if="${type} == 5">
+
+                </th:block>
+                <!--
                 <div th:hidden="${currentSubProject?.id} != null">
                     <div th:hidden="${subProjectsForProject} != null">
                         <th:block th:unless="${currentProject?.id} == null">
@@ -58,6 +78,7 @@
                         <div th:include="fragments/selected-sub-project.html :: selectedSubProject"></div>
                     </th:block>
                 </div>
+                -->
             </div>
         </div>
 

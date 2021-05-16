@@ -22,6 +22,11 @@ public class SubProjectDTO {
         this.person = person;
     }
 
+    public SubProjectDTO(long id, String subProjectName) {
+        this.id = id;
+        this.subProjectName = subProjectName;
+    }
+
     public long getId() {
         return id;
     }

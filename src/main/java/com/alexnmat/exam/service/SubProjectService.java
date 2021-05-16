@@ -35,6 +35,10 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.findAll();
     }
 
+    public SubProjectDTO findSubProjectIdAndNameByProjectId(long projectId) {
+        return subProjectRepository.findSubProjectIdAndNameByProjectId(projectId);
+    }
+
     public List<SubProjectDTO> findSubProjectsForProject(long projectId) {
         return subProjectRepository.findAllByProjectId(projectId);
     }
