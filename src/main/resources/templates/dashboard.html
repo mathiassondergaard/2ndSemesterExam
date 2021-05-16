@@ -22,7 +22,7 @@
                    <li th:if="${#authorization.expression('hasRole(''PROJECT_OWNER'') or (''PROJECT_MANAGER'')')}" th:each="project : ${projects}" th:replace="${projects} == ${projects}">
                TODO: Fix this
                -->
-                <li th:each="project : ${projects}" th:replace="${projects} == ${projects}">
+                <li th:each="project : ${projects}">
 
                     <!--
                     if project is completed, do not display it on the list
