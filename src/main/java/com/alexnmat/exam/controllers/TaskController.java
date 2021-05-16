@@ -39,19 +39,20 @@ public class TaskController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasksForSubProject", taskService.findAllTasksForSubProjectId(subProjectId));
-        model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));
         model.addAttribute("currentTask", taskService.findByTaskId(taskId));
+        model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));
         return "dashboard";
     }
 
-    @GetMapping(value = "{subProjectId}/subProjects/createTask")
-    public String showCreateTaskForm(@PathVariable("subProjectId") long subProjectId, SubProject subProject, Model model) {
+    @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/createTask")
+    public String showCreateTaskForm(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, SubProject subProject, Model model) {
+        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         return "add-task";
     }
 
 
-    @PostMapping(value = "{projectId}/subProjects/{subProjectId}/addTask")
+    @PostMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/addTask")
     public String createNewTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @Valid SubProject subProject, @Valid Task task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-task";
@@ -68,13 +69,11 @@ public class TaskController {
     @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/complete")
     public String completeTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, Model model) {
         //taskService.completeTask(taskId);
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
-        model.addAttribute("currentTask", taskService.findByTaskId(taskId));
-
-
+            model.addAttribute("projects", projectService.findProjectNamesAndIds());
+            model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+            model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
+            model.addAttribute("currentTask", taskService.findByTaskId(taskId));
         return "redirect:/dashboard/projects" + projectId + "/subProjects/" + subProjectId + "/tasks/";
-
     }
 
 
