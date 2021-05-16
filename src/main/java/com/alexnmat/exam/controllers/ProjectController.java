@@ -29,12 +29,14 @@ public class ProjectController {
 
     @GetMapping("projects")
     public String projectList(Model model) {
-        model.getAttribute("projects");
+        model.addAttribute("projects", projectService.findProjectNamesAndIds());
+        //model.addAttribute("projectsForTeamMember", projectService.findProjectsWhereLoggedInUserIsTeamMember());
         return "dashboard";
     }
 
     @GetMapping("projects/{projectId}")
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
+        model.getAttribute("projects");
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("type", 1);
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));

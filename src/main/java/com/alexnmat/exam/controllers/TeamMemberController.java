@@ -30,8 +30,8 @@ public class TeamMemberController {
 
     @GetMapping("{projectId}/addTeamMember")
     public String showAddTeamMemberForm(@PathVariable("projectId") long projectId, Model model) {
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("persons", personService.findAll());
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.addAttribute("persons", personService.findAllPersonsIdNameAndCompetence());
         model.addAttribute("teamMember", new TeamMemberHelper());
         return "add-team-member";
     }
@@ -41,11 +41,9 @@ public class TeamMemberController {
         if (result.hasErrors()) {
             return "add-team-member";
         }
-
-        model.addAttribute("persons", personService.findAll());
         model.addAttribute("teamMember", teamMemberHelper);
         model.addAttribute("successMessage", "Team members successfully added! Type another ID to add more");
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         try {
             projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
         } catch (Exception e) {
@@ -58,8 +56,7 @@ public class TeamMemberController {
     @GetMapping("{projectId}/deleteTeamMember/{teamMemberId}")
     public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
         projectService.removeTeamMember(teamMemberId);
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         return "redirect:/dashboard/projects/" + projectId;
     }
 }

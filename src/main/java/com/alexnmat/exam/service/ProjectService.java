@@ -1,5 +1,6 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.DTO.TeamMemberDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.entities.TeamMember;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import java.time.DateTimeException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +29,7 @@ public class ProjectService extends Utilities {
         this.teamMemberRepository = teamMemberRepository;
     }
 
-    //TODO: Different methods for getting projects based by role
+    //TODO: Different methods for getting projects based by if you are a team member on that one
     //TODO: Maybe fetch all projects one time, and thereafter ONLY when it updates? think about it
 
     public ProjectService() {
@@ -77,6 +79,28 @@ public class ProjectService extends Utilities {
     }
      */
 
+    //TODO: fix this bullshit
+    /*
+    public List<ProjectDTO> findProjectsWhereLoggedInUserIsTeamMember() {
+        List<ProjectDTO> projectsWithTeamMembers = projectRepository.findProjectIdsNamesAndTeamMembers();
+        List<ProjectDTO> loggedInPersonsList = new ArrayList<>();
+        long currentLoggedInPersonId = getCurrentLoggedInPerson().getId();
+
+        for (int i = 0; i < projectsWithTeamMembers.size(); i++) {
+            List<TeamMemberDTO> teamMemberDTOS = getAllTeamMembersForProject(projectsWithTeamMembers.get(i).getId());
+            for (int x = 0; x < teamMemberDTOS.size(); x++) {
+                if (teamMemberDTOS.get(i).getPerson().getId() == currentLoggedInPersonId) {
+
+
+                }
+            }
+        }
+
+        return projectRepository.findProjectIdsAndNamesForLoggedInPerson(personId);
+    }
+
+     */
+
     public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
         Project project = findByProjectId(projectId);
         List<TeamMember> teamMembersForProject = project.getTeamMembers();
@@ -101,8 +125,8 @@ public class ProjectService extends Utilities {
         return teamMemberRepository.findSingleByProjectId(projectId);
     }
 
-    public List<TeamMember> getAllTeamMembersForProject(long projectId) {
-        return teamMemberRepository.findAllByProjectId(projectId);
+    public List<TeamMemberDTO> getAllTeamMembersForProject(long projectId) {
+        return teamMemberRepository.getTeamMembersIdAndPersonForProject(projectId);
     }
 
     public void removeTeamMember(long teamMemberId) {

@@ -25,7 +25,7 @@ public class SubTaskController {
     private SubProjectService subProjectService;
     private TaskService taskService;
 
-    //TODO: check this through for what model we need and dont need
+    //TODO: check this through for what model attributes we need and dont need
 
     @Autowired
     public SubTaskController(ProjectService projectService, SubProjectService subProjectService, TaskService taskService) {
@@ -37,6 +37,7 @@ public class SubTaskController {
     @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.getAttribute("projects");
         model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(subProjectId));
         model.addAttribute("currentTask", taskService.findTaskIdAndNameBySubProjectId(subProjectId));
         model.addAttribute("currentSubTask", taskService.findSubTaskByTaskId(taskId));
@@ -81,9 +82,9 @@ public class SubTaskController {
     @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/{subTaskId}/delete")
     public String deleteSubTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
         taskService.deleteSubTask(taskId);
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
+        model.addAttribute("currentTask", taskService.findTaskIdAndNameBySubProjectId(subProjectId));
         model.addAttribute("currentSubTask", taskService.findSubTaskByTaskId(taskId));
         return "redirect:/dashboard/projects" + projectId + "/subProjects/" + subProjectId + "/tasks/" + taskId + "/subTasks/";
 

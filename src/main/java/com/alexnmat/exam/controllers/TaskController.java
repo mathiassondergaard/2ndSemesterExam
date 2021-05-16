@@ -37,6 +37,7 @@ public class TaskController {
     @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId})")
     public String currentTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.getAttribute("projects");
         model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(subProjectId));
         model.addAttribute("currentTask", taskService.findBySubProjectId(subProjectId));
         model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));

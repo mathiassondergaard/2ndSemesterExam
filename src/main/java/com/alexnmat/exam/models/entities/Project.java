@@ -15,7 +15,6 @@ import java.util.List;
 public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //TODO: Add max length on project name etc.
     //TODO: Should project have a isCompleted boolean as in task?
     @Id
     @SequenceGenerator(name = "project_id_seq", sequenceName = "project_id_seq", allocationSize = 1)

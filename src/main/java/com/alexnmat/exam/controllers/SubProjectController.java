@@ -37,10 +37,11 @@ public class SubProjectController {
         this.projectService = projectService;
     }
 
-    //TODO: Maybe you need a custom query, to ONLY fetch the ID from database?
+    //TODO: Maybe you need a custom query, to ONLY fetch the ID from database? so far name and ID
     @GetMapping("{projectId}/subProjects")
     public String subProjectList(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.getAttribute("projects");
         model.addAttribute("subProjectsForProject", subProjectService.findSubProjectsForProject(projectId));
         model.addAttribute("type", 2);
         return "dashboard";
@@ -49,6 +50,7 @@ public class SubProjectController {
     @GetMapping("{projectId}/subProjects/{subProjectId}")
     public String currentProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.getAttribute("projects");
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasks", taskService.getTaskDTOList(subProjectId));
         model.addAttribute("type", 3);
@@ -58,7 +60,6 @@ public class SubProjectController {
     @GetMapping(value = "{projectId}/subProjects/createSubProject")
     public String showCreateSubProjectForm(@PathVariable("projectId") long projectId, SubProject subProject, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-        //TODO: maybe you need this as in TeamMemberController "model.addAttribute("teamMember", new TeamMemberHelper());"
         return "add-sub-project";
     }
 
@@ -81,7 +82,6 @@ public class SubProjectController {
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 
-    //TODO: Complete SubProject Mapping -Returns 404 atm, even with custom query
     @GetMapping("{projectId}/subProjects/{subProjectId}/complete")
     public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
             subProjectService.complete(subProjectId);

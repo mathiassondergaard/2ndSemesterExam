@@ -33,15 +33,16 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="confirmChoice()" class="button is-danger">Delete</button>
+                    <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="deleteProjectConfirm()" class="button is-danger">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+    <!-- TODO: reformat this to make it useable for all -->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        function confirmChoice() {
+        function deleteProjectConfirm() {
             var returnValue = confirm("Delete project? (This cannot be undone)");
             var currentProjectId = /*[[${currentProject?.id}]]*/ null;
             if (returnValue == true) {

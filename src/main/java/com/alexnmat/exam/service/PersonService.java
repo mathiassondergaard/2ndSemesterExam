@@ -1,5 +1,6 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.DTO.PersonDTO;
 import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class PersonService {
     public Person findByPersonId(long personId) {
         return personRepository.findById(personId)
                 .orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId));
+    }
+
+    public List<PersonDTO> findAllPersonsIdNameAndCompetence() {
+        return personRepository.findAllPersonsIdNameAndCompetence();
     }
 
     public List<Person> findAll() {

@@ -48,15 +48,17 @@
                             </thead>
                             <tbody>
                             <tr th:each="subProject : ${subProjectsForProject}">
-                                <td><a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}(subProjectId=${subProject.id}, projectId=${currentProject?.id})}" th:text="${subProject.subProjectName}"></a></td>
+                                <td>
+                                    <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}(subProjectId=${subProject.id}, projectId=${currentProject?.id})}" th:text="${subProject.subProjectName}"></a>
+                                </td>
                                 <td th:text="${subProject.person.name} + ' ' + ${subProject.person.lastName}"></td>
                                 <td th:text="${subProject.completed}"></td>
                                 <td th:text="${subProject.utilStartDate}"></td>
                                 <td th:text="${subProject.utilEndDate}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe) -->
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
-                                       class="button is-danger is-small">Delete</a>
+                                <!-- th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/delete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}" -->
+                                    <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteSubProjectConfirm()" class="button is-danger is-small">Delete</button>
                                     <th:block th:if="${subProject.completed} == false">
                                         <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id})}"
                                            class="button is-primary is-small">Complete</a>
@@ -73,4 +75,19 @@
     <br/>
 </div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function deleteSubProjectConfirm() {
+        var returnValue = confirm("Delete Sub-Project? (This cannot be undone)");
+        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+        var subProjectId = /*[[${subProject.id}]]*/ null;
+        if (returnValue == true) {
+            return window.location.href = "/dashboard/projects/" + currentProjectId + "/subProjects/" + subProjectId + "/delete";
+        }
+        else {
+            return false;
+        }
+    }
+    /*]]>*/
+</script>
 </html>

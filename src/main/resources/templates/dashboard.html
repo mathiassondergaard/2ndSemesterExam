@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
-<!-- TODO: Fix thymeleaf security based on roles, hide shit etc -->
 <body>
 <div id="dashboard">
     <div id="nav" th:insert="fragments/navbar.html :: navbar"></div>
@@ -17,7 +16,13 @@
         <aside class="column is-1 is-fullheight" id="sideMenu">
             <p class="menu-label" id="sideMenu-label"><strong>Projects</strong></p>
             <ul class="menu-list" id="sideMenu-list">
-                <li th:each="project : ${projects}">
+                <!--
+                   <li th:if="${#authorization.expression('hasRole(''TEAM_MEMBER'')')}" th:each="project : ${projectsForTeamMember}">
+
+                   <li th:if="${#authorization.expression('hasRole(''PROJECT_OWNER'') or (''PROJECT_MANAGER'')')}" th:each="project : ${projects}" th:replace="${projects} == ${projects}">
+               TODO: Fix this
+               -->
+                <li th:each="project : ${projects}" th:replace="${projects} == ${projects}">
 
                     <!--
                     if project is completed, do not display it on the list

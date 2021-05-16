@@ -76,7 +76,11 @@
                                 <td th:text="${task.utilEndDate}"></td>
                                 <td th:text="${task.completed}"></td>
                                 <!-- TODO: add a onclick confirm here (maybe), idk if the delete button should be there tho? -->
-                                <td><a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" class="button is-danger is-small">Delete</a></td>
+                                <td>
+                                    <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteTaskConfirm" class="button is-danger is-small">
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -87,4 +91,20 @@
     </div>
 </div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function deleteTaskConfirm() {
+        var returnValue = confirm("Delete Task? (This cannot be undone)");
+        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+        var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
+        var taskId = /*[[${currentProject?.id}]]*/ null;
+        if (returnValue == true) {
+            return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
+        }
+        else {
+            return false;
+        }
+    }
+    /*]]>*/
+</script>
 </html>
