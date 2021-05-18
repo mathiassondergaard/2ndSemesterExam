@@ -69,6 +69,21 @@
                                 <!-- TODO: add a onclick confirm here (maybe) -->
                                 <td>
                                     <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="deleteTeamMemberConfirm()" class="button is-danger is-small">Delete</button>
+                                    <script th:inline="javascript">
+                                        /*<![CDATA[*/
+                                        function deleteTeamMemberConfirm() {
+                                            var returnValue = confirm("Remove Team Member from Project? (This cannot be undone)");
+                                            var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+                                            var teamMemberId = /*[[${teamMembers.id}]]*/ null;
+                                            if (returnValue == true) {
+                                                return window.location.href = "/dashboard/projects/" + currentProjectId + "/deleteTeamMember/" + teamMemberId;
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        /*]]>*/
+                                    </script>
                                 </td>
                             </tr>
                             </tbody>
@@ -80,19 +95,4 @@
     </div>
 </div>
 </body>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function deleteTeamMemberConfirm() {
-        var returnValue = confirm("Remove Team Member from Project? (This cannot be undone)");
-        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
-        var teamMemberId = /*[[${teamMembers.id}]]*/ null;
-        if (returnValue == true) {
-            return window.location.href = "/dashboard/projects/" + currentProjectId + "/deleteTeamMember/" + teamMemberId;
-        }
-        else {
-            return false;
-        }
-    }
-    /*]]>*/
-</script>
 </html>

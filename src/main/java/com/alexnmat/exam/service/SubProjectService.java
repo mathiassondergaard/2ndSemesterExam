@@ -17,13 +17,11 @@ public class SubProjectService extends Utilities {
 
     private SubProjectRepository subProjectRepository;
     private ProjectRepository projectRepository;
-    private PersonRepository personRepository;
 
     @Autowired
-    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository, PersonRepository personRepository) {
+    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository) {
         this.subProjectRepository = subProjectRepository;
         this.projectRepository = projectRepository;
-        this.personRepository = personRepository;
     }
 
     public SubProject findBySubProjectId(long subProjectId) {
@@ -35,8 +33,8 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.findAll();
     }
 
-    public SubProjectDTO findSubProjectIdAndNameByProjectId(long projectId) {
-        return subProjectRepository.findSubProjectIdAndNameByProjectId(projectId);
+    public SubProjectDTO findSubProjectIdAndNameByProjectId(long projectId, long subProjectId) {
+        return subProjectRepository.findSubProjectIdAndNameByProjectId(projectId, subProjectId);
     }
 
     public List<SubProjectDTO> findSubProjectsForProject(long projectId) {

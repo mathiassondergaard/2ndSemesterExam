@@ -49,9 +49,8 @@
         <div class="card-content">
             <div class="content">
                 <div id="addTeamMemberButton">
-                    <!-- TODO: add a add Task hyperlink here" -->
-                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')"
-                       class="button is-primary is-small">Add Task</a>
+                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
+                       class="button is-primary is-small" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/createTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id})}">Add Task</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Tasks registered!</h1>
                 <div th:case="*">
@@ -69,17 +68,36 @@
                             </thead>
                             <tbody>
                             <tr th:each="task : ${tasks}">
-                                <!-- TODO: add hyperlink as in all-subprojects-for-project,
-                                <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}(subProjectId=${subProject.id}, projectId=${currentProject?.id})}" th:text="${subProject.subProjectName}" -->
-                                <td th:text="${task.taskName}"></td>
+                                <td>
+                                    <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}(subProjectId=${currentSubProject?.id}, projectId=${currentProject?.id}, taskId=${task.id})}" th:text="${task.taskName}"></a>
+                                </td>
                                 <td th:text="${task.utilStartDate}"></td>
                                 <td th:text="${task.utilEndDate}"></td>
                                 <td th:text="${task.completed}"></td>
-                                <!-- TODO: add a onclick confirm here (maybe), idk if the delete button should be there tho? -->
                                 <td>
                                     <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteTaskConfirm" class="button is-danger is-small">
                                         Delete
                                     </button>
+                                    <script th:inline="javascript">
+                                        /*<![CDATA[*/
+                                        function deleteTaskConfirm() {
+                                            var returnValue = confirm("Delete Task? (This cannot be undone)");
+                                            var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+                                            var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
+                                            var taskId = /*[[${task.id}]]*/ null;
+                                            if (returnValue == true) {
+                                                return window.location.href = "/dashboard/projects/" + currentProjectId + "/subProjects/" + currentSubProjectId + "/tasks/" + taskId + "/delete";
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        }
+                                        /*]]>*/
+                                    </script>
+                                    <th:block th:if="${task.completed} == false">
+                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/complete(projectId=${currentProject?.id}, taskId=${task.id}, subProjectId=${currentSubProject?.id})}"
+                                           class="button is-primary is-small">Complete</a>
+                                    </th:block>
                                 </td>
                             </tr>
                             </tbody>
@@ -91,20 +109,4 @@
     </div>
 </div>
 </body>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function deleteTaskConfirm() {
-        var returnValue = confirm("Delete Task? (This cannot be undone)");
-        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
-        var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
-        var taskId = /*[[${currentProject?.id}]]*/ null;
-        if (returnValue == true) {
-            return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
-        }
-        else {
-            return false;
-        }
-    }
-    /*]]>*/
-</script>
 </html>

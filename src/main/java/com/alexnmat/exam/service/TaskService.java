@@ -31,13 +31,13 @@ public class TaskService extends Utilities {
     }
 
 
-    public SubProject findBySubProjectId(long subProjectId) {
-        return subProjectRepository.findById(subProjectId)
-                .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
+    public Task findTaskById(long taskId) {
+        return taskRepository.findById(taskId)
+                .orElseThrow(() -> new NoResultException("Unable to find Task by id: " + taskId));
     }
 
-    public TaskDTO findTaskIdAndNameBySubProjectId(long subProjectId) {
-        return taskRepository.findTaskIdAndNameBySubProjectId(subProjectId);
+    public TaskDTO findTaskIdAndNameById(long taskId) {
+        return taskRepository.findTaskIdAndNameById(taskId);
     }
 
     public List<TaskDTO> getTaskDTOList(long subProjectId) {
@@ -66,6 +66,7 @@ public class TaskService extends Utilities {
         if (dateChecker(task.getUtilStartDate(), task.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
         }
+        task.setCompleted(false);
         task.setSubProject(subProject);
         return taskRepository.save(task);
     }

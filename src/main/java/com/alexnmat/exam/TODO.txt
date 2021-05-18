@@ -27,3 +27,4 @@ Edit funktioner
 HTML
 Templates : needs subpackages
 DELETE CONFIRM js
+fix querys for updating completed

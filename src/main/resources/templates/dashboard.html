@@ -59,11 +59,11 @@
                 </th:block>
 
                 <th:block th:if="${type} == 4">
-
+                    <div th:replace="fragments/selected-task.html :: selectedTask"></div>
                 </th:block>
 
                 <th:block th:if="${type} == 5">
-
+                    <div th:replace="fragments/selected-sub-task.html :: selectedSubTask"></div>
                 </th:block>
                 <!--
                 <div th:hidden="${currentSubProject?.id} != null">

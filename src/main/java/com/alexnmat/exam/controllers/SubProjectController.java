@@ -86,7 +86,7 @@ public class SubProjectController {
     public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
             subProjectService.complete(subProjectId);
             model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-            model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(subProjectId));
+            model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(projectId, subProjectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 
