@@ -12,7 +12,7 @@
             <br>
             <div class="columns is-mobile">
                 <div class="col-md-6 col-md-offset-3">
-                    <form action="#" th:action="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/addSubTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id}, taskId=${currentTask?.id})}"
+                    <form action="#" th:action="@{/dashboard/tasks/{taskId}/subTasks/addSubTask(taskId=${currentTask?.id})}"
                           th:object="${subTask}" method="post" class="form-horizontal"
                           role="form">
                         <div class="form-group">

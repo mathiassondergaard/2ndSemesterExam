@@ -45,20 +45,4 @@
 
 </div>
 </body>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function deleteTaskConfirm() {
-        var returnValue = confirm("Delete Task? (This cannot be undone)");
-        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
-        var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
-        var taskId = /*[[${currentProject?.id}]]*/ null;
-        if (returnValue == true) {
-            return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
-        }
-        else {
-            return false;
-        }
-    }
-    /*]]>*/
-</script>
 </html>

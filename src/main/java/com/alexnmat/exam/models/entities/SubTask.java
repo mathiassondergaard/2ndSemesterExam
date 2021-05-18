@@ -69,11 +69,11 @@ public class SubTask implements Serializable {
         this.task = task;
     }
 
-    public String getName() {
+    public String getSubTaskName() {
         return subTaskName;
     }
 
-    public void setName(String subTaskName) {
+    public void setSubTaskName(String subTaskName) {
         this.subTaskName = subTaskName;
     }
 

@@ -51,9 +51,11 @@
         </div>
         <div class="card-content">
             <div class="content">
-                <div id="addTeamMemberButton">
+                <div id="addSubTaskButton">
+
                     <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
-                       class="button is-primary is-small" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/createSubTask(projectId=${currentProject?.id}, taskId=${currentTask?.id} subProjectId=${currentSubProject?.id})}">Add Sub-Task</a>
+                       class="button is-primary is-small"
+                       th:href="@{/dashboard/tasks/{taskId}/subTasks/createSubTask(taskId=${currentTask?.id})}">Add Sub-Task</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Sub-Tasks registered!</h1>
                 <div th:case="*">
@@ -72,7 +74,7 @@
                             <tbody>
                             <tr th:each="subTask : ${subTasksForTask}">
                                 <td>
-                                    <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/{subTaskId}(subProjectId=${subProject.id}, projectId=${currentProject?.id}, taskId=${currentTask?.id}, subTaskId=${subTask.id})}" th:text="${subProject.subProjectName}"></a>
+                                    <a th:href="@{/dashboard/tasks/{taskId}/subTasks/{subTaskId}(taskId=${currentTask?.id}, subTaskId=${subTask.id})}" th:text="${subTask.subTaskName}"></a>
                                 </td>
                                 <td th:text="${subTask.utilStartDate}"></td>
                                 <td th:text="${subTask.utilEndDate}"></td>
@@ -85,12 +87,10 @@
                                         /*<![CDATA[*/
                                         function deleteSubTaskConfirm() {
                                             var returnValue = confirm("Delete Task? (This cannot be undone)");
-                                            var currentProjectId = /*[[${currentProject?.id}]]*/ null;
-                                            var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
                                             var taskId = /*[[${currentTask?.id}]]*/ null;
                                             var subTaskId = /*[[${subTask.id}]]*/ null;
                                             if (returnValue == true) {
-                                                return window.location.href = "/dashboard/projects/" + currentProjectId + "/subProjects/" + currentSubProjectId + "/tasks/" + taskId + "/subTasks/" + subTaskId + "/delete";
+                                                return window.location.href = "/dashboard/tasks/" + taskId + "/subTasks/" + subTaskId + "/delete";
                                             }
                                             else {
                                                 return false;
@@ -99,9 +99,7 @@
                                         /*]]>*/
                                     </script>
                                     <th:block th:if="${subTask.completed} == false">
-                                        @GetMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/{subTaskId}/complete")
-
-                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/{subtaskId}/complete(projectId=${currentProject?.id}, subProjectId=${subProject.id}, taskId=${currentTask?.id}, subTaskId=${subTask.id})}"
+                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/subTasks/{subtaskId}/complete(taskId=${currentTask?.id}, subTaskId=${subTask.id})}"
                                            class="button is-primary is-small">Complete</a>
                                     </th:block>
                                 </td>

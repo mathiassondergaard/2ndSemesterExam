@@ -27,6 +27,10 @@ public class SubProjectDTO {
         this.subProjectName = subProjectName;
     }
 
+    public SubProjectDTO(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

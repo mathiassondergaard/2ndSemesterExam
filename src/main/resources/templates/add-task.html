@@ -17,7 +17,7 @@
                     <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
                                            class="validation-message" -->
 
-                    <form action="#" th:action="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/addTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id})}"
+                    <form action="#" th:action="@{/dashboard/tasks/addTask/{subProjectId}(subProjectId=${subProjectDTO?.id})}"
                           th:object="${task}" method="post" class="form-horizontal"
                           role="form">
                         <div class="form-group">

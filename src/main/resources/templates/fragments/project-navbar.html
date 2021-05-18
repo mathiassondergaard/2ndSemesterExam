@@ -33,13 +33,13 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="deleteProjectConfirm()" class="button is-danger">Delete</button>
+                    <!-- TODO: also dont work in other shit, move to current project -->
+                    <button sec:authorize="hasAuthority('PROJECT_OWNER')" th:onclick="deleteProjectConfirm()" class="button is-danger is-small">Delete Project</button>
                 </div>
             </div>
         </div>
     </div>
 </nav>
-    <!-- TODO: reformat this to make it useable for all -->
     <script th:inline="javascript">
         /*<![CDATA[*/
         function deleteProjectConfirm() {

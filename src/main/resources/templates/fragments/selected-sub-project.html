@@ -48,9 +48,9 @@
         </div>
         <div class="card-content">
             <div class="content">
-                <div id="addTeamMemberButton">
+                <div id="addTaskButton">
                     <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
-                       class="button is-primary is-small" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/createTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id})}">Add Task</a>
+                       class="button is-primary is-small" th:href="@{/dashboard/tasks/createTask/{subProjectId}(subProjectId=${currentSubProject?.id})}">Add Task</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Tasks registered!</h1>
                 <div th:case="*">
@@ -69,7 +69,7 @@
                             <tbody>
                             <tr th:each="task : ${tasks}">
                                 <td>
-                                    <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}(subProjectId=${currentSubProject?.id}, projectId=${currentProject?.id}, taskId=${task.id})}" th:text="${task.taskName}"></a>
+                                    <a th:href="@{/dashboard/tasks/{taskId}(taskId=${task.id})}" th:text="${task.taskName}"></a>
                                 </td>
                                 <td th:text="${task.utilStartDate}"></td>
                                 <td th:text="${task.utilEndDate}"></td>
@@ -82,11 +82,9 @@
                                         /*<![CDATA[*/
                                         function deleteTaskConfirm() {
                                             var returnValue = confirm("Delete Task? (This cannot be undone)");
-                                            var currentProjectId = /*[[${currentProject?.id}]]*/ null;
-                                            var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
                                             var taskId = /*[[${task.id}]]*/ null;
                                             if (returnValue == true) {
-                                                return window.location.href = "/dashboard/projects/" + currentProjectId + "/subProjects/" + currentSubProjectId + "/tasks/" + taskId + "/delete";
+                                                return window.location.href = "/dashboard/tasks/" + taskId + "/delete";
                                             }
                                             else {
                                                 return false;
@@ -95,7 +93,7 @@
                                         /*]]>*/
                                     </script>
                                     <th:block th:if="${task.completed} == false">
-                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/complete(projectId=${currentProject?.id}, taskId=${task.id}, subProjectId=${currentSubProject?.id})}"
+                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/complete(taskId=${task.id})}"
                                            class="button is-primary is-small">Complete</a>
                                     </th:block>
                                 </td>

@@ -45,6 +45,7 @@ public class SubProjectController {
         model.addAttribute("subProjectsForProject", subProjectService.findSubProjectsForProject(projectId));
         model.addAttribute("type", 2);
         return "dashboard";
+
     }
 
     @GetMapping("{projectId}/subProjects/{subProjectId}")

@@ -21,10 +21,32 @@ TYPES:
 4: currentTask
 5: currentSubTask
 
+
+TODO: url name
+add app or projectory/dashboard/**
+
 TODO: SPRINTEN
-Effort - Controller, service, relation til projekt mm
+Effort - Controller, service, relation til projekt mm og HTML
 Edit funktioner
-HTML
 Templates : needs subpackages
-DELETE CONFIRM js
 fix querys for updating completed
+check subtaskcontroller for hvilke models der ik skal bruges
+complete bug?
+should ADD xxx also have type 1 etc so they are fragments?
+How do we handle time spent etc in task ... ?
+
+confirm for Complete?
+
+TODO: IMPORTANT
+cant go back to sub project menu in navbar etc after being in tasks, subtasks etc cus no projectId
+
+Fix this, use DTO???:
+Task task = taskService.findTaskById(taskId);
+        long projectId = task.getSubProject().getProject().getId();
+        long subProjectId = task.getSubProject().getId();
+
+NEW MAPPINGS, DO THIS:
+/dashboard/projects/**
+/dashbboard/projects/{projectid}/subprojects/**
+/dashboard/tasks/**
+/dashboard/tasks/{taskId}/subTasks/**

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import java.time.DateTimeException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,22 +43,6 @@ public class TaskService extends Utilities {
         return taskRepository.findAllByProjectId(subProjectId);
     }
 
-    public List<Task> findAllTasksForSubProjectId(long subProjectId) {
-        if (subProjectRepository.findAll().size() == 0) {
-            throw new NoResultException("No sub projects available in database");
-        } else {
-            List<Task> fullList = taskRepository.findAll();
-            List<Task> taskList = new ArrayList<>();
-            for (int i = 0; i < fullList.size(); i++) {
-                if (fullList.get(i).getSubProject().getId() == subProjectId) {
-                    taskList.add(fullList.get(i));
-                }
-            }
-            return taskList;
-        }
-    }
-
-
     public Task saveTask(Task task, long subProjectId) {
         SubProject subProject = subProjectRepository.findById(subProjectId)
                 .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
@@ -86,13 +69,13 @@ public class TaskService extends Utilities {
         return taskRepository.findById(taskId).get().getTotalTimeSpent();
     }
 
-    public SubProject findSubTaskByTaskId(long taskId) {
-        return subProjectRepository.findById(taskId)
-                .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
+    public SubTask findSubTaskById(long subTaskId) {
+        return subTaskRepository.findById(subTaskId)
+                .orElseThrow(() -> new NoResultException("Unable to find Sub-Task by id: " + subTaskId));
     }
 
     public List<SubTaskDTO> findAllSubTasksForTask(long taskId) {
-        return subTaskRepository.findDTOByTaskId(taskId);
+        return subTaskRepository.findSubTasksIdNameStartDateEndDateAndCompletedByTaskId(taskId);
     }
 
     public SubTask saveSubTask(SubTask subTask, long taskId) {

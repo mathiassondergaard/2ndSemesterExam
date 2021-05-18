@@ -39,7 +39,7 @@
         <!-- TODO: GO BACK BUTTONS EVERYWHERE! -->
         <div class="container column is-10">
             <div class="section">
-                <div th:unless="${currentProject?.id} == null"
+                <div th:if="${type==1} or ${type==2} or ${type==3} or ${type==4} or ${type==5}"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
                 <th:block th:if="${type} == null">
