@@ -27,9 +27,6 @@ public class Person implements Serializable {
     private String competence;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
-    private List<Hours> hours;
-
-    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     private List<TeamMember> teamMember;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
@@ -79,14 +76,6 @@ public class Person implements Serializable {
 
     public void setCompetence(String competence) {
         this.competence = competence;
-    }
-
-    public List<Hours> getHours() {
-        return hours;
-    }
-
-    public void setHours(List<Hours> hours) {
-        this.hours = hours;
     }
 
     public List<TeamMember> getTeamMember() {

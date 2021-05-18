@@ -19,23 +19,14 @@ public class TaskService extends Utilities {
 
     private SubProjectRepository subProjectRepository;
 
-    private ProjectRepository projectRepository;
-
     private TaskRepository taskRepository;
-
-    private PersonRepository personRepository;
-
-    private HoursRepository hoursRepository;
 
     private SubTaskRepository subTaskRepository;
 
     @Autowired
-    public TaskService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository, TaskRepository taskRepository, PersonRepository personRepository, HoursRepository hoursRepository, SubTaskRepository subTaskRepository) {
+    public TaskService(SubProjectRepository subProjectRepository, TaskRepository taskRepository, SubTaskRepository subTaskRepository) {
         this.subProjectRepository = subProjectRepository;
-        this.projectRepository = projectRepository;
         this.taskRepository = taskRepository;
-        this.personRepository = personRepository;
-        this.hoursRepository = hoursRepository;
         this.subTaskRepository = subTaskRepository;
     }
 

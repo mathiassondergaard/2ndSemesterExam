@@ -58,9 +58,6 @@ public class Project implements Serializable {
     private List<Effort> efforts;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Hours> hours;
-
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<SubProject> subProjects;
 
     public Project() {
@@ -149,14 +146,6 @@ public class Project implements Serializable {
 
     public void setEfforts(List<Effort> efforts) {
         this.efforts = efforts;
-    }
-
-    public List<Hours> getHours() {
-        return hours;
-    }
-
-    public void setHours(List<Hours> hours) {
-        this.hours = hours;
     }
 
     public List<SubProject> getSubProjects() {
