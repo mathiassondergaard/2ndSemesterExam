@@ -1,5 +1,6 @@
 package com.alexnmat.exam.controllers;
 
+import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.DTO.SubProjectDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.Task;
@@ -29,7 +30,11 @@ public class TaskController {
     @GetMapping(value = "{taskId}")
     public String currentTask(@PathVariable("taskId") long taskId, Model model) {
         model.getAttribute("projects");
-        model.addAttribute("currentTask", taskService.findTaskById(taskId));
+        //TODO: HARAM
+        Task task = taskService.findTaskById(taskId);
+        ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
+        model.addAttribute("currentProject", projectDTO);
+        model.addAttribute("currentTask", task);
         model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));
         model.addAttribute("type", 4);
         return "dashboard";

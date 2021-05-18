@@ -16,6 +16,10 @@ public class ProjectDTO {
         this.projectName = projectName;
     }
 
+    public ProjectDTO(long id) {
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

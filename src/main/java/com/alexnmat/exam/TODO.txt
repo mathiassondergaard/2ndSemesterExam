@@ -30,7 +30,6 @@ Effort - Controller, service, relation til projekt mm og HTML
 Edit funktioner
 Templates : needs subpackages
 fix querys for updating completed
-check subtaskcontroller for hvilke models der ik skal bruges
 complete bug?
 should ADD xxx also have type 1 etc so they are fragments?
 How do we handle time spent etc in task ... ?
@@ -38,7 +37,7 @@ How do we handle time spent etc in task ... ?
 confirm for Complete?
 
 TODO: IMPORTANT
-cant go back to sub project menu in navbar etc after being in tasks, subtasks etc cus no projectId
+cant go back to sub project menu in navbar etc after being in tasks, subtasks etc cus no projectId - sort of fixed now but haram kl 00:15 huehuehueh
 
 Fix this, use DTO???:
 Task task = taskService.findTaskById(taskId);

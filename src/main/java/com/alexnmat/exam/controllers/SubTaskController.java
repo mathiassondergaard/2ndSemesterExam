@@ -1,5 +1,6 @@
 package com.alexnmat.exam.controllers;
 
+import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.SubTask;
 import com.alexnmat.exam.models.entities.Task;
@@ -33,7 +34,11 @@ public class SubTaskController {
 
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
+        //TODO: HARAM
+        Task task = taskService.findTaskById(taskId);
+        ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         model.getAttribute("projects");
+        model.addAttribute("currentProject", projectDTO);
         model.addAttribute("currentTask", taskService.findTaskIdAndNameById(taskId));
         model.addAttribute("currentSubTask", taskService.findSubTaskById(subTaskId));
         model.addAttribute("type", 5);
