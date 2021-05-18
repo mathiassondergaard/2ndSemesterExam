@@ -2,13 +2,13 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head">
-    <title>Add Project</title>
+    <title>Add Task</title>
 </head>
 <body>
 <div class="container">
     <div class="content">
         <div class="container-row">
-            <h2 class="title is-4"><strong>Add Project</strong></h2>
+            <h2 class="title is-4"><strong>Add Task</strong></h2>
             <br>
             <div class="columns is-mobile">
                 <div class="col-md-6 col-md-offset-3">
@@ -17,18 +17,18 @@
                     <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
                                            class="validation-message" -->
 
-                    <form action="#" th:action="@{/dashboard/projects/addProject}"
-                          th:object="${project}" method="post" class="form-horizontal"
+                    <form action="#" th:action="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/addTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id})}"
+                          th:object="${task}" method="post" class="form-horizontal"
                           role="form">
                         <div class="form-group">
                             <div class="column">
                                 <strong>
-                                    <label for="projectName">Project Name</label>
-                                    <label for="projectName" th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}"
+                                    <label for="taskName">Task Name</label>
+                                    <label for="taskName" th:if="${#fields.hasErrors('taskName')}" th:errors="*{taskName}"
                                            class="validation-message"></label>
                                 </strong>
-                                <input type="text" th:field="*{projectName}"
-                                       placeholder="Name" class="input is-primary is-normal" id="projectName"
+                                <input type="text" th:field="*{taskName}"
+                                       placeholder="Name" class="input is-primary is-normal" id="taskName"
                                        style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
                             </div>
                         </div>
@@ -44,11 +44,6 @@
                                           th:field="*{description}" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"
                                 ></textarea>
                                 <p id="lblRemainingCount"></p>
-                                <!--
-                                <input type="text" th:field="*{projectName}"
-                                       placeholder="Project Description" class="input is-primary is-normal" id="projectDescription"
-                                       style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black; height: 100px"/>
-                            -->
                             </div>
                         </div>
                         <div class="form-group">
@@ -56,7 +51,7 @@
                                 <strong>
                                     <label for="startDate">Start Date</label>
                                     <label for="startDate" th:if="${#fields.hasErrors('utilStartDate')}" th:errors="*{utilStartDate}"
-                                           class="validation-message">Start Date</label>
+                                           class="validation-message"></label>
                                 </strong>
                                 <input style="color:black" type="date" th:value="*{utilStartDate}" th:field="*{utilStartDate}" placeholder="Start Date"
                                        class="input is-normal" id="startDate"/>
@@ -67,7 +62,7 @@
                                 <strong>
                                     <label for="endDate">End Date</label>
                                     <label for="endDate" th:if="${#fields.hasErrors('utilEndDate')}" th:errors="*{utilEndDate}"
-                                           class="validation-message">End Date</label>
+                                           class="validation-message"></label>
                                 </strong>
                                 <input style="color:black" type="date" th:value="*{utilEndDate}" th:field="*{utilEndDate}" placeholder="End Date"
                                        class="input is-normal" id="endDate"/>
@@ -75,7 +70,7 @@
                         </div>
                         <div class="form-group">
                             <div class="column">
-                                <button type="submit" class="button is-success">Add Project</button>
+                                <button type="submit" class="button is-success">Add Task</button>
                                 <a th:href="@{/dashboard/projects/}" class="button is-primary">Back to Dashboard</a>
                             </div>
                         </div>

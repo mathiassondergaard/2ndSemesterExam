@@ -2,33 +2,28 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head">
-    <title>Add Project</title>
+    <title>Add Sub-Task</title>
 </head>
 <body>
 <div class="container">
     <div class="content">
         <div class="container-row">
-            <h2 class="title is-4"><strong>Add Project</strong></h2>
+            <h2 class="title is-4"><strong>Add Sub-Task</strong></h2>
             <br>
             <div class="columns is-mobile">
                 <div class="col-md-6 col-md-offset-3">
-
-                    <!-- for validiation messages -->
-                    <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
-                                           class="validation-message" -->
-
-                    <form action="#" th:action="@{/dashboard/projects/addProject}"
-                          th:object="${project}" method="post" class="form-horizontal"
+                    <form action="#" th:action="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/addSubTask(projectId=${currentProject?.id}, subProjectId=${currentSubProject?.id}, taskId=${currentTask?.id})}"
+                          th:object="${subTask}" method="post" class="form-horizontal"
                           role="form">
                         <div class="form-group">
                             <div class="column">
                                 <strong>
-                                    <label for="projectName">Project Name</label>
-                                    <label for="projectName" th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}"
+                                    <label for="subTaskName">Sub-Task Name</label>
+                                    <label for="subTaskName" th:if="${#fields.hasErrors('subTaskName')}" th:errors="*{subTaskName}"
                                            class="validation-message"></label>
                                 </strong>
-                                <input type="text" th:field="*{projectName}"
-                                       placeholder="Name" class="input is-primary is-normal" id="projectName"
+                                <input type="text" th:field="*{subTaskName}"
+                                       placeholder="Name" class="input is-primary is-normal" id="subTaskName"
                                        style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
                             </div>
                         </div>
@@ -41,14 +36,9 @@
                                 </strong>
                                 <textarea id="textarea" onkeyup="textareaLengthCheck(this)" maxlength="250"
                                           class="textarea" placeholder="Description"
-                                          th:field="*{description}" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"
-                                ></textarea>
+                                          th:field="*{description}" style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;">
+                                </textarea>
                                 <p id="lblRemainingCount"></p>
-                                <!--
-                                <input type="text" th:field="*{projectName}"
-                                       placeholder="Project Description" class="input is-primary is-normal" id="projectDescription"
-                                       style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black; height: 100px"/>
-                            -->
                             </div>
                         </div>
                         <div class="form-group">
@@ -75,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <div class="column">
-                                <button type="submit" class="button is-success">Add Project</button>
+                                <button type="submit" class="button is-success">Add Sub-Task</button>
                                 <a th:href="@{/dashboard/projects/}" class="button is-primary">Back to Dashboard</a>
                             </div>
                         </div>

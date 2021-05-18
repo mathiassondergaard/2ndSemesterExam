@@ -22,7 +22,6 @@ public class TeamMember implements Serializable {
     private Project project;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @NotEmpty(message = "Please provide a ID!")
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
 

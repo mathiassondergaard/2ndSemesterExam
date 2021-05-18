@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div th:fragment="selectedTask">
+    <div class="card">
+        <div class="buttons">
+
+        </div>
+        <div class="card-header">
+            <p class="card-header-title">Task information</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
+                <h1 class="title is-6">Task Name:</h1>
+                <p th:text="${currentTask?.taskName}" id="currentTaskName"></p>
+                <h1 class="title is-6">Start Date:</h1>
+                <p th:text="${currentTask?.utilStartDate}"
+                   id="currentTaskStartDate"></p>
+                <h1 class="title is-6">End Date:</h1>
+                <p th:text="${currentTask?.utilEndDate}"
+                   id="currentTaskEndDate"></p>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Task Description</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <p th:text="${currentTask?.description}" id="currentProjectDescription"></p>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="card" th:switch="${subTasksForTask}">
+        <div class="card-header">
+            <p class="card-header-title">Sub-Tasks</p>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <div id="addTeamMemberButton">
+                    <!-- TODO: add a add sub Task hyperlink here" -->
+                    <a sec:authorize="hasAnyRole('PROJECT_OWNER', 'PROJECT_MANAGER')"
+                       class="button is-primary is-small">Add Sub-Task</a>
+                </div>
+                <h1 class="title is-6" th:case="null">No Sub-Tasks registered!</h1>
+                <div th:case="*">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Completed?</th>
+                                <th>Utilities</th>
+                                <!-- add limiter, pagination -->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="subTask : ${subTasksForTask}">
+                                <!-- TODO: add hyperlink as in all-subprojects-for-project,
+                                <a th:href="@{/dashboard/projects/{projectId}/subProjects/{subProjectId}(subProjectId=${subProject.id}, projectId=${currentProject?.id})}" th:text="${subProject.subProjectName}" -->
+                                <td th:text="${subTask.subTaskName}"></td>
+                                <td th:text="${subTask.utilStartDate}"></td>
+                                <td th:text="${subTask.utilEndDate}"></td>
+                                <td th:text="${subTask.completed}"></td>
+                                <!-- TODO: add a onclick confirm here (maybe), idk if the delete button should be there tho? -->
+                                <td>
+                                    <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteSubTaskConfirm" class="button is-danger is-small">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function deleteSubTaskConfirm() {
+        var returnValue = confirm("Delete Task? (This cannot be undone)");
+        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+        var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
+        var taskId = /*[[${currentProject?.id}]]*/ null;
+        if (returnValue == true) {
+            return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
+        }
+        else {
+            return false;
+        }
+    }
+    /*]]>*/
+</script>
+</html>

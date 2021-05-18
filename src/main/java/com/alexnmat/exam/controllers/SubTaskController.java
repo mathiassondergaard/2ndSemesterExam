@@ -54,7 +54,7 @@ public class SubTaskController {
         return "add-sub-task";
     }
 
-    @PostMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/")
+    @PostMapping(value = "{projectId}/subProjects/{subProjectId}/tasks/{taskId}/subTasks/addSubTask")
     public String createNewTask(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, @PathVariable("taskId") long taskId, @Valid SubTask subTask, @Valid Task task, @Valid SubTask subtask, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-task";

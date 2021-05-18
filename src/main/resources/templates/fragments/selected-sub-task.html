@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div th:fragment="selectedSubTask">
+    <div class="card">
+        <div class="buttons">
+
+        </div>
+        <div class="card-header">
+            <p class="card-header-title">Sub-Task information</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
+                <h1 class="title is-6">Sub-Task Name:</h1>
+                <p th:text="${currentSubTask?.subTaskName}" id="currentProjectName"></p>
+                <h1 class="title is-6">Start Date:</h1>
+                <p th:text="${currentSubTask?.utilStartDate}" id="currentTaskStartDate"></p>
+                <h1 class="title is-6">End Date:</h1>
+                <p th:text="${currentSubTask?.utilEndDate}" id="currentTaskEndDate"></p>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Sub-Task Description</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <p th:text="${currentSubTask?.description}" id="currentProjectDescription"></p>
+            </div>
+        </div>
+    </div>
+    <br/>
+
+</div>
+</body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function deleteTaskConfirm() {
+        var returnValue = confirm("Delete Task? (This cannot be undone)");
+        var currentProjectId = /*[[${currentProject?.id}]]*/ null;
+        var currentSubProjectId = /*[[${currentProject?.id}]]*/ null;
+        var taskId = /*[[${currentProject?.id}]]*/ null;
+        if (returnValue == true) {
+            return window.location.href = "/dashboard/projects/" + currentProjectId + "/delete";
+        }
+        else {
+            return false;
+        }
+    }
+    /*]]>*/
+</script>
+</html>

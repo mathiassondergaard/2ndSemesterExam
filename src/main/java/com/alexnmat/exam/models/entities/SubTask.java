@@ -27,7 +27,7 @@ public class SubTask implements Serializable {
 
     @Column(name = "sub_task_name")
     @NotEmpty(message = "Please provide a name!")
-    private String name;
+    private String subTaskName;
 
     @Column(name = "start_date")
     @NotNull(message = "Please provide a date!")
@@ -70,11 +70,11 @@ public class SubTask implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return subTaskName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String subTaskName) {
+        this.subTaskName = subTaskName;
     }
 
     public LocalDate getUtilStartDate() {

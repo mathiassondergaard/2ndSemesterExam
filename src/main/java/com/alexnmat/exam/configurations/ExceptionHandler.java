@@ -33,5 +33,7 @@ public class ExceptionHandler {
         mav.setViewName(DEFAULT_ERROR_VIEW);
         return mav;
     }
+
 }
+
 

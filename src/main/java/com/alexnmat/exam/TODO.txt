@@ -20,3 +20,10 @@ TYPES:
 3: currentsubproject
 4: currentTask
 5: currentSubTask
+
+TODO: SPRINTEN
+Effort - Controller, service, relation til projekt mm
+Edit funktioner
+HTML
+Templates : needs subpackages
+DELETE CONFIRM js

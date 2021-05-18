@@ -44,12 +44,7 @@ public class TeamMemberController {
         model.addAttribute("teamMember", teamMemberHelper);
         model.addAttribute("successMessage", "Team members successfully added! Type another ID to add more");
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-        try {
-            projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "An error occurred, please try again!");
-            return "add-team-member";
-        }
+        projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
         return "redirect:/dashboard/projects/" + projectId + "/addTeamMember";
     }
 

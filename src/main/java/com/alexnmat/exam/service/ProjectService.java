@@ -8,9 +8,11 @@ import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
 import com.alexnmat.exam.repositories.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;

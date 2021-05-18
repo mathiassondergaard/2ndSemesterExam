@@ -20,7 +20,7 @@ public interface SubTaskRepository extends JpaRepository<SubTask, Long> {
 
     SubTask findByCompleted(Boolean completed);
 
-    @Query("SELECT new com.alexnmat.exam.models.DTO.SubTaskDTO(st.id, st.name, st.utilStartDate, st.utilEndDate, st.completed) FROM SubTask st WHERE st.task.id = :taskId")
+    @Query("SELECT new com.alexnmat.exam.models.DTO.SubTaskDTO(st.id, st.subTaskName, st.utilStartDate, st.utilEndDate, st.completed) FROM SubTask st WHERE st.task.id = :taskId")
     List<SubTaskDTO> findDTOByTaskId(@Param("taskId") long taskId);
 
     @Transactional

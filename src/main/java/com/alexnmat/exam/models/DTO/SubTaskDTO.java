@@ -5,14 +5,14 @@ import java.time.LocalDate;
 public class SubTaskDTO {
 
     private long id;
-    private String name;
+    private String subTaskName;
     private LocalDate utilStartDate;
     private LocalDate utilEndDate;
     private Boolean completed;
 
-    public SubTaskDTO(long id, String name, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed) {
+    public SubTaskDTO(long id, String subTaskName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed) {
         this.id = id;
-        this.name = name;
+        this.subTaskName = subTaskName;
         this.utilStartDate = utilStartDate;
         this.utilEndDate = utilEndDate;
         this.completed = completed;
@@ -27,11 +27,11 @@ public class SubTaskDTO {
     }
 
     public String getName() {
-        return name;
+        return subTaskName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String subTaskName) {
+        this.subTaskName = subTaskName;
     }
 
     public LocalDate getUtilStartDate() {
