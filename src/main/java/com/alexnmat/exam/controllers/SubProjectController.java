@@ -49,11 +49,12 @@ public class SubProjectController {
     }
 
     @GetMapping("{projectId}/subProjects/{subProjectId}")
-    public String currentProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
+    public String currentSubProject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         model.getAttribute("projects");
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasks", taskService.getTaskDTOList(subProjectId));
+        subProjectService.updateTotalTimeSpentForSubProject(subProjectId, projectId);
         model.addAttribute("type", 3);
         return "dashboard";
     }

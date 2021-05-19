@@ -21,8 +21,8 @@
                 Sub Projects
             </a>
 
-            <a class="navbar-item">
-                Efforts
+            <a class="navbar-item" th:href="@{/dashboard/projects/{projectId}/statistics/(projectId=${currentProject?.id})}">
+                Statistics
             </a>
 
             <a class="navbar-item">

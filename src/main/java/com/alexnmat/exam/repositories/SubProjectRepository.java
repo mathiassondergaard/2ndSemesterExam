@@ -24,6 +24,9 @@ public interface SubProjectRepository extends JpaRepository<SubProject, Long> {
     @Query("SELECT new com.alexnmat.exam.models.DTO.SubProjectDTO(s.id, s.subProjectName, s.utilStartDate, s.utilEndDate, s.completed, s.person) FROM SubProject s WHERE s.project.id = :projectId")
     List<SubProjectDTO> findAllByProjectId(@Param("projectId") long projectId);
 
+    @Query("SELECT new com.alexnmat.exam.models.DTO.SubProjectDTO(s.id, s.allocatedHours, s.totalTimeSpent) FROM SubProject s WHERE s.project.id = :projectId")
+    List<SubProjectDTO> findSubProjectStatisticsByProjectId(@Param("projectId") long projectId);
+
     @Query("SELECT new com.alexnmat.exam.models.DTO.SubProjectDTO(s.id, s.subProjectName) FROM SubProject s WHERE s.project.id = :projectId AND s.id = :subProjectId")
     SubProjectDTO findSubProjectIdAndNameByProjectId(@Param("projectId") long projectId, @Param("subProjectId") long subProjectId);
 
@@ -31,4 +34,10 @@ public interface SubProjectRepository extends JpaRepository<SubProject, Long> {
     @Modifying
     @Query(value = "UPDATE SubProject SET completed = true WHERE id = :subProjectId")
     void setCompleted(@Param("subProjectId") long subProjectId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE SubProject SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :subProjectId")
+    void updateTotalTimeSpent(@Param("subProjectId") long subProjectId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+
 }

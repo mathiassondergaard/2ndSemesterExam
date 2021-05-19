@@ -55,7 +55,7 @@ public class Project implements Serializable {
     private List<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Effort> efforts;
+    private List<Statistics> statistics;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<SubProject> subProjects;
@@ -140,12 +140,12 @@ public class Project implements Serializable {
         this.teamMembers = teams;
     }
 
-    public List<Effort> getEfforts() {
-        return efforts;
+    public List<Statistics> getStatistics() {
+        return statistics;
     }
 
-    public void setEfforts(List<Effort> efforts) {
-        this.efforts = efforts;
+    public void setStatistics(List<Statistics> statistics) {
+        this.statistics = statistics;
     }
 
     public List<SubProject> getSubProjects() {

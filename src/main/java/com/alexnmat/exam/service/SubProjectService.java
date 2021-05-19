@@ -1,10 +1,11 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.DTO.ProjectDTO;
+import com.alexnmat.exam.models.DTO.SubTaskDTO;
+import com.alexnmat.exam.models.DTO.TaskDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.DTO.SubProjectDTO;
-import com.alexnmat.exam.repositories.PersonRepository;
-import com.alexnmat.exam.repositories.ProjectRepository;
-import com.alexnmat.exam.repositories.SubProjectRepository;
+import com.alexnmat.exam.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,15 @@ public class SubProjectService extends Utilities {
 
     private SubProjectRepository subProjectRepository;
     private ProjectRepository projectRepository;
+    private TaskRepository taskRepository;
+    private StatisticsService statisticsService;
 
     @Autowired
-    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository) {
+    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository, TaskRepository taskRepository, StatisticsService statisticsService) {
         this.subProjectRepository = subProjectRepository;
         this.projectRepository = projectRepository;
+        this.taskRepository = taskRepository;
+        this.statisticsService = statisticsService;
     }
 
     public SubProject findBySubProjectId(long subProjectId) {
@@ -62,5 +67,30 @@ public class SubProjectService extends Utilities {
     public void delete(long subProjectId) {
         SubProject subProject = findBySubProjectId(subProjectId);
         subProjectRepository.delete(subProject);
+    }
+
+    public void updateTotalTimeSpentForSubProject(long subProjectId, long projectId) {
+        int calculatedHours = calculateTotalHoursForSubProject(subProjectId);
+        int totalSubProjectHours = calculateTotalHoursForAllSubProjects(projectId);
+        statisticsService.updateSubProjectHoursInStatistics(totalSubProjectHours, projectId);
+        subProjectRepository.updateTotalTimeSpent(subProjectId, calculatedHours);
+    }
+
+    public int calculateTotalHoursForAllSubProjects(long projectId) {
+        int totalHours = 0;
+        List<SubProjectDTO> subProjectDTOList = subProjectRepository.findSubProjectStatisticsByProjectId(projectId);
+        for (int i = 0; i < subProjectDTOList.size(); i++) {
+            totalHours += subProjectDTOList.get(i).getTotalTimeSpent();
+        }
+        return totalHours;
+    }
+
+    private int calculateTotalHoursForSubProject(long subProjectId) {
+        int totalHours = 0;
+        List<TaskDTO> taskStatistics = taskRepository.findTaskStatisticsBySubProjectId(subProjectId);
+        for (int i = 0; i < taskStatistics.size(); i++) {
+            totalHours += taskStatistics.get(i).getTotalTimeSpent();
+        }
+        return totalHours;
     }
 }

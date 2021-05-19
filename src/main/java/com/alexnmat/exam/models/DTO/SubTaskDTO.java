@@ -9,6 +9,8 @@ public class SubTaskDTO {
     private LocalDate utilStartDate;
     private LocalDate utilEndDate;
     private Boolean completed;
+    private long allocatedHours;
+    private int totalTimeSpent;
 
     public SubTaskDTO(long id, String subTaskName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed) {
         this.id = id;
@@ -16,6 +18,28 @@ public class SubTaskDTO {
         this.utilStartDate = utilStartDate;
         this.utilEndDate = utilEndDate;
         this.completed = completed;
+    }
+
+    public SubTaskDTO(long id, long allocatedHours, int totalTimeSpent) {
+        this.id = id;
+        this.allocatedHours = allocatedHours;
+        this.totalTimeSpent = totalTimeSpent;
+    }
+
+    public long getAllocatedHours() {
+        return allocatedHours;
+    }
+
+    public void setAllocatedHours(long allocatedHours) {
+        this.allocatedHours = allocatedHours;
+    }
+
+    public int getTotalTimeSpent() {
+        return totalTimeSpent;
+    }
+
+    public void setTotalTimeSpent(int totalTimeSpent) {
+        this.totalTimeSpent = totalTimeSpent;
     }
 
     public long getId() {

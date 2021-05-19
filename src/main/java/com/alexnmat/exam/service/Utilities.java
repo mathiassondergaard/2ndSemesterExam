@@ -24,27 +24,6 @@ public abstract class Utilities {
         return endDate.isBefore(startDate);
     }
 
-    /*
-    HACKER SNIPPET
-     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentLoggedInUsersUsername = authentication.getName();
-        List<Person> personList = userRepository.findByUsername(currentLoggedInUsersUsername).getPersons();
-        long userId = userRepository.findByUsername(currentLoggedInUsersUsername).getId();
-        Person person = new Person();
-        for (int i = 0; i < personList.size(); i++) {
-            if (personList.get(i).getId() == userId) {
-                person.setId(personList.get(i).getId());
-                person.setName(personList.get(i).getName());
-                person.setLastName(personList.get(i).getLastName());
-                person.setCompetence(personList.get(i).getCompetence());
-            }
-            else {
-                throw new NoResultException("No person with id" + userId + "exists in database");
-            }
-        }
-        return person;
-     */
-
     //from STACKO (find link)
     public long calculateTotalWorkdayHours(LocalDate startDate, LocalDate endDate) {
         //Get startDay's value and endDay's value

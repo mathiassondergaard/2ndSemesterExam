@@ -13,22 +13,20 @@
             <br>
             <div class="columns is-mobile">
                 <div class="col-md-6 col-md-offset-3">
-                        <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject.id} + '/addMember'}"
+                        <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject?.id} + '/addMember'}"
                               method="post" class="form-horizontal" th:object="${teamMember}"
                               role="form">
                             <div class="column">
                                 <div class="form-group">
                                     <strong>
                                         <label for="personId">Person ID:</label>
-                                        <label for="personId" th:if="${#fields.hasErrors('personId')}" th:errors="*{personId}"
-                                               class="validation-message">Person ID</label>
                                     </strong>
-                                    <input type="text" th:field="*{personId}"
+                                    <input type="number" th:field="*{personId}"
                                            placeholder="Please input person ID" class="input is-primary is-normal" id="personId"
                                            style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
                                     <br>
                                     <button type="submit" class="button is-success">Add Team Member</button>
-                                    <a th:href="@{/dashboard/projects/{id}(id=${currentProject.id})}" class="button is-primary">Back to Project</a>
+                                    <a th:href="@{/dashboard/projects/{id}(id=${currentProject?.id})}" class="button is-primary">Back to Project</a>
                                 </div>
                             </div>
                             <h2 class="title is-4"><span class="text-success" th:utext="${successMessage}"></span></h2>

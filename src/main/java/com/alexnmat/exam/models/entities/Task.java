@@ -51,6 +51,9 @@ public class Task implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "allocated_hours")
+    private long allocatedHours;
+
     @Column(name = "total_time_spent")
     private int totalTimeSpent;
 
@@ -135,5 +138,13 @@ public class Task implements Serializable {
 
     public void setSubTasks(List<SubTask> subTasks) {
         this.subTasks = subTasks;
+    }
+
+    public long getAllocatedHours() {
+        return allocatedHours;
+    }
+
+    public void setAllocatedHours(long allocatedHours) {
+        this.allocatedHours = allocatedHours;
     }
 }

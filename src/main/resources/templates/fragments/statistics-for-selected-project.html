@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        lang="en">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div th:fragment="statistics">
+    <div class="card">
+        <div class="buttons">
+
+        </div>
+        <div class="card-header">
+            <p class="card-header-title">Statistics for Project</p>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <h1 class="title is-6">Project Hours</h1>
+                <p th:text="${statistics.projectHours}"></p>
+                <h1 class="title is-6">Project Allocated Hours</h1>
+                <p th:text="${statistics.project.projectName}"></p>
+                <h1 class="title is-6">Over time?</h1>
+                <p>no no no no</p>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="card" th:switch="${subProjects}">
+        <div class="card-header">
+            <p class="card-header-title">Sub Project Statistics</p>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
+                <div th:case="*">
+
+                        <div class="table">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Sub-Project Name</th>
+                                    <th>Time Spent (Hours)</th>
+                                    <th>Allocated Time (Hours)</th>
+                                    <th>Over Time?</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="subProject : ${subProjects}">
+                                    <td th:text="${subProject.subProjectName}"></td>
+                                    <td th:text="${subProject.totalTimeSpent}"></td>
+                                    <td th:text="${subProject.allocatedHours}"></td>
+                                    <td>blank</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card" th:switch="${subProjects}">
+        <div class="card-header">
+            <p class="card-header-title">Task Statistics</p>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
+                <div th:case="*">
+                        <div class="table">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Sub-Project Name</th>
+                                    <th>Task Name</th>
+                                    <th>Time Spent (Hours)</th>
+                                    <th>Allocated Time (Hours)</th>
+                                    <th>Over Time?</th>
+                                </tr>
+                                </thead>
+                                <th:block th:each="subProject : ${subProjects}">
+                                <tbody th:each="tasks : ${subProject.tasks}">
+                                <tr>
+                                    <td th:text="${tasks.subProject.subProjectName}"></td>
+                                    <td th:text="${tasks.taskName}"></td>
+                                    <td th:text="${tasks.totalTimeSpent}"></td>
+                                    <td th:text="${tasks.allocatedHours}"></td>
+                                    <td>blank</td>
+                                </tr>
+                                </tbody>
+                                </th:block>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="card" th:switch="${subProjects}">
+        <div class="card-header">
+            <p class="card-header-title">Sub-Task Statistics</p>
+        </div>
+        <div class="card-content">
+            <div class="content">
+                <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
+                <div th:case="*">
+                        <div class="table">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Task Name</th>
+                                    <th>Sub-Task Name</th>
+                                    <th>Time Spent (Hours)</th>
+                                    <th>Allocated Time (Hours)</th>
+                                    <th>Over Time?</th>
+                                </tr>
+                                </thead>
+                                <th:block th:each="subProject : ${subProjects}">
+                                <tbody th:each="tasks : ${subProject.tasks}">
+                                <tr th:each="subTasks : ${tasks.subTasks}">
+                                    <td th:text="${subTasks.task.taskName}"></td>
+                                    <td th:text="${subTasks.subTaskName}"></td>
+                                    <td th:text="${subTasks.totalTimeSpent}"></td>
+                                    <td th:text="${subTasks.allocatedHours}"></td>
+                                    <td>blank</td>
+                                </tr>
+                                </tbody>
+                                </th:block>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+</body>
+</html>

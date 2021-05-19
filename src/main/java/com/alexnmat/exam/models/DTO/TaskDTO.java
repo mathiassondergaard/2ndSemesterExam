@@ -9,6 +9,8 @@ public class TaskDTO {
     private LocalDate utilStartDate;
     private LocalDate utilEndDate;
     private Boolean completed;
+    private long allocatedHours;
+    private int totalTimeSpent;
 
     public TaskDTO(long id, String taskName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed) {
         this.id = id;
@@ -21,6 +23,12 @@ public class TaskDTO {
     public TaskDTO(long id, String taskName) {
         this.id = id;
         this.taskName = taskName;
+    }
+
+    public TaskDTO(long id, long allocatedHours, int totalTimeSpent) {
+        this.id = id;
+        this.allocatedHours = allocatedHours;
+        this.totalTimeSpent = totalTimeSpent;
     }
 
     public long getId() {
@@ -61,5 +69,21 @@ public class TaskDTO {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public long getAllocatedHours() {
+        return allocatedHours;
+    }
+
+    public void setAllocatedHours(long allocatedHours) {
+        this.allocatedHours = allocatedHours;
+    }
+
+    public int getTotalTimeSpent() {
+        return totalTimeSpent;
+    }
+
+    public void setTotalTimeSpent(int totalTimeSpent) {
+        this.totalTimeSpent = totalTimeSpent;
     }
 }

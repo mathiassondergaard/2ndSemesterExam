@@ -39,7 +39,7 @@
         <!-- TODO: GO BACK BUTTONS EVERYWHERE! -->
         <div class="container column is-10">
             <div class="section">
-                <div th:if="${type==1} or ${type==2} or ${type==3} or ${type==4} or ${type==5}"
+                <div th:if="${type==1} or ${type==2} or ${type==3} or ${type==4} or ${type==5} or ${type==6}"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
                 <th:block th:if="${type} == null">
@@ -64,6 +64,10 @@
 
                 <th:block th:if="${type} == 5">
                     <div th:replace="fragments/selected-sub-task.html :: selectedSubTask"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 6">
+                    <div th:replace="fragments/statistics-for-selected-project.html :: statistics"></div>
                 </th:block>
                 <!--
                 <div th:hidden="${currentSubProject?.id} != null">

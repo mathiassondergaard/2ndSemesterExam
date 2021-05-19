@@ -41,6 +41,38 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Add Hours Spent on Sub-Task</p>
+        </div>
+
+        <div class="card-content">
+            <div class="content">
+                <form action="#" th:action="@{/dashboard/tasks/{taskId}/subTasks/{subTaskId}/addHours(subTaskId=${currentSubTask?.id}, taskId=${currentTask?.id})}"
+                      th:object="${hoursHelper}" method="post" class="form-horizontal"
+                      role="form">
+                    <div class="form-group">
+                        <div class="column">
+                            <strong>
+                                <label for="taskName">Hours</label>
+                            </strong>
+                            <input type="number" th:field="*{hours}" width="20"
+                                   placeholder="Name" class="input is-primary is-normal" id="taskName"
+                                   style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="column">
+                            <button type="submit" class="button is-success">Add Hours</button>
+                        </div>
+                    </div>
+                    <h2 class="title is-4"><span class="text-success" th:utext="${successMessage}"></span></h2>
+                </form>
+            </div>
+        </div>
+    </div>
     <br/>
 
 </div>

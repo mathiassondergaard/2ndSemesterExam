@@ -8,8 +8,10 @@ import java.util.Objects;
 public class ProjectDTO {
 
     private long id;
-
     private String projectName;
+    private long allocatedHours;
+    private int totalTimeSpent;
+
 
     public ProjectDTO(long id, String projectName) {
         this.id = id;
@@ -18,6 +20,12 @@ public class ProjectDTO {
 
     public ProjectDTO(long id) {
         this.id = id;
+    }
+
+    public ProjectDTO(long id, long allocatedHours, int totalTimeSpent) {
+        this.id = id;
+        this.allocatedHours = allocatedHours;
+        this.totalTimeSpent = totalTimeSpent;
     }
 
     public long getId() {
@@ -34,5 +42,21 @@ public class ProjectDTO {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public long getAllocatedHours() {
+        return allocatedHours;
+    }
+
+    public void setAllocatedHours(long allocatedHours) {
+        this.allocatedHours = allocatedHours;
+    }
+
+    public int getTotalTimeSpent() {
+        return totalTimeSpent;
+    }
+
+    public void setTotalTimeSpent(int totalTimeSpent) {
+        this.totalTimeSpent = totalTimeSpent;
     }
 }

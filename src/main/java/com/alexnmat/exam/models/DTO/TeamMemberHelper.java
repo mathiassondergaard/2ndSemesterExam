@@ -1,5 +1,7 @@
 package com.alexnmat.exam.models.DTO;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.validation.constraints.NotEmpty;
 
 public class TeamMemberHelper {

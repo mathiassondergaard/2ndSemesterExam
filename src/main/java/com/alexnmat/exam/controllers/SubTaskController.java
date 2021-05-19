@@ -1,6 +1,8 @@
 package com.alexnmat.exam.controllers;
 
+import com.alexnmat.exam.models.DTO.HoursHelper;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
+import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.SubTask;
 import com.alexnmat.exam.models.entities.Task;
@@ -34,7 +36,7 @@ public class SubTaskController {
 
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
-        //TODO: HARAM
+        //TODO: HARAM, MAKE ANOTHER CONSTRUCTOR FOR FINDING THE ID
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         model.getAttribute("projects");
@@ -42,6 +44,7 @@ public class SubTaskController {
         model.addAttribute("currentTask", taskService.findTaskIdAndNameById(taskId));
         model.addAttribute("currentSubTask", taskService.findSubTaskById(subTaskId));
         model.addAttribute("type", 5);
+        model.addAttribute("hoursHelper", new HoursHelper());
         return "dashboard";
     }
 
@@ -67,7 +70,8 @@ public class SubTaskController {
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}/complete")
     public String completeSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
         taskService.completeSubTask(subTaskId);
-        return "redirect:/dashboard/tasks/" + taskId;    }
+        return "redirect:/dashboard/tasks/" + taskId;
+    }
 
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}/delete")
     public String deleteSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
@@ -75,5 +79,17 @@ public class SubTaskController {
         return "redirect:/dashboard/tasks/" + taskId;
 
     }
+
+    @PostMapping(value = "{taskId}/subTasks/{subTaskId}/addHours")
+    public String addTotalTimeSpentToSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, @Valid HoursHelper hoursHelper, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/dashboard/tasks/" + taskId + "/subTasks/" + subTaskId;
+        }
+        model.addAttribute("hoursHelper", hoursHelper);
+        taskService.updateTotalTimeSpentForSubTask(subTaskId, hoursHelper.getHours());
+        taskService.updateTotalTimeSpentForTask(taskId);
+        return "redirect:/dashboard/tasks/" + taskId + "/subTasks/" + subTaskId;
     }
+
+}
 

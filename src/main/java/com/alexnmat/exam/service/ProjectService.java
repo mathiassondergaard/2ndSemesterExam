@@ -1,11 +1,15 @@
 package com.alexnmat.exam.service;
 
+import com.alexnmat.exam.models.DTO.SubProjectDTO;
+import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.DTO.TeamMemberDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
+import com.alexnmat.exam.models.entities.Statistics;
 import com.alexnmat.exam.models.entities.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
+import com.alexnmat.exam.repositories.SubProjectRepository;
 import com.alexnmat.exam.repositories.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,16 +27,17 @@ public class ProjectService extends Utilities {
     private ProjectRepository projectRepository;
     private PersonRepository personRepository;
     private TeamMemberRepository teamMemberRepository;
+    private SubProjectService subProjectService;
+    private StatisticsService statisticsService;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, PersonRepository personRepository, TeamMemberRepository teamMemberRepository) {
+    public ProjectService(ProjectRepository projectRepository, PersonRepository personRepository, TeamMemberRepository teamMemberRepository, SubProjectService subProjectService, StatisticsService statisticsService) {
         this.projectRepository = projectRepository;
         this.personRepository = personRepository;
         this.teamMemberRepository = teamMemberRepository;
+        this.subProjectService = subProjectService;
+        this.statisticsService = statisticsService;
     }
-
-    //TODO: Different methods for getting projects based by if you are a team member on that one
-    //TODO: Maybe fetch all projects one time, and thereafter ONLY when it updates? think about it
 
     public ProjectService() {
     }
@@ -53,14 +58,15 @@ public class ProjectService extends Utilities {
     //TODO: We should maybe cache this
     public List<ProjectDTO> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
 
-
-    public Project save(Project project) {
+    public void save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());
         project.setAllocatedHours(calculateTotalWorkdayHours(project.getUtilStartDate(), project.getUtilEndDate()));
         if (dateChecker(project.getUtilStartDate(), project.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
         }
-        return projectRepository.save(project);
+        projectRepository.save(project);
+        statisticsService.createStatisticsTableForProject(project);
+
     }
 
     public void delete(long projectId) {
@@ -68,40 +74,11 @@ public class ProjectService extends Utilities {
         projectRepository.delete(project);
     }
 
-    /*
-    // Database optimization. Since we fetch all projects many times in the controller, we iterate through them in java to get a single project instead of fetching from DB.
-    public Project findProjectById(long projectId, List<Project> projects) {
-        Project foundProject = new Project();
-        for (Project project : projects) {
-            if (project.getId() == projectId) {
-                foundProject = project;
-            }
-        }
-        return foundProject;
+    public void updateTotalTimeSpentForProject(long projectId) {
+        int calculatedHours = subProjectService.calculateTotalHoursForAllSubProjects(projectId);
+        statisticsService.updateProjectHoursInStatistics(calculatedHours, projectId);
+        projectRepository.updateTotalTimeSpent(projectId, calculatedHours);
     }
-     */
-
-    //TODO: fix this bullshit
-    /*
-    public List<ProjectDTO> findProjectsWhereLoggedInUserIsTeamMember() {
-        List<ProjectDTO> projectsWithTeamMembers = projectRepository.findProjectIdsNamesAndTeamMembers();
-        List<ProjectDTO> loggedInPersonsList = new ArrayList<>();
-        long currentLoggedInPersonId = getCurrentLoggedInPerson().getId();
-
-        for (int i = 0; i < projectsWithTeamMembers.size(); i++) {
-            List<TeamMemberDTO> teamMemberDTOS = getAllTeamMembersForProject(projectsWithTeamMembers.get(i).getId());
-            for (int x = 0; x < teamMemberDTOS.size(); x++) {
-                if (teamMemberDTOS.get(i).getPerson().getId() == currentLoggedInPersonId) {
-
-
-                }
-            }
-        }
-
-        return projectRepository.findProjectIdsAndNamesForLoggedInPerson(personId);
-    }
-
-     */
 
     public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
         Project project = findByProjectId(projectId);

@@ -24,6 +24,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.taskName, t.utilStartDate, t.utilEndDate, t.completed) FROM Task t WHERE t.subProject.id = :subProjectId")
     List<TaskDTO> findAllByProjectId(@Param("subProjectId") long subProjectId);
 
+    @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.allocatedHours, t.totalTimeSpent) FROM Task t WHERE t.subProject.id = :subProjectId")
+    List<TaskDTO> findTaskStatisticsBySubProjectId(@Param("subProjectId") long subProjectId);
+
     @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.taskName) FROM Task t WHERE t.id = :taskId")
     TaskDTO findTaskIdAndNameById(@Param("taskId") long taskId);
 
@@ -31,4 +34,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Modifying
     @Query(value = "UPDATE Task SET completed = true WHERE id = :taskId")
     void setCompleted(@Param("taskId") long taskId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Task SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :taskId")
+    void updateTotalTimeSpent(@Param("taskId") long taskId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
 }

@@ -30,7 +30,7 @@ public class TaskController {
     @GetMapping(value = "{taskId}")
     public String currentTask(@PathVariable("taskId") long taskId, Model model) {
         model.getAttribute("projects");
-        //TODO: HARAM
+        //TODO: HARAM, MAKE ANOTHER CONSTRUCTOR FOR FINDING THE ID
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         model.addAttribute("currentProject", projectDTO);
