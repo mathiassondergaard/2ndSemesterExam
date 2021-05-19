@@ -75,23 +75,9 @@
                                 <td th:text="${task.utilEndDate}"></td>
                                 <td th:text="${task.completed}"></td>
                                 <td>
-                                    <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteTaskConfirm" class="button is-danger is-small">
+                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/delete(taskId=${task.id})}" class="button is-danger is-small">
                                         Delete
-                                    </button>
-                                    <script th:inline="javascript">
-                                        /*<![CDATA[*/
-                                        function deleteTaskConfirm() {
-                                            var returnValue = confirm("Delete Task? (This cannot be undone)");
-                                            var taskId = /*[[${task.id}]]*/ null;
-                                            if (returnValue == true) {
-                                                return window.location.href = "/dashboard/tasks/" + taskId + "/delete";
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        /*]]>*/
-                                    </script>
+                                    </a>
                                     <th:block th:if="${task.completed} == false">
                                         <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/complete(taskId=${task.id})}"
                                            class="button is-primary is-small">Complete</a>

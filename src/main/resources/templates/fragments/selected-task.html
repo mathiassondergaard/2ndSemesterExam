@@ -80,24 +80,9 @@
                                 <td th:text="${subTask.utilEndDate}"></td>
                                 <td th:text="${subTask.completed}"></td>
                                 <td>
-                                    <button sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:onclick="deleteSubTaskConfirm" class="button is-danger is-small">
+                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/subTasks/{subTaskId}/delete(taskId=${currentTask?.id}, subTaskId=${subTask.id})}" class="button is-danger is-small">
                                         Delete
-                                    </button>
-                                    <script th:inline="javascript">
-                                        /*<![CDATA[*/
-                                        function deleteSubTaskConfirm() {
-                                            var returnValue = confirm("Delete Task? (This cannot be undone)");
-                                            var taskId = /*[[${currentTask?.id}]]*/ null;
-                                            var subTaskId = /*[[${subTask.id}]]*/ null;
-                                            if (returnValue == true) {
-                                                return window.location.href = "/dashboard/tasks/" + taskId + "/subTasks/" + subTaskId + "/delete";
-                                            }
-                                            else {
-                                                return false;
-                                            }
-                                        }
-                                        /*]]>*/
-                                    </script>
+                                    </a>
                                     <th:block th:if="${subTask.completed} == false">
                                         <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/subTasks/{subtaskId}/complete(taskId=${currentTask?.id}, subTaskId=${subTask.id})}"
                                            class="button is-primary is-small">Complete</a>
