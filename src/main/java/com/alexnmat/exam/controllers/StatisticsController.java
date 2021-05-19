@@ -19,12 +19,10 @@ public class StatisticsController {
 
     private StatisticsService statisticsService;
     private ProjectService projectService;
-    private TaskService taskService;
 
     @Autowired
-    public StatisticsController(StatisticsService statisticsService, TaskService taskService, ProjectService projectService) {
+    public StatisticsController(StatisticsService statisticsService, ProjectService projectService) {
         this.statisticsService = statisticsService;
-        this.taskService = taskService;
         this.projectService = projectService;
     }
 

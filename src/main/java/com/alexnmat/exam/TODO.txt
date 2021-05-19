@@ -15,3 +15,5 @@ Templates : needs subpackages
 should ADD xxx also have type 1 etc so they are fragments?
 Edit funktioner
 add app or projectory/dashboard/**
+
+REMOVE ALL UNUSED IMPORTS, ETC
