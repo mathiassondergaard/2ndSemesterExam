@@ -40,6 +40,7 @@ public class ProjectController {
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("type", 1);
         model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
+        projectService.updateTotalTimeSpentForProject(projectId);
         return "dashboard";
     }
 

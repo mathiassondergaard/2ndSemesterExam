@@ -20,7 +20,7 @@
                 <h1 class="title is-6">Project Hours</h1>
                 <p th:text="${statistics.projectHours}"></p>
                 <h1 class="title is-6">Project Allocated Hours</h1>
-                <p th:text="${statistics.project.projectName}"></p>
+                <p th:text="${statistics.project.allocatedHours}"></p>
                 <h1 class="title is-6">Over time?</h1>
                 <p>no no no no</p>
             </div>
@@ -73,8 +73,8 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Sub-Project Name</th>
                                     <th>Task Name</th>
+                                    <th>Sub-Project Name</th>
                                     <th>Time Spent (Hours)</th>
                                     <th>Allocated Time (Hours)</th>
                                     <th>Over Time?</th>
@@ -83,8 +83,8 @@
                                 <th:block th:each="subProject : ${subProjects}">
                                 <tbody th:each="tasks : ${subProject.tasks}">
                                 <tr>
-                                    <td th:text="${tasks.subProject.subProjectName}"></td>
                                     <td th:text="${tasks.taskName}"></td>
+                                    <td th:text="${tasks.subProject.subProjectName}"></td>
                                     <td th:text="${tasks.totalTimeSpent}"></td>
                                     <td th:text="${tasks.allocatedHours}"></td>
                                     <td>blank</td>
@@ -110,8 +110,8 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Task Name</th>
                                     <th>Sub-Task Name</th>
+                                    <th>Task Name</th>
                                     <th>Time Spent (Hours)</th>
                                     <th>Allocated Time (Hours)</th>
                                     <th>Over Time?</th>
@@ -120,8 +120,8 @@
                                 <th:block th:each="subProject : ${subProjects}">
                                 <tbody th:each="tasks : ${subProject.tasks}">
                                 <tr th:each="subTasks : ${tasks.subTasks}">
-                                    <td th:text="${subTasks.task.taskName}"></td>
                                     <td th:text="${subTasks.subTaskName}"></td>
+                                    <td th:text="${subTasks.task.taskName}"></td>
                                     <td th:text="${subTasks.totalTimeSpent}"></td>
                                     <td th:text="${subTasks.allocatedHours}"></td>
                                     <td>blank</td>

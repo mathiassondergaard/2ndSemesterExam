@@ -1,97 +1,17 @@
 TO DO LIST:
 
-TODO - Validiation:
-Effort
-Hours
-Person - done
-Project - done
-SubProject - done
-SubTask - done (missing fields in html)
-Task - done (missing fields in html)
-TeamMember - done
-
-TODO: Date Validiation
-Type up a date validiator that throws an exception or something if end date is before start date
-
-
-TYPES:
-1: currentProject
-2: subprojects
-3: currentsubproject
-4: currentTask
-5: currentSubTask
-
-
-TODO: url name
-add app or projectory/dashboard/**
-
-TODO: SPRINTEN
-Effort - Controller, service, relation til projekt mm og HTML
-Edit funktioner
-Templates : needs subpackages
-fix querys for updating completed
-complete bug?
-should ADD xxx also have type 1 etc so they are fragments?
-How do we handle time spent etc in task ... ?
-
-confirm for Complete?
-
 TODO: IMPORTANT
-cant go back to sub project menu in navbar etc after being in tasks, subtasks etc cus no projectId - sort of fixed now but haram kl 00:15 huehuehueh
-
+(haram)
 Fix this, use DTO???:
 Task task = taskService.findTaskById(taskId);
         long projectId = task.getSubProject().getProject().getId();
         long subProjectId = task.getSubProject().getId();
 
-NEW MAPPINGS, DO THIS:
-/dashboard/projects/**
-/dashbboard/projects/{projectid}/subprojects/**
-/dashboard/tasks/**
-/dashboard/tasks/{taskId}/subTasks/**
-TODO: MAYBE?
+TODO: LAST SHIT
 Add limitations for datoer i subproject, task, subtask -> de skal være inden for de datoer givet i project
 Kig på repos i forskellige klasser.. kan vi kalde service i stedet for repo?
-
-TODO: LAST PART
-GÅR FRA SUBTASK (done)
-POST KNAP til Time Spent, skal tage time spent fra database -> kalkulere timeSpentFromDB + newTime == result -> skyde result op igen
-SUM AF ALLE SUBTASK = TIME SPENT ON TASK (done)
-SUM AF ALLE TASKS = TIME SPENT ON SUBPROJECT
-SUM AF ALLE SUBPROJECTS = TIME SPENT ON PROJECT
-
-MODEL: RENAME TIL STATISTICS
-TIME SPENT ON PROJECT
-TIME SPENT ON SUBPROJECT
-TIME SPENT ON TASK
-TIME SPENT ON SUBTASK
-TRÆK IND FRA EACH ENTITY I BACKEND
-
-EFFORT/STATISTICS:
-TIME SPENT ON PROJECT / TRÆK ALLOCATED HOURS IND OGSÅ, OG SE OM MAN ER OVER TIDSSCHEDULE
-TIME SPENT ON SUBPROJECTS / TRÆK ALLOCATED HOURS IND OGSÅ, OG SE OM MAN ER OVER TIDSSCHEDULE
-TIME SPENT ON TASKS / TRÆK ALLOCATED HOURS IND OGSÅ, OG SE OM MAN ER OVER TIDSSCHEDULE
-TIME SPENT ON SUBTASKS / TRÆK ALLOCATED HOURS IND OGSÅ, OG SE OM MAN ER OVER TIDSSCHEDULE
-
-BOOLEAN TIMESPENT IS OVER HOURS = TRUE/FALSE?
-
-VIEW:
-
-SKRIV AT HOURS ER BUSINESS HOURS
-
-PROJECT
-TIME SPENT
-TIME ALLOCATED
-OVER DEADLINE? IN HOURS
-
-LIST OF SUBPROJECTS
-TIME SPENT FOR EACH
-OVER ALLOCATED TIME?
-
-LIST OF TASKS
-TIME SPENT FOR EACH
-OVER ALLOCATED TIME?
-
-LIST OF SUBTASKS
-TIME SPENT FOR EACH
-OVER ALLOCATED TIME?
+LAV ALLOCATED HOURS / TIME SPENT MATH I THYMELEAF!
+Templates : needs subpackages
+should ADD xxx also have type 1 etc so they are fragments?
+Edit funktioner
+add app or projectory/dashboard/**

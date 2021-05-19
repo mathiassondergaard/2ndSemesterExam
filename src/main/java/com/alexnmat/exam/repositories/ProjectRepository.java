@@ -23,6 +23,12 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) FROM Project p")
     List<ProjectDTO> findProjectIdsAndNames();
 
+    //TODO: Maybe fix this?
+    /*
+    @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.allocatedHours, p.subProjects) FROM Project p WHERE p.id = :projectId")
+    ProjectDTO findProjectIdAllocatedHoursAndSubProjectsById(@Param("projectId") long projectId);
+     */
+
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.allocatedHours, p.totalTimeSpent) FROM Project p WHERE p.id = :projectId")
     ProjectDTO findProjectStatisticsByProjectId(@Param("projectId") long projectId);
 

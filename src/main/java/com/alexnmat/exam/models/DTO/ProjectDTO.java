@@ -1,5 +1,6 @@
 package com.alexnmat.exam.models.DTO;
 
+import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.TeamMember;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class ProjectDTO {
     private String projectName;
     private long allocatedHours;
     private int totalTimeSpent;
+    private List<SubProject> subProjects;
 
 
     public ProjectDTO(long id, String projectName) {
@@ -26,6 +28,12 @@ public class ProjectDTO {
         this.id = id;
         this.allocatedHours = allocatedHours;
         this.totalTimeSpent = totalTimeSpent;
+    }
+
+    public ProjectDTO(long id, long allocatedHours, List<SubProject> subProjects) {
+        this.id = id;
+        this.allocatedHours = allocatedHours;
+        this.subProjects = subProjects;
     }
 
     public long getId() {
@@ -58,5 +66,13 @@ public class ProjectDTO {
 
     public void setTotalTimeSpent(int totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
+    }
+
+    public List<SubProject> getSubProjects() {
+        return subProjects;
+    }
+
+    public void setSubProjects(List<SubProject> subProjects) {
+        this.subProjects = subProjects;
     }
 }
