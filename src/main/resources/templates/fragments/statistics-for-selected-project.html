@@ -22,7 +22,9 @@
                 <h1 class="title is-6">Project Allocated Hours</h1>
                 <p th:text="${statistics.project.allocatedHours}"></p>
                 <h1 class="title is-6">% of Time Spent / Allocated Hours</h1>
-                <p th:with="result=${statistics.projectHours / statistics.project.allocatedHours * 100}" th:text="${result} + '%'"></p>
+                <th:block th:with="result1=${statistics.projectHours / statistics.project.allocatedHours * 100}">
+                    <p th:text="${result1} + '%'"></p>
+                </th:block>
             </div>
         </div>
     </div>
@@ -52,8 +54,12 @@
                                     <td th:text="${subProject.subProjectName}"></td>
                                     <td th:text="${subProject.totalTimeSpent}"></td>
                                     <td th:text="${subProject.allocatedHours}"></td>
-                                    <td th:text="${subProject.totalTimeSpent / subProject.allocatedHours * 100} + '%'"></td>
-                                    <td th:text="${subProject.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
+                                    <th:block th:with="result2=${subProject.totalTimeSpent / subProject.allocatedHours * 100}">
+                                        <td th:text="${result2} + '%'"></td>
+                                    </th:block>
+                                    <th:block th:with="result3=${subProject.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                        <td th:text="${result3} + '%'"></td>
+                                    </th:block>
                                 </tr>
                                 </tbody>
                             </table>
@@ -90,8 +96,12 @@
                                     <td th:text="${tasks.subProject.subProjectName}"></td>
                                     <td th:text="${tasks.totalTimeSpent}"></td>
                                     <td th:text="${tasks.allocatedHours}"></td>
-                                    <td th:text="${tasks.totalTimeSpent / tasks.allocatedHours * 100} + '%'"></td>
-                                    <td th:text="${tasks.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
+                                    <th:block th:with="result4=${tasks.totalTimeSpent / tasks.allocatedHours * 100}">
+                                        <td th:text="${result4} + '%'"></td>
+                                    </th:block>
+                                    <th:block th:with="result5=${tasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                        <td th:text="${result5} + '%'"></td>
+                                    </th:block>
                                 </tr>
                                 </tbody>
                                 </th:block>
@@ -129,8 +139,12 @@
                                     <td th:text="${subTasks.task.taskName}"></td>
                                     <td th:text="${subTasks.totalTimeSpent}"></td>
                                     <td th:text="${subTasks.allocatedHours}"></td>
-                                    <td th:text="${subTasks.totalTimeSpent / subTasks.allocatedHours * 100} + '%'"></td>
-                                    <td th:text="${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
+                                    <th:block th:with="result6=${subTasks.totalTimeSpent / subTasks.allocatedHours * 100}">
+                                        <td th:text="${result6} + '%'"></td>
+                                    </th:block>
+                                    <th:block th:with="result7=${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                        <td th:text="${result7} + '%'"></td>
+                                    </th:block>
                                 </tr>
                                 </tbody>
                                 </th:block>
