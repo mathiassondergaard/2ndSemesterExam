@@ -14,7 +14,7 @@ Templates : needs subpackages
 should ADD xxx also have type 1 etc so they are fragments?
 add app or projectory/dashboard/**
 
-FIX MATH I STATISTICS?!?!??!?!! virker ikke, (FIX: Make all numbers, allocatedhours/timeSpent into double)
+FIX MATH I STATISTICS?!?!??!?!! virker ikke, (FIX: Make all numbers, allocatedhours/timeSpent into double) (limit decimals to 2)
 
 kommentare til kode!!!
 
