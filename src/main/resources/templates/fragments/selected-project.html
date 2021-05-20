@@ -21,6 +21,10 @@
                 <h1 class="title is-6">Project Owner:</h1>
                 <p th:text="${currentProject?.person?.name + ' ' + currentProject?.person?.lastName}"
                    id="currentProjectOwner"></p>
+                <h1 class="title is-6">Start Date and End Date:</h1>
+                <p th:text="'Start Date: ' + ${currentProject?.utilStartDate} + ', End Date: ' + ${currentProject?.utilEndDate} " id="dates"></p>
+                <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
+                <p th:text="${currentProject?.allocatedHours}" id="allocatedHours"></p>
             </div>
         </div>
     </div>
@@ -66,7 +70,6 @@
                             <tr th:each="teamMembers : ${teamMembersForProject}">
                                 <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
                                 <td th:text="${teamMembers.person.competence}"></td>
-                                <!-- TODO: add a onclick confirm here (maybe) -->
                                 <td>
                                     <a sec:authorize="hasAuthority('PROJECT_OWNER')" th:href="@{/dashboard/projects/{projectId}/deleteTeamMember/{teamMemberId}(projectId=${currentProject?.id}, teamMemberId=${teamMembers.id})}" class="button is-danger is-small">Delete</a>
                                 </td>
@@ -78,7 +81,6 @@
             </div>
         </div>
     </div>
-    <br>
     <br>
     <div class="buttons">
         <a sec:authorize="hasAuthority('PROJECT_OWNER')" th:href="@{/dashboard/projects/{projectId}/delete(projectId=${currentProject?.id})}" class="button is-danger is-small">Delete Project</a>

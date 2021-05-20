@@ -21,8 +21,8 @@
                 <p th:text="${statistics.projectHours}"></p>
                 <h1 class="title is-6">Project Allocated Hours</h1>
                 <p th:text="${statistics.project.allocatedHours}"></p>
-                <h1 class="title is-6">Over time?</h1>
-                <p>no no no no</p>
+                <h1 class="title is-6">% of Time Spent / Allocated Hours</h1>
+                <p th:with="result=${statistics.projectHours / statistics.project.allocatedHours * 100}" th:text="${result} + '%'"></p>
             </div>
         </div>
     </div>
@@ -43,7 +43,8 @@
                                     <th>Sub-Project Name</th>
                                     <th>Time Spent (Hours)</th>
                                     <th>Allocated Time (Hours)</th>
-                                    <th>Over Time?</th>
+                                    <th>% of Time Spent / Allocated Hours</th>
+                                    <th>% of Time Spent / Project Hours</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +52,8 @@
                                     <td th:text="${subProject.subProjectName}"></td>
                                     <td th:text="${subProject.totalTimeSpent}"></td>
                                     <td th:text="${subProject.allocatedHours}"></td>
-                                    <td>blank</td>
+                                    <td th:text="${subProject.totalTimeSpent / subProject.allocatedHours * 100} + '%'"></td>
+                                    <td th:text="${subProject.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -77,7 +79,8 @@
                                     <th>Sub-Project Name</th>
                                     <th>Time Spent (Hours)</th>
                                     <th>Allocated Time (Hours)</th>
-                                    <th>Over Time?</th>
+                                    <th>% of Time Spent / Allocated Hours</th>
+                                    <th>% of Time Spent / Project Hours</th>
                                 </tr>
                                 </thead>
                                 <th:block th:each="subProject : ${subProjects}">
@@ -87,7 +90,8 @@
                                     <td th:text="${tasks.subProject.subProjectName}"></td>
                                     <td th:text="${tasks.totalTimeSpent}"></td>
                                     <td th:text="${tasks.allocatedHours}"></td>
-                                    <td>blank</td>
+                                    <td th:text="${tasks.totalTimeSpent / tasks.allocatedHours * 100} + '%'"></td>
+                                    <td th:text="${tasks.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
                                 </tr>
                                 </tbody>
                                 </th:block>
@@ -114,7 +118,8 @@
                                     <th>Task Name</th>
                                     <th>Time Spent (Hours)</th>
                                     <th>Allocated Time (Hours)</th>
-                                    <th>Over Time?</th>
+                                    <th>% of Time Spent / Allocated Hours</th>
+                                    <th>% of Time Spent / Project Hours</th>
                                 </tr>
                                 </thead>
                                 <th:block th:each="subProject : ${subProjects}">
@@ -124,7 +129,8 @@
                                     <td th:text="${subTasks.task.taskName}"></td>
                                     <td th:text="${subTasks.totalTimeSpent}"></td>
                                     <td th:text="${subTasks.allocatedHours}"></td>
-                                    <td>blank</td>
+                                    <td th:text="${subTasks.totalTimeSpent / subTasks.allocatedHours * 100} + '%'"></td>
+                                    <td th:text="${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100} + '%'"></td>
                                 </tr>
                                 </tbody>
                                 </th:block>

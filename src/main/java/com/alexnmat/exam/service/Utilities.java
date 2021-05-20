@@ -2,6 +2,7 @@ package com.alexnmat.exam.service;
 
 import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.repositories.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,10 @@ public abstract class Utilities {
 
     public boolean dateChecker(LocalDate startDate, LocalDate endDate) {
         return endDate.isBefore(startDate);
+    }
+
+    public boolean dateInBetweenChecker(LocalDate existingStartDate, LocalDate startDate, LocalDate existingEndDate, LocalDate endDate) {
+        return startDate.isEqual(existingStartDate) || startDate.isAfter(existingStartDate) && endDate.isEqual(existingEndDate) || endDate.isBefore(existingEndDate);
     }
 
     //from STACKO (find link)

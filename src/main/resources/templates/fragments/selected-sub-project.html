@@ -24,6 +24,10 @@
                 <h1 class="title is-6">Project Owner:</h1>
                 <p th:text="${currentSubProject?.person?.name + ' ' + currentSubProject?.person?.lastName}"
                    id="currentProjectOwner"></p>
+                <h1 class="title is-6">Start Date and End Date:</h1>
+                <p th:text="'Start Date: ' + ${currentSubProject?.utilStartDate} + ', End Date: ' + ${currentSubProject?.utilEndDate} " id="dates"></p>
+                <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
+                <p th:text="${currentSubProject?.allocatedHours}" id="allocatedHours"></p>
             </div>
         </div>
     </div>
@@ -90,6 +94,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <br>
+    <div class="buttons">
+        <a th:href="@{/dashboard/projects/{projectId}/subProjects(projectId=${currentProject?.id})}" class="button is-primary is-small">Back to Sub-Projects</a>
     </div>
 </div>
 </body>

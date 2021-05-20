@@ -21,10 +21,10 @@
                 <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
                 <h1 class="title is-6">Sub-Task Name:</h1>
                 <p th:text="${currentSubTask?.subTaskName}" id="currentProjectName"></p>
-                <h1 class="title is-6">Start Date:</h1>
-                <p th:text="${currentSubTask?.utilStartDate}" id="currentTaskStartDate"></p>
-                <h1 class="title is-6">End Date:</h1>
-                <p th:text="${currentSubTask?.utilEndDate}" id="currentTaskEndDate"></p>
+                <h1 class="title is-6">Start Date and End Date:</h1>
+                <p th:text="'Start Date: ' + ${currentSubTask?.utilStartDate} + ', End Date: ' + ${currentSubTask?.utilEndDate} " id="dates"></p>
+                <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
+                <p th:text="${currentSubTask?.allocatedHours}" id="allocatedHours"></p>
             </div>
         </div>
     </div>
@@ -74,7 +74,10 @@
         </div>
     </div>
     <br/>
-
+    <br>
+    <div class="buttons">
+        <a th:href="@{/dashboard/tasks/{taskId}(taskId=${currentTask?.id})}" class="button is-primary is-small">Back to selected Task</a>
+    </div>
 </div>
 </body>
 </html>

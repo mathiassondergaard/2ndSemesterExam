@@ -50,6 +50,9 @@ public class TaskService extends Utilities {
         if (dateChecker(task.getUtilStartDate(), task.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
         }
+        if (!dateInBetweenChecker(subProject.getUtilStartDate(), task.getUtilStartDate(), subProject.getUtilEndDate(), task.getUtilEndDate())) {
+            throw new DateTimeException("Task Dates must be in between Sub Project start/end dates!");
+        }
         task.setAllocatedHours(calculateTotalWorkdayHours(task.getUtilStartDate(), task.getUtilEndDate()));
         task.setCompleted(false);
         task.setSubProject(subProject);
@@ -106,6 +109,9 @@ public class TaskService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
         if (dateChecker(subTask.getUtilStartDate(), subTask.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
+        }
+        if (!dateInBetweenChecker(task.getUtilStartDate(), subTask.getUtilStartDate(), task.getUtilEndDate(), subTask.getUtilEndDate())) {
+            throw new DateTimeException("Task Dates must be in between Task start/end dates!");
         }
         subTask.setAllocatedHours(calculateTotalWorkdayHours(subTask.getUtilStartDate(), subTask.getUtilEndDate()));
         subTask.setCompleted(false);

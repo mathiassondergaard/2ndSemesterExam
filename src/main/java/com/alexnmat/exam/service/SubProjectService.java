@@ -3,6 +3,7 @@ package com.alexnmat.exam.service;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.DTO.TaskDTO;
+import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.DTO.SubProjectDTO;
 import com.alexnmat.exam.repositories.*;
@@ -47,15 +48,19 @@ public class SubProjectService extends Utilities {
     }
 
     public SubProject save(SubProject subProject, long projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId));
         subProject.setPerson(getCurrentLoggedInPerson());
 
-        subProject.setProject(projectRepository.findById(projectId)
-                .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
+        subProject.setProject(project);
 
         subProject.setAllocatedHours(calculateTotalWorkdayHours(subProject.getUtilStartDate(), subProject.getUtilEndDate()));
         subProject.setCompleted(false);
         if (dateChecker(subProject.getUtilStartDate(), subProject.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
+        }
+        if (!dateInBetweenChecker(project.getUtilStartDate(), subProject.getUtilStartDate(), project.getUtilEndDate(), subProject.getUtilEndDate())) {
+            throw new DateTimeException("Sub Project Dates must be in between Project start/end dates!");
         }
         return subProjectRepository.save(subProject);
     }

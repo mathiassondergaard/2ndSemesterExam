@@ -12,11 +12,6 @@
             <br>
             <div class="columns is-mobile">
                 <div class="col-md-6 col-md-offset-3">
-
-                    <!-- for validiation messages -->
-                    <!-- th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"
-                                           class="validation-message" -->
-
                     <form action="#" th:action="@{/dashboard/projects/{projectId}/addSubProject(projectId=${currentProject?.id})}"
                           th:object="${subProject}" method="post" class="form-horizontal"
                           role="form">

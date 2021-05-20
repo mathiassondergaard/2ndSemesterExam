@@ -30,9 +30,11 @@ public class TaskController {
     @GetMapping(value = "{taskId}")
     public String currentTask(@PathVariable("taskId") long taskId, Model model) {
         model.getAttribute("projects");
-        //TODO: HARAM, MAKE ANOTHER CONSTRUCTOR FOR FINDING THE ID
+        //TODO: comment why u did this shit
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
+        SubProjectDTO subProjectDTO = new SubProjectDTO(task.getSubProject().getId());
+        model.addAttribute("currentSubProject", subProjectDTO);
         model.addAttribute("currentProject", projectDTO);
         model.addAttribute("currentTask", task);
         model.addAttribute("subTasksForTask", taskService.findAllSubTasksForTask(taskId));

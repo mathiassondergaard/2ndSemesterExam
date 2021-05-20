@@ -1,5 +1,6 @@
 package com.alexnmat.exam.controllers;
 
+import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.StatisticsService;
@@ -28,10 +29,12 @@ public class StatisticsController {
 
     @GetMapping("{projectId}/statistics")
     public String showStatisticsForProject(@PathVariable("projectId") long projectId, Model model) {
+        ProjectDTO projectDTO = projectService.findProjectNameAndId(projectId);
         model.addAttribute("statistics", statisticsService.findHoursForProject(projectId));
         List<SubProject> subProjects = projectService.findByProjectId(projectId).getSubProjects();
         model.addAttribute("subProjects", subProjects);
         model.addAttribute("type", 6);
+        model.addAttribute("currentProject", projectDTO);
         return "dashboard";
     }
 }
