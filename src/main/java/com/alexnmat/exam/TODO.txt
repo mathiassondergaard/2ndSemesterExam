@@ -12,3 +12,4 @@ REMOVE ALL UNUSED IMPORTS, ETC
 
 
 find code snippets to explainnnn
+skriv værktøjer shit
