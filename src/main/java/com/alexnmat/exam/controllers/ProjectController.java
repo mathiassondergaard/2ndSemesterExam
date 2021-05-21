@@ -14,9 +14,6 @@ import javax.validation.Valid;
 @RequestMapping(value = "/dashboard/")
 public class ProjectController {
 
-    //https://stackoverflow.com/questions/27461283/how-to-access-fragment-in-fragment-from-controller
-    //Fragments in controller ( return "fragments/PAGE :: fragment"
-
     //We fetch all projects from the database due to our left menu on dashboard, that enables you to navigate between projects. However we only fetch name and ID.
     //Database optimization is therefore done in Service class.
 
@@ -45,14 +42,20 @@ public class ProjectController {
     }
 
     @GetMapping(value = "projects/createProject")
-    public String showCreateProjectForm(Project project) { return "add-project"; }
+    public String showCreateProjectForm(Project project, Model model) {
+        model.addAttribute("type", 7);
+        return "dashboard";
+    }
 
     @PostMapping(value = "projects/addProject")
     public String createNewProject(@Valid Project project, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add-project";
+            model.addAttribute("type", 7);
+            model.addAttribute("project", project);
+            return "dashboard";
         }
         model.addAttribute("successMessage", "Project successfully created!");
+        model.addAttribute("type", 8);
         model.addAttribute("project", project);
         projectService.save(project);
         return "redirect:/dashboard/projects";
@@ -62,27 +65,5 @@ public class ProjectController {
     public String deleteProject(@PathVariable("projectId") long projectId, Model model) {
         projectService.delete(projectId);
         return "redirect:/dashboard/projects";
-    }
-
-    //TODO: Havent done these two yet
-    @GetMapping("projects/{projectId}/edit")
-    public String showUpdateProjectForm(@PathVariable("projectId") long projectId, Model model) {
-        Project project = projectService.findByProjectId(projectId);
-        model.addAttribute("currentProject", project);
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-
-        return "update-project";
-    }
-
-    @PostMapping("projects/{projectId}/update")
-    public String updateProject(@PathVariable("projectId") long projectId, @Valid Project project, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            project.setId(projectId);
-            return "update-project";
-        }
-
-        projectService.save(project);
-        model.addAttribute("successMessage", "Project successfully updated!");
-        return "redirect:/dashboard/projects/" + projectId;
     }
 }

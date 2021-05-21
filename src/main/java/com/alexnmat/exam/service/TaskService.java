@@ -1,6 +1,5 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.DTO.SubProjectDTO;
 import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.DTO.TaskDTO;
 import com.alexnmat.exam.models.entities.SubProject;
@@ -66,12 +65,12 @@ public class TaskService extends Utilities {
     }
 
     public void updateTotalTimeSpentForTask(long taskId) {
-        int calculatedHours = calculateTotalHoursForTask(taskId);
+        double calculatedHours = calculateTotalHoursForTask(taskId);
         taskRepository.updateTotalTimeSpent(taskId, calculatedHours);
     }
 
-    private int calculateTotalHoursForTask(long taskId) {
-        int totalHours = 0;
+    private double calculateTotalHoursForTask(long taskId) {
+        double totalHours = 0;
         List<SubTaskDTO> subTaskStatistics = subTaskRepository.findStatisticsOnSubTasksByTaskId(taskId);
         for (int i = 0; i < subTaskStatistics.size(); i++) {
             totalHours += subTaskStatistics.get(i).getTotalTimeSpent();
@@ -87,7 +86,7 @@ public class TaskService extends Utilities {
         taskRepository.setCompleted(taskId);
     }
 
-    public int calculateTimeSpent(long taskId) {
+    public double calculateTimeSpent(long taskId) {
         return taskRepository.findById(taskId).get().getTotalTimeSpent();
     }
 
@@ -130,10 +129,10 @@ public class TaskService extends Utilities {
         subTaskRepository.setCompleted(subTaskId);
     }
 
-    public void updateTotalTimeSpentForSubTask(long subTaskId, int newHours) {
+    public void updateTotalTimeSpentForSubTask(long subTaskId, double newHours) {
         SubTaskDTO subTaskDTO = subTaskRepository.findStatisticsOnSubTaskBySubTaskId(subTaskId);
-        int currentHours = subTaskDTO.getTotalTimeSpent();
-        int calculatedHours = currentHours + newHours;
+        double currentHours = subTaskDTO.getTotalTimeSpent();
+        double calculatedHours = currentHours + newHours;
         subTaskRepository.updateTotalTimeSpent(subTaskId, calculatedHours);
     }
 

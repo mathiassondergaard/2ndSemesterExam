@@ -38,6 +38,6 @@ public interface SubProjectRepository extends JpaRepository<SubProject, Long> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE SubProject SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :subProjectId")
-    void updateTotalTimeSpent(@Param("subProjectId") long subProjectId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateTotalTimeSpent(@Param("subProjectId") long subProjectId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 
 }

@@ -36,10 +36,9 @@
             </ul>
         </aside>
 
-        <!-- TODO: GO BACK BUTTONS EVERYWHERE! -->
         <div class="container column is-10">
             <div class="section">
-                <div th:if="${type==1} or ${type==2} or ${type==3} or ${type==4} or ${type==5} or ${type==6}"
+                <div th:if="${type==1} or ${type==2} or ${type==3} or ${type==4} or ${type==5} or ${type==6} or ${type==8} or ${type==9} or ${type==10} or ${type==11}"
                      th:include="fragments/project-navbar.html :: projectNavbar"></div>
                 <br>
                 <th:block th:if="${type} == null">
@@ -69,25 +68,26 @@
                 <th:block th:if="${type} == 6">
                     <div th:replace="fragments/statistics-for-selected-project.html :: statistics"></div>
                 </th:block>
-                <!--
-                <div th:hidden="${currentSubProject?.id} != null">
-                    <div th:hidden="${subProjectsForProject} != null">
-                        <th:block th:unless="${currentProject?.id} == null">
-                            <div th:include="fragments/selected-project.html :: selectedProject"></div>
-                        </th:block>
-                    </div>
-                    <div th:hidden="${currentSubProject} != null">
-                        <th:block th:unless="${subProjectsForProject} == null">
-                            <div th:include="fragments/all-subprojects-for-project.html :: allSubProjectsForProject"></div>
-                        </th:block>
-                    </div>
-                </div>
-                <div>
-                    <th:block th:unless="${currentSubProject?.id} == null">
-                        <div th:include="fragments/selected-sub-project.html :: selectedSubProject"></div>
-                    </th:block>
-                </div>
-                -->
+
+                <th:block th:if="${type} == 7">
+                    <div th:replace="fragments/add-project.html :: addProject"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 8">
+                    <div th:replace="fragments/add-team-member.html :: addTeamMember"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 9">
+                    <div th:replace="fragments/add-sub-project.html :: addSubProject"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 10">
+                    <div th:replace="fragments/add-task.html :: addTask"></div>
+                </th:block>
+
+                <th:block th:if="${type} == 11">
+                    <div th:replace="fragments/add-sub-task.html :: addSubTask"></div>
+                </th:block>
             </div>
         </div>
 

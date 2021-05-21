@@ -2,10 +2,7 @@ package com.alexnmat.exam.controllers;
 
 import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.DTO.SubProjectDTO;
-import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.Task;
-import com.alexnmat.exam.service.ProjectService;
-import com.alexnmat.exam.service.SubProjectService;
 import com.alexnmat.exam.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +17,6 @@ import javax.validation.Valid;
 public class TaskController {
 
     private TaskService taskService;
-
 
     @Autowired
     public TaskController(TaskService taskService) {
@@ -46,17 +42,19 @@ public class TaskController {
     public String showCreateTaskForm(@PathVariable("subProjectId") long subProjectId, Model model) {
         model.addAttribute("subProjectDTO", new SubProjectDTO(subProjectId));
         model.addAttribute("task", new Task());
-        return "add-task";
+        model.addAttribute("type", 10);
+        return "dashboard";
     }
 
-    //PASS REQUEST PARAM
-    //FÅ REQUEST PARAM FRA SELECTED SUB PROJECT HTML
-    //FIND SUB PROJECT VIA DEN
     @PostMapping(value = "addTask/{subProjectId}")
     public String createNewTask(@PathVariable("subProjectId") long subProjectId, @Valid Task task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add-task";
+            model.addAttribute("type", 10);
+            model.addAttribute("subProjectDTO", new SubProjectDTO(subProjectId));
+            model.addAttribute("task", task);
+            return "dashboard";
         }
+        model.addAttribute("type", 10);
         model.addAttribute("successMessage", "Task successfully created!");
         model.addAttribute("task", task);
         taskService.saveTask(task, subProjectId);
@@ -66,7 +64,6 @@ public class TaskController {
 
     @GetMapping(value = "{taskId}/complete")
     public String completeTask(@PathVariable("taskId") long taskId, Model model) {
-        //taskService.completeTask(taskId);
         //TODO: HARAM
         Task task = taskService.findTaskById(taskId);
         long projectId = task.getSubProject().getProject().getId();

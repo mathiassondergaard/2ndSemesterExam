@@ -23,7 +23,7 @@
                 <p th:text="${statistics.project.allocatedHours}"></p>
                 <h1 class="title is-6">% of Time Spent / Allocated Hours</h1>
                 <th:block th:with="result1=${statistics.projectHours / statistics.project.allocatedHours * 100}">
-                    <p th:text="${result1} + '%'"></p>
+                    <p th:text="${#numbers.formatDecimal(result1, 0, 2) + '%'}"></p>
                 </th:block>
             </div>
         </div>
@@ -55,10 +55,10 @@
                                     <td th:text="${subProject.totalTimeSpent}"></td>
                                     <td th:text="${subProject.allocatedHours}"></td>
                                     <th:block th:with="result2=${subProject.totalTimeSpent / subProject.allocatedHours * 100}">
-                                        <td th:text="${result2} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result2, 0, 2) + '%'}"></td>
                                     </th:block>
                                     <th:block th:with="result3=${subProject.totalTimeSpent / statistics.project.allocatedHours * 100}">
-                                        <td th:text="${result3} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result3, 0, 2) + '%'}"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>
@@ -97,10 +97,10 @@
                                     <td th:text="${tasks.totalTimeSpent}"></td>
                                     <td th:text="${tasks.allocatedHours}"></td>
                                     <th:block th:with="result4=${tasks.totalTimeSpent / tasks.allocatedHours * 100}">
-                                        <td th:text="${result4} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result4, 0, 2) + '%'}"></td>
                                     </th:block>
                                     <th:block th:with="result5=${tasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
-                                        <td th:text="${result5} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result5, 0, 2) + '%'}"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>
@@ -140,10 +140,10 @@
                                     <td th:text="${subTasks.totalTimeSpent}"></td>
                                     <td th:text="${subTasks.allocatedHours}"></td>
                                     <th:block th:with="result6=${subTasks.totalTimeSpent / subTasks.allocatedHours * 100}">
-                                        <td th:text="${result6} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result6, 0, 2) + '%'}"></td>
                                     </th:block>
                                     <th:block th:with="result7=${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
-                                        <td th:text="${result7} + '%'"></td>
+                                        <td th:text="${#numbers.formatDecimal(result7, 0, 2) + '%'}"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>

@@ -52,10 +52,10 @@ public class Task implements Serializable {
     private String description;
 
     @Column(name = "allocated_hours")
-    private long allocatedHours;
+    private double allocatedHours;
 
     @Column(name = "total_time_spent")
-    private int totalTimeSpent;
+    private double totalTimeSpent;
 
     public Task() {
     }
@@ -116,11 +116,11 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public int getTotalTimeSpent() {
+    public double getTotalTimeSpent() {
         return totalTimeSpent;
     }
 
-    public void setTotalTimeSpent(int totalTimeSpent) {
+    public void setTotalTimeSpent(double totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
     }
 
@@ -140,11 +140,11 @@ public class Task implements Serializable {
         this.subTasks = subTasks;
     }
 
-    public long getAllocatedHours() {
+    public double getAllocatedHours() {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(long allocatedHours) {
+    public void setAllocatedHours(double allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 }

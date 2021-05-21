@@ -17,15 +17,6 @@ import javax.validation.Valid;
 @RequestMapping("/dashboard/projects/")
 public class SubProjectController {
 
-    //TODO: vise alle subprojects når der klikkes på navbar
-    //klikke ind på et subproject
-    //få samme side som project info der viser alle tasks
-    //klikke ind på task
-    //give et view
-    //for det specifikke task
-    //klik ind på en subtask der står på tasks
-    //så kan du se subtasken
-
     private SubProjectService subProjectService;
     private TaskService taskService;
     private ProjectService projectService;
@@ -62,16 +53,22 @@ public class SubProjectController {
     @GetMapping(value = "{projectId}/subProjects/createSubProject")
     public String showCreateSubProjectForm(@PathVariable("projectId") long projectId, SubProject subProject, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-        return "add-sub-project";
+        model.addAttribute("type", 9);
+        return "dashboard";
     }
 
     @PostMapping(value = "{projectId}/addSubProject")
     public String createNewSubProject(@PathVariable("projectId") long projectId, @Valid SubProject subProject, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add-sub-project";
+            model.addAttribute("type", 9);
+            model.addAttribute("subProject", subProject);
+            model.addAttribute("type", 9);
+            model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+            return "dashboard";
         }
         model.addAttribute("successMessage", "Sub-Project successfully created!");
         model.addAttribute("subProject", subProject);
+        model.addAttribute("type", 9);
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         subProjectService.save(subProject, projectId);
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/" + subProject.getId();
@@ -90,29 +87,5 @@ public class SubProjectController {
             model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
             model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(projectId, subProjectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
-    }
-
-    //TODO: Havent done these two yet
-    @GetMapping("projects/{projectId}/edit")
-    public String showUpdateProjectForm(@PathVariable("projectId") long projectId, Model model) {
-        Project project = projectService.findByProjectId(projectId);
-        model.addAttribute("currentProject", project);
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-
-        return "update-project";
-    }
-
-    @PostMapping("projects/{projectId}/update")
-    public String updateProject(@PathVariable("projectId") long projectId, @Valid Project project, BindingResult result, Model model) {
-        if(result.hasErrors()) {
-            project.setId(projectId);
-            return "update-project";
-        }
-
-        projectService.save(project);
-        model.addAttribute("successMessage", "Project successfully updated!");
-        model.addAttribute("currentProject", projectService.findByProjectId(projectId));
-        model.addAttribute("projects", projectService.findProjectNamesAndIds());
-        return "redirect:/dashboard/projects/" + projectId;
     }
 }

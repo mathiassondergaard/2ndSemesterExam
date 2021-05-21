@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head :: head">
+    <title>Add Team Member</title>
+</head>
+<body>
+<div class="wrap" th:fragment="addTeamMember">
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Add Team Member</p>            <span>Add one person at a time</span>
+        </div>
+        <div class="card-content">
+            <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject?.id} + '/addMember'}"
+                  method="post" class="form-horizontal" th:object="${teamMember}"
+                  role="form">
+                <div class="column">
+                    <div class="form-group">
+                        <strong>
+                            <label for="personId">Person ID:</label>
+                        </strong>
+                        <input type="number" th:field="*{personId}"
+                               placeholder="Please input person ID" class="input is-primary is-normal" id="personId"
+                               style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
+                        <br>
+                        <br>
+                        <button type="submit" class="button is-success">Add Team Member</button>
+                        <a th:href="@{/dashboard/projects/{id}(id=${currentProject?.id})}" class="button is-primary">Back
+                            to
+                            Project</a>
+                    </div>
+                </div>
+                <h2 class="title is-4"><span class="text-success" th:utext="${successMessage}"></span></h2>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Person List</p>
+        </div>
+        <div class="card-contenet">
+            <div class="form-group" th:switch="persons">
+                <h1 class="title is-6" th:case="null">No persons in DB!</h1>
+                <div th:case="*">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Competence</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="person : ${persons}">
+                                <td th:text="${person.id}"></td>
+                                <td th:text="${person.name + ' ' + person.lastName}"></td>
+                                <td th:text="${person.competence}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

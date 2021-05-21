@@ -1,16 +1,10 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.DTO.ProjectDTO;
-import com.alexnmat.exam.models.DTO.SubProjectDTO;
-import com.alexnmat.exam.models.DTO.SubTaskDTO;
-import com.alexnmat.exam.models.DTO.TaskDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.entities.Statistics;
 import com.alexnmat.exam.repositories.StatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class StatisticsService  {
@@ -28,12 +22,12 @@ public class StatisticsService  {
         statisticsRepository.save(statistics);
     }
 
-    public void updateProjectHoursInStatistics(int totalHoursForProject, long projectId) {
+    public void updateProjectHoursInStatistics(double totalHoursForProject, long projectId) {
         statisticsRepository.updateStatisticsProjectHours(projectId, totalHoursForProject);
     }
 
 
-    public void updateSubProjectHoursInStatistics(int totalHoursForSubProjects, long projectId) {
+    public void updateSubProjectHoursInStatistics(double totalHoursForSubProjects, long projectId) {
         statisticsRepository.updateStatisticsSubProjectHours(projectId, totalHoursForSubProjects);
     }
 

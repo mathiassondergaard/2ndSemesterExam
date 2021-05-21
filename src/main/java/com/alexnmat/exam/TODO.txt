@@ -1,21 +1,10 @@
 TO DO LIST:
 
-TODO: IMPORTANT
-(haram) cant really fix this tho cus idk how to get DTO w. collections?
-Fix this, use DTO???:
-Task task = taskService.findTaskById(taskId);
-        long projectId = task.getSubProject().getProject().getId();
-        long subProjectId = task.getSubProject().getId();
-
 TODO: LAST SHIT
 Fix viewing projects that you are team member of in side menu
 Kig på repos i forskellige klasser.. kan vi kalde service i stedet for repo?
 Templates : needs subpackages
-should ADD xxx also have type 1 etc so they are fragments?
 add app or projectory/dashboard/**
 
-FIX MATH I STATISTICS?!?!??!?!! virker ikke, (FIX: Make all numbers, allocatedhours/timeSpent into double) (limit decimals to 2)
-
 kommentare til kode!!!
-
 REMOVE ALL UNUSED IMPORTS, ETC

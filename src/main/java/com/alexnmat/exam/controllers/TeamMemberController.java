@@ -33,15 +33,20 @@ public class TeamMemberController {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         model.addAttribute("persons", personService.findAllPersonsIdNameAndCompetence());
         model.addAttribute("teamMember", new TeamMemberHelper());
-        return "add-team-member";
+        model.addAttribute("type", 8);
+        return "dashboard";
     }
 
     @PostMapping("{projectId}/addMember")
     public String addTeamMember(@PathVariable("projectId") long projectId, @Valid TeamMemberHelper teamMemberHelper, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "add-team-member";
+            model.addAttribute("teamMember", teamMemberHelper);
+            model.addAttribute("type", 8);
+            model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+            return "dashboard";
         }
         model.addAttribute("teamMember", teamMemberHelper);
+        model.addAttribute("type", 8);
         model.addAttribute("successMessage", "Team members successfully added! Type another ID to add more");
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);

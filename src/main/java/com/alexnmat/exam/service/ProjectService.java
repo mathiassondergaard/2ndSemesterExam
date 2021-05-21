@@ -1,24 +1,17 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.DTO.SubProjectDTO;
-import com.alexnmat.exam.models.DTO.SubTaskDTO;
 import com.alexnmat.exam.models.DTO.TeamMemberDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
-import com.alexnmat.exam.models.entities.Statistics;
 import com.alexnmat.exam.models.entities.TeamMember;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
-import com.alexnmat.exam.repositories.SubProjectRepository;
 import com.alexnmat.exam.repositories.TeamMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import java.time.DateTimeException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,7 +69,7 @@ public class ProjectService extends Utilities {
     }
 
     public void updateTotalTimeSpentForProject(long projectId) {
-        int calculatedHours = subProjectService.calculateTotalHoursForAllSubProjects(projectId);
+        double calculatedHours = subProjectService.calculateTotalHoursForAllSubProjects(projectId);
         statisticsService.updateProjectHoursInStatistics(calculatedHours, projectId);
         projectRepository.updateTotalTimeSpent(projectId, calculatedHours);
     }

@@ -1,17 +1,15 @@
 package com.alexnmat.exam.models.DTO;
 
 import com.alexnmat.exam.models.entities.SubProject;
-import com.alexnmat.exam.models.entities.TeamMember;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ProjectDTO {
 
     private long id;
     private String projectName;
-    private long allocatedHours;
-    private int totalTimeSpent;
+    private double allocatedHours;
+    private double totalTimeSpent;
     private List<SubProject> subProjects;
 
 
@@ -24,13 +22,13 @@ public class ProjectDTO {
         this.id = id;
     }
 
-    public ProjectDTO(long id, long allocatedHours, int totalTimeSpent) {
+    public ProjectDTO(long id, double allocatedHours, double totalTimeSpent) {
         this.id = id;
         this.allocatedHours = allocatedHours;
         this.totalTimeSpent = totalTimeSpent;
     }
 
-    public ProjectDTO(long id, long allocatedHours, List<SubProject> subProjects) {
+    public ProjectDTO(long id, double allocatedHours, List<SubProject> subProjects) {
         this.id = id;
         this.allocatedHours = allocatedHours;
         this.subProjects = subProjects;
@@ -52,19 +50,19 @@ public class ProjectDTO {
         this.projectName = projectName;
     }
 
-    public long getAllocatedHours() {
+    public double getAllocatedHours() {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(long allocatedHours) {
+    public void setAllocatedHours(double allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 
-    public int getTotalTimeSpent() {
+    public double getTotalTimeSpent() {
         return totalTimeSpent;
     }
 
-    public void setTotalTimeSpent(int totalTimeSpent) {
+    public void setTotalTimeSpent(double totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
     }
 

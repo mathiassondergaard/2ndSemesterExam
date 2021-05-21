@@ -30,8 +30,8 @@ public class StatisticsController {
     @GetMapping("{projectId}/statistics")
     public String showStatisticsForProject(@PathVariable("projectId") long projectId, Model model) {
         ProjectDTO projectDTO = projectService.findProjectNameAndId(projectId);
-        model.addAttribute("statistics", statisticsService.findHoursForProject(projectId));
         List<SubProject> subProjects = projectService.findByProjectId(projectId).getSubProjects();
+        model.addAttribute("statistics", statisticsService.findHoursForProject(projectId));
         model.addAttribute("subProjects", subProjects);
         model.addAttribute("type", 6);
         model.addAttribute("currentProject", projectDTO);

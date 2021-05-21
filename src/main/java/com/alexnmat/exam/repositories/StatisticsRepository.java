@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
 
@@ -16,12 +15,12 @@ public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE Statistics SET projectHours = :totalHoursAfterCalculation WHERE project.id = :projectId")
-    void updateStatisticsProjectHours(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateStatisticsProjectHours(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 
     @Transactional
     @Modifying
     @Query(value = "UPDATE Statistics SET subProjectHours = :totalHoursAfterCalculation WHERE project.id = :projectId")
-    void updateStatisticsSubProjectHours(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateStatisticsSubProjectHours(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 
 
 }

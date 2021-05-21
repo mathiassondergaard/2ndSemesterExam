@@ -2,12 +2,8 @@ package com.alexnmat.exam.controllers;
 
 import com.alexnmat.exam.models.DTO.HoursHelper;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
-import com.alexnmat.exam.models.DTO.SubTaskDTO;
-import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.models.entities.SubTask;
 import com.alexnmat.exam.models.entities.Task;
-import com.alexnmat.exam.service.ProjectService;
-import com.alexnmat.exam.service.SubProjectService;
 import com.alexnmat.exam.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +32,7 @@ public class SubTaskController {
 
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
-        //TODO: HARAM, MAKE ANOTHER CONSTRUCTOR FOR FINDING THE ID
+        //TODO: comment why u did this shit
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         model.getAttribute("projects");
@@ -52,17 +48,22 @@ public class SubTaskController {
     public String showCreateSubTaskForm(@PathVariable("taskId") long taskId, Model model) {
         model.addAttribute("currentTask", taskService.findTaskIdAndNameById(taskId));
         model.addAttribute("subTask", new SubTask());
-        return "add-sub-task";
+        model.addAttribute("type", 11);
+        return "dashboard";
     }
 
     @PostMapping(value = "{taskId}/subTasks/addSubTask")
     public String createNewSubTask(@PathVariable("taskId") long taskId, @Valid SubTask subTask, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "add-task";
+            model.addAttribute("currentTask", taskService.findTaskIdAndNameById(taskId));
+            model.addAttribute("subTask", subTask);
+            model.addAttribute("type", 11);
+            return "dashboard";
         }
         model.addAttribute("currentTask", taskService.findTaskIdAndNameById(taskId));
         model.addAttribute("successMessage", "Sub Task successfully created!");
         model.addAttribute("subTask", subTask);
+        model.addAttribute("type", 11);
         taskService.saveSubTask(subTask, taskId);
         return "redirect:/dashboard/tasks/" + taskId + "/subTasks/" + subTask.getId();
     }

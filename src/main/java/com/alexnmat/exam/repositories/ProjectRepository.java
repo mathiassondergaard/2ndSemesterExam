@@ -1,6 +1,5 @@
 package com.alexnmat.exam.repositories;
 
-import com.alexnmat.exam.models.DTO.SubProjectDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,6 +45,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE Project SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :projectId")
-    void updateTotalTimeSpent(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateTotalTimeSpent(@Param("projectId") long projectId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 
 }

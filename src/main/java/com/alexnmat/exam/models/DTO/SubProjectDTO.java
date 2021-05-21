@@ -12,8 +12,8 @@ public class SubProjectDTO {
     private LocalDate utilEndDate;
     private Boolean completed;
     private Person person;
-    private long allocatedHours;
-    private int totalTimeSpent;
+    private double allocatedHours;
+    private double totalTimeSpent;
 
     public SubProjectDTO(long id, String subProjectName, LocalDate utilStartDate, LocalDate utilEndDate, Boolean completed, Person person) {
         this.id = id;
@@ -33,7 +33,7 @@ public class SubProjectDTO {
         this.id = id;
     }
 
-    public SubProjectDTO(long id, long allocatedHours, int totalTimeSpent) {
+    public SubProjectDTO(long id, double allocatedHours, double totalTimeSpent) {
         this.id = id;
         this.allocatedHours = allocatedHours;
         this.totalTimeSpent = totalTimeSpent;
@@ -87,19 +87,19 @@ public class SubProjectDTO {
         this.person = person;
     }
 
-    public long getAllocatedHours() {
+    public double getAllocatedHours() {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(long allocatedHours) {
+    public void setAllocatedHours(double allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 
-    public int getTotalTimeSpent() {
+    public double getTotalTimeSpent() {
         return totalTimeSpent;
     }
 
-    public void setTotalTimeSpent(int totalTimeSpent) {
+    public void setTotalTimeSpent(double totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
     }
 }

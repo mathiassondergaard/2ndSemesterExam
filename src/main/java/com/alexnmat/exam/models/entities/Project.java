@@ -42,10 +42,10 @@ public class Project implements Serializable {
     private String description;
 
     @Column(name = "allocated_hours")
-    private long allocatedHours;
+    private double allocatedHours;
 
     @Column(name = "total_time_spent")
-    private int totalTimeSpent;
+    private double totalTimeSpent;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_owner")
@@ -108,19 +108,19 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public long getAllocatedHours() {
+    public double getAllocatedHours() {
         return allocatedHours;
     }
 
-    public void setAllocatedHours(long allocatedHours) {
+    public void setAllocatedHours(double allocatedHours) {
         this.allocatedHours = allocatedHours;
     }
 
-    public int getTotalTimeSpent() {
+    public double getTotalTimeSpent() {
         return totalTimeSpent;
     }
 
-    public void setTotalTimeSpent(int totalTimeSpent) {
+    public void setTotalTimeSpent(double totalTimeSpent) {
         this.totalTimeSpent = totalTimeSpent;
     }
 

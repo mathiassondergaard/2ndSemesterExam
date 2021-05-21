@@ -2,7 +2,6 @@ package com.alexnmat.exam.models.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "statistics")
@@ -21,16 +20,10 @@ public class Statistics implements Serializable {
     private Project project;
 
     @Column(name = "project_hours")
-    private int projectHours;
+    private double projectHours;
 
     @Column(name = "sub_project_hours")
-    private int subProjectHours;
-
-    @Column(name = "task_hours")
-    private int taskHours;
-
-    @Column(name = "sub_task_hours")
-    private int subTaskHours;
+    private double subProjectHours;
 
     public Statistics() {
     }
@@ -51,35 +44,19 @@ public class Statistics implements Serializable {
         this.project = project;
     }
 
-    public int getProjectHours() {
+    public double getProjectHours() {
         return projectHours;
     }
 
-    public void setProjectHours(int projectHours) {
+    public void setProjectHours(double projectHours) {
         this.projectHours = projectHours;
     }
 
-    public int getSubProjectHours() {
+    public double getSubProjectHours() {
         return subProjectHours;
     }
 
-    public void setSubProjectHours(int subProjectHours) {
+    public void setSubProjectHours(double subProjectHours) {
         this.subProjectHours = subProjectHours;
-    }
-
-    public int getTaskHours() {
-        return taskHours;
-    }
-
-    public void setTaskHours(int taskHours) {
-        this.taskHours = taskHours;
-    }
-
-    public int getSubTaskHours() {
-        return subTaskHours;
-    }
-
-    public void setSubTaskHours(int subTaskHours) {
-        this.subTaskHours = subTaskHours;
     }
 }

@@ -38,5 +38,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE Task SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :taskId")
-    void updateTotalTimeSpent(@Param("taskId") long taskId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateTotalTimeSpent(@Param("taskId") long taskId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 }

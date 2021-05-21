@@ -1,7 +1,6 @@
 package com.alexnmat.exam.repositories;
 
 import com.alexnmat.exam.models.DTO.SubTaskDTO;
-import com.alexnmat.exam.models.DTO.TaskDTO;
 import com.alexnmat.exam.models.entities.SubTask;
 import com.alexnmat.exam.models.entities.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,5 +36,5 @@ public interface SubTaskRepository extends JpaRepository<SubTask, Long> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE SubTask SET totalTimeSpent = :totalHoursAfterCalculation WHERE id = :subTaskId")
-    void updateTotalTimeSpent(@Param("subTaskId") long subTaskId, @Param("totalHoursAfterCalculation") int totalHoursAfterCalculation);
+    void updateTotalTimeSpent(@Param("subTaskId") long subTaskId, @Param("totalHoursAfterCalculation") double totalHoursAfterCalculation);
 }
