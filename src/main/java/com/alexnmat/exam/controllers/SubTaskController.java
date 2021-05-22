@@ -27,10 +27,9 @@ public class SubTaskController {
         this.taskService = taskService;
     }
 
-
+    //TODO: comment why u did this shit
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
-        //TODO: comment why u did this shit
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         model.getAttribute("projects");

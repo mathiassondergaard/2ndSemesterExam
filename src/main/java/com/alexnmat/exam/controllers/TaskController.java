@@ -61,10 +61,10 @@ public class TaskController {
         return "redirect:/dashboard/tasks/" + task.getId();
     }
 
+    //TODO: HARAM
 
     @GetMapping(value = "{taskId}/complete")
     public String completeTask(@PathVariable("taskId") long taskId, Model model) {
-        //TODO: HARAM
         Task task = taskService.findTaskById(taskId);
         long projectId = task.getSubProject().getProject().getId();
         long subProjectId = task.getSubProject().getId();
