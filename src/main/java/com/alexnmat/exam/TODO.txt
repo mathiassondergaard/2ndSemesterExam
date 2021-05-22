@@ -1,7 +1,6 @@
 TO DO LIST:
 
 TODO: LAST SHIT
-Fix viewing projects that you are team member of in side menu
 Kig på repos i forskellige klasser.. kan vi kalde service i stedet for repo?
 add app or projectory/dashboard/**
 
