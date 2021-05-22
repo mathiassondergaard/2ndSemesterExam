@@ -8,32 +8,34 @@
 </head>
 <body>
 <div th:fragment="projectNavbar">
-<nav class="navbar" role="navigation" aria-label="project navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" th:href="@{/dashboard/projects/{id}(id=${currentProject?.id})}">
-            Project Info
-        </a>
-    </div>
-
-    <div id="projectNavbar" class="navbar-menu">
-        <div class="navbar-start">
-            <a class="navbar-item" th:href="@{/dashboard/projects/{projectId}/subProjects/(projectId=${currentProject?.id})}">
-                Sub Projects
-            </a>
-
-            <a class="navbar-item" th:href="@{/dashboard/projects/{projectId}/statistics/(projectId=${currentProject?.id})}">
-                Statistics
-            </a>
-
-            <a class="navbar-item">
-                Blabla?
+    <nav class="navbar" role="navigation" aria-label="project navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" th:href="@{/dashboard/projects/{id}(id=${currentProject?.id})}">
+                Project Info
             </a>
         </div>
 
-        <div class="navbar-end">
+        <div id="projectNavbar" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item"
+                   th:href="@{/dashboard/projects/{projectId}/subProjects/(projectId=${currentProject?.id})}">
+                    Sub Projects
+                </a>
+
+                <a class="navbar-item"
+                   th:href="@{/dashboard/projects/{projectId}/statistics/(projectId=${currentProject?.id})}">
+                    Statistics
+                </a>
+
+                <a class="navbar-item">
+                    Blabla?
+                </a>
+            </div>
+
+            <div class="navbar-end">
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 </div>
 </body>
 </html>

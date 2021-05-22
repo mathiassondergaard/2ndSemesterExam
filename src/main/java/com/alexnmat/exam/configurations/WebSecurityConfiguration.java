@@ -26,11 +26,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService((userDetailsService)).passwordEncoder(bCryptPasswordEncoder);
     }
 
-    //TODO: Fix authorities for different pages
-    //Maybe fetch a list where team member is present for projects, so that gets rendered instead of ALL PROJECTS when you log in as team member
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //Needs authentication for different usertypes
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()

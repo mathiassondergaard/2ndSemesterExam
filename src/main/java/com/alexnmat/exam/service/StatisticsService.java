@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StatisticsService  {
+public class StatisticsService {
 
     private StatisticsRepository statisticsRepository;
 
@@ -25,7 +25,6 @@ public class StatisticsService  {
     public void updateProjectHoursInStatistics(double totalHoursForProject, long projectId) {
         statisticsRepository.updateStatisticsProjectHours(projectId, totalHoursForProject);
     }
-
 
     public void updateSubProjectHoursInStatistics(double totalHoursForSubProjects, long projectId) {
         statisticsRepository.updateStatisticsSubProjectHours(projectId, totalHoursForSubProjects);

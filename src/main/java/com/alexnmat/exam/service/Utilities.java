@@ -2,7 +2,6 @@ package com.alexnmat.exam.service;
 
 import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.repositories.UserRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +28,7 @@ public abstract class Utilities {
         return startDate.isEqual(existingStartDate) || startDate.isAfter(existingStartDate) && endDate.isEqual(existingEndDate) || endDate.isBefore(existingEndDate);
     }
 
-    //from STACKO (find link)
+    //from Stacko, link: https://stackoverflow.com/questions/4600034/calculate-number-of-weekdays-between-two-dates-in-java
     public long calculateTotalWorkdayHours(LocalDate startDate, LocalDate endDate) {
         //Get startDay's value and endDay's value
         final int startDay = startDate.getDayOfWeek().getValue();
@@ -38,7 +37,7 @@ public abstract class Utilities {
         //Get days between start and end date
         final long days = ChronoUnit.DAYS.between(startDate, endDate);
         //Removes weekends from days
-        long result = days - 2*(days/7);
+        long result = days - 2 * (days / 7);
 
         //Deal with the rest of the days
         if (days % 7 != 0) {

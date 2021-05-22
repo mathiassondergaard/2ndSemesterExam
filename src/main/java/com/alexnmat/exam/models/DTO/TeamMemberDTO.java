@@ -8,16 +8,10 @@ public class TeamMemberDTO {
     private long id;
     private Person person;
     private Project project;
-    private String projectName;
 
     public TeamMemberDTO(long id, Person person) {
         this.id = id;
         this.person = person;
-    }
-
-    public TeamMemberDTO(Project project) {
-        this.id = project.getId();
-        this.projectName = project.getProjectName();
     }
 
     public long getId() {

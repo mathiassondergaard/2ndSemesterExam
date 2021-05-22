@@ -27,7 +27,6 @@ public class ProjectController {
     @GetMapping("projects")
     public String projectList(Model model) {
         model.addAttribute("projects", projectService.findProjectNamesAndIds());
-        //model.addAttribute("projectsForTeamMember", projectService.findProjectsWhereLoggedInUserIsTeamMember());
         return "dashboard";
     }
 

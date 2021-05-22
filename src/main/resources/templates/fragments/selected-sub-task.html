@@ -18,11 +18,11 @@
 
         <div class="card-content">
             <div class="content">
-                <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
                 <h1 class="title is-6">Sub-Task Name:</h1>
                 <p th:text="${currentSubTask?.subTaskName}" id="currentProjectName"></p>
                 <h1 class="title is-6">Start Date and End Date:</h1>
-                <p th:text="'Start Date: ' + ${currentSubTask?.utilStartDate} + ', End Date: ' + ${currentSubTask?.utilEndDate} " id="dates"></p>
+                <p th:text="'Start Date: ' + ${currentSubTask?.utilStartDate} + ', End Date: ' + ${currentSubTask?.utilEndDate} "
+                   id="dates"></p>
                 <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
                 <p th:text="${currentSubTask?.allocatedHours}" id="allocatedHours"></p>
             </div>
@@ -50,7 +50,8 @@
 
         <div class="card-content">
             <div class="content">
-                <form action="#" th:action="@{/dashboard/tasks/{taskId}/subTasks/{subTaskId}/addHours(subTaskId=${currentSubTask?.id}, taskId=${currentTask?.id})}"
+                <form action="#"
+                      th:action="@{/dashboard/tasks/{taskId}/subTasks/{subTaskId}/addHours(subTaskId=${currentSubTask?.id}, taskId=${currentTask?.id})}"
                       th:object="${hoursHelper}" method="post" class="form-horizontal"
                       role="form">
                     <div class="form-group">
@@ -76,7 +77,8 @@
     <br/>
     <br>
     <div class="buttons">
-        <a th:href="@{/dashboard/tasks/{taskId}(taskId=${currentTask?.id})}" class="button is-primary is-small">Back to selected Task</a>
+        <a th:href="@{/dashboard/tasks/{taskId}(taskId=${currentTask?.id})}" class="button is-primary is-small">Back to
+            selected Task</a>
     </div>
 </div>
 </body>

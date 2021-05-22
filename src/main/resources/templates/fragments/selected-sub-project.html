@@ -18,14 +18,14 @@
 
         <div class="card-content">
             <div class="content">
-                <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
                 <h1 class="title is-6">Sub-Project Name:</h1>
                 <p th:text="${currentSubProject?.subProjectName}" id="currentProjectName"></p>
                 <h1 class="title is-6">Project Owner:</h1>
                 <p th:text="${currentSubProject?.person?.name + ' ' + currentSubProject?.person?.lastName}"
                    id="currentProjectOwner"></p>
                 <h1 class="title is-6">Start Date and End Date:</h1>
-                <p th:text="'Start Date: ' + ${currentSubProject?.utilStartDate} + ', End Date: ' + ${currentSubProject?.utilEndDate} " id="dates"></p>
+                <p th:text="'Start Date: ' + ${currentSubProject?.utilStartDate} + ', End Date: ' + ${currentSubProject?.utilEndDate} "
+                   id="dates"></p>
                 <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
                 <p th:text="${currentSubProject?.allocatedHours}" id="allocatedHours"></p>
             </div>
@@ -54,7 +54,9 @@
             <div class="content">
                 <div id="addTaskButton">
                     <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
-                       class="button is-primary is-small" th:href="@{/dashboard/tasks/createTask/{subProjectId}(subProjectId=${currentSubProject?.id})}">Add Task</a>
+                       class="button is-primary is-small"
+                       th:href="@{/dashboard/tasks/createTask/{subProjectId}(subProjectId=${currentSubProject?.id})}">Add
+                        Task</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Tasks registered!</h1>
                 <div th:case="*">
@@ -73,17 +75,21 @@
                             <tbody>
                             <tr th:each="task : ${tasks}">
                                 <td>
-                                    <a th:href="@{/dashboard/tasks/{taskId}(taskId=${task.id})}" th:text="${task.taskName}"></a>
+                                    <a th:href="@{/dashboard/tasks/{taskId}(taskId=${task.id})}"
+                                       th:text="${task.taskName}"></a>
                                 </td>
                                 <td th:text="${task.utilStartDate}"></td>
                                 <td th:text="${task.utilEndDate}"></td>
                                 <td th:text="${task.completed}"></td>
                                 <td>
-                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/delete(taskId=${task.id})}" class="button is-danger is-small">
+                                    <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
+                                       th:href="@{/dashboard/tasks/{taskId}/delete(taskId=${task.id})}"
+                                       class="button is-danger is-small">
                                         Delete
                                     </a>
                                     <th:block th:if="${task.completed} == false">
-                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')" th:href="@{/dashboard/tasks/{taskId}/complete(taskId=${task.id})}"
+                                        <a sec:authorize="hasAnyAuthority('PROJECT_OWNER', 'PROJECT_MANAGER')"
+                                           th:href="@{/dashboard/tasks/{taskId}/complete(taskId=${task.id})}"
                                            class="button is-primary is-small">Complete</a>
                                     </th:block>
                                 </td>
@@ -97,7 +103,8 @@
     </div>
     <br>
     <div class="buttons">
-        <a th:href="@{/dashboard/projects/{projectId}/subProjects(projectId=${currentProject?.id})}" class="button is-primary is-small">Back to Sub-Projects</a>
+        <a th:href="@{/dashboard/projects/{projectId}/subProjects(projectId=${currentProject?.id})}"
+           class="button is-primary is-small">Back to Sub-Projects</a>
     </div>
 </div>
 </body>

@@ -38,32 +38,34 @@
                 <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
                 <div th:case="*">
 
-                        <div class="table">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Sub-Project Name</th>
-                                    <th>Time Spent (Hours)</th>
-                                    <th>Allocated Time (Hours)</th>
-                                    <th>% of Time Spent / Allocated Hours</th>
-                                    <th>% of Time Spent / Project Hours</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="subProject : ${subProjects}">
-                                    <td th:text="${subProject.subProjectName}"></td>
-                                    <td th:text="${subProject.totalTimeSpent}"></td>
-                                    <td th:text="${subProject.allocatedHours}"></td>
-                                    <th:block th:with="result2=${subProject.totalTimeSpent / subProject.allocatedHours * 100}">
-                                        <td th:text="${#numbers.formatDecimal(result2, 0, 2) + '%'}"></td>
-                                    </th:block>
-                                    <th:block th:with="result3=${subProject.totalTimeSpent / statistics.project.allocatedHours * 100}">
-                                        <td th:text="${#numbers.formatDecimal(result3, 0, 2) + '%'}"></td>
-                                    </th:block>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Sub-Project Name</th>
+                                <th>Time Spent (Hours)</th>
+                                <th>Allocated Time (Hours)</th>
+                                <th>% of Time Spent / Allocated Hours</th>
+                                <th>% of Time Spent / Project Hours</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="subProject : ${subProjects}">
+                                <td th:text="${subProject.subProjectName}"></td>
+                                <td th:text="${subProject.totalTimeSpent}"></td>
+                                <td th:text="${subProject.allocatedHours}"></td>
+                                <th:block
+                                        th:with="result2=${subProject.totalTimeSpent / subProject.allocatedHours * 100}">
+                                    <td th:text="${#numbers.formatDecimal(result2, 0, 2) + '%'}"></td>
+                                </th:block>
+                                <th:block
+                                        th:with="result3=${subProject.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                    <td th:text="${#numbers.formatDecimal(result3, 0, 2) + '%'}"></td>
+                                </th:block>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,19 +79,19 @@
             <div class="content">
                 <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
                 <div th:case="*">
-                        <div class="table">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Task Name</th>
-                                    <th>Sub-Project Name</th>
-                                    <th>Time Spent (Hours)</th>
-                                    <th>Allocated Time (Hours)</th>
-                                    <th>% of Time Spent / Allocated Hours</th>
-                                    <th>% of Time Spent / Project Hours</th>
-                                </tr>
-                                </thead>
-                                <th:block th:each="subProject : ${subProjects}">
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Sub-Project Name</th>
+                                <th>Time Spent (Hours)</th>
+                                <th>Allocated Time (Hours)</th>
+                                <th>% of Time Spent / Allocated Hours</th>
+                                <th>% of Time Spent / Project Hours</th>
+                            </tr>
+                            </thead>
+                            <th:block th:each="subProject : ${subProjects}">
                                 <tbody th:each="tasks : ${subProject.tasks}">
                                 <tr>
                                     <td th:text="${tasks.taskName}"></td>
@@ -99,14 +101,15 @@
                                     <th:block th:with="result4=${tasks.totalTimeSpent / tasks.allocatedHours * 100}">
                                         <td th:text="${#numbers.formatDecimal(result4, 0, 2) + '%'}"></td>
                                     </th:block>
-                                    <th:block th:with="result5=${tasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                    <th:block
+                                            th:with="result5=${tasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
                                         <td th:text="${#numbers.formatDecimal(result5, 0, 2) + '%'}"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>
-                                </th:block>
-                            </table>
-                        </div>
+                            </th:block>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,36 +123,38 @@
             <div class="content">
                 <h1 class="title is-6" th:case="null">No Statistics registered!</h1>
                 <div th:case="*">
-                        <div class="table">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Sub-Task Name</th>
-                                    <th>Task Name</th>
-                                    <th>Time Spent (Hours)</th>
-                                    <th>Allocated Time (Hours)</th>
-                                    <th>% of Time Spent / Allocated Hours</th>
-                                    <th>% of Time Spent / Project Hours</th>
-                                </tr>
-                                </thead>
-                                <th:block th:each="subProject : ${subProjects}">
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Sub-Task Name</th>
+                                <th>Task Name</th>
+                                <th>Time Spent (Hours)</th>
+                                <th>Allocated Time (Hours)</th>
+                                <th>% of Time Spent / Allocated Hours</th>
+                                <th>% of Time Spent / Project Hours</th>
+                            </tr>
+                            </thead>
+                            <th:block th:each="subProject : ${subProjects}">
                                 <tbody th:each="tasks : ${subProject.tasks}">
                                 <tr th:each="subTasks : ${tasks.subTasks}">
                                     <td th:text="${subTasks.subTaskName}"></td>
                                     <td th:text="${subTasks.task.taskName}"></td>
                                     <td th:text="${subTasks.totalTimeSpent}"></td>
                                     <td th:text="${subTasks.allocatedHours}"></td>
-                                    <th:block th:with="result6=${subTasks.totalTimeSpent / subTasks.allocatedHours * 100}">
+                                    <th:block
+                                            th:with="result6=${subTasks.totalTimeSpent / subTasks.allocatedHours * 100}">
                                         <td th:text="${#numbers.formatDecimal(result6, 0, 2) + '%'}"></td>
                                     </th:block>
-                                    <th:block th:with="result7=${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
+                                    <th:block
+                                            th:with="result7=${subTasks.totalTimeSpent / statistics.project.allocatedHours * 100}">
                                         <td th:text="${#numbers.formatDecimal(result7, 0, 2) + '%'}"></td>
                                     </th:block>
                                 </tr>
                                 </tbody>
-                                </th:block>
-                            </table>
-                        </div>
+                            </th:block>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

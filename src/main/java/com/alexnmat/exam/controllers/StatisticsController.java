@@ -4,7 +4,6 @@ import com.alexnmat.exam.models.DTO.ProjectDTO;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.StatisticsService;
-import com.alexnmat.exam.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

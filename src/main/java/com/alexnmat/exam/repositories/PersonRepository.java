@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    Person findByName(String name);
-
     @Query("SELECT new com.alexnmat.exam.models.DTO.PersonDTO(p.id, p.name, p.lastName, p.competence) FROM Person p")
     List<PersonDTO> findAllPersonsIdNameAndCompetence();
 }

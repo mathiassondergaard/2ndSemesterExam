@@ -15,12 +15,6 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    Task findByTaskName(String taskName);
-
-    List<Task> findBySubProject(SubProject subProject);
-
-    Task findByCompleted(Boolean completed);
-
     @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.taskName, t.utilStartDate, t.utilEndDate, t.completed) FROM Task t WHERE t.subProject.id = :subProjectId")
     List<TaskDTO> findAllByProjectId(@Param("subProjectId") long subProjectId);
 

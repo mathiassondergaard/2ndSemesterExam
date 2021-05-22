@@ -22,8 +22,6 @@ public class SubTaskController {
 
     private TaskService taskService;
 
-    //TODO: check this through for what model attributes we need and dont need
-
     @Autowired
     public SubTaskController(TaskService taskService) {
         this.taskService = taskService;

@@ -1,7 +1,6 @@
 package com.alexnmat.exam.models.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 

@@ -44,13 +44,9 @@ public class ProjectService extends Utilities {
         return projectRepository.findProjectNameAndId(projectId);
     }
 
-    public List<Project> findAllProjects() {
-        return projectRepository.findAll();
+    public List<ProjectDTO> findProjectNamesAndIds() {
+        return projectRepository.findProjectIdsAndNames();
     }
-
-    //TODO: We should maybe cache this
-    public List<ProjectDTO> findProjectNamesAndIds() { return projectRepository.findProjectIdsAndNames(); }
-
 
     public void save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());
@@ -60,7 +56,6 @@ public class ProjectService extends Utilities {
         }
         projectRepository.save(project);
         statisticsService.createStatisticsTableForProject(project);
-
     }
 
     public void delete(long projectId) {
@@ -74,28 +69,10 @@ public class ProjectService extends Utilities {
         projectRepository.updateTotalTimeSpent(projectId, calculatedHours);
     }
 
-    public void removeTeamMemberFromProject(long projectId, long teamMemberId) {
-        Project project = findByProjectId(projectId);
-        List<TeamMember> teamMembersForProject = project.getTeamMembers();
-        for (int i = 0; i < teamMembersForProject.size(); i++) {
-            if (teamMembersForProject.get(i).getId() == teamMemberId) {
-                teamMembersForProject.remove(i);
-            } else {
-                throw new NoResultException("No Team Member for id" + teamMemberId + "exists in project");
-            }
-        }
-        project.setTeamMembers(teamMembersForProject);
-        projectRepository.save(project);
-    }
-
     public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
         teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
         teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
         return teamMemberRepository.save(teamMember);
-    }
-
-    public TeamMember getSingleTeamMember(long projectId) {
-        return teamMemberRepository.findSingleByProjectId(projectId);
     }
 
     public List<TeamMemberDTO> getAllTeamMembersForProject(long projectId) {

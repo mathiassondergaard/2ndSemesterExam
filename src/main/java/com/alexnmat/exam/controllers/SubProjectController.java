@@ -1,6 +1,5 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.service.ProjectService;
 import com.alexnmat.exam.service.SubProjectService;
@@ -28,7 +27,6 @@ public class SubProjectController {
         this.projectService = projectService;
     }
 
-    //TODO: Maybe you need a custom query, to ONLY fetch the ID from database? so far name and ID
     @GetMapping("{projectId}/subProjects")
     public String subProjectList(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
@@ -83,9 +81,9 @@ public class SubProjectController {
 
     @GetMapping("{projectId}/subProjects/{subProjectId}/complete")
     public String completeSubproject(@PathVariable("projectId") long projectId, @PathVariable("subProjectId") long subProjectId, Model model) {
-            subProjectService.complete(subProjectId);
-            model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-            model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(projectId, subProjectId));
+        subProjectService.complete(subProjectId);
+        model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
+        model.addAttribute("currentSubProject", subProjectService.findSubProjectIdAndNameByProjectId(projectId, subProjectId));
         return "redirect:/dashboard/projects/" + projectId + "/subProjects/";
     }
 }

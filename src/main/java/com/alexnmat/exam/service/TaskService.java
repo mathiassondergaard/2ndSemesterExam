@@ -19,16 +19,13 @@ public class TaskService extends Utilities {
     private SubProjectRepository subProjectRepository;
     private TaskRepository taskRepository;
     private SubTaskRepository subTaskRepository;
-    private StatisticsService statisticsService;
 
     @Autowired
-    public TaskService(SubProjectRepository subProjectRepository, TaskRepository taskRepository, SubTaskRepository subTaskRepository, StatisticsService statisticsService) {
+    public TaskService(SubProjectRepository subProjectRepository, TaskRepository taskRepository, SubTaskRepository subTaskRepository) {
         this.subProjectRepository = subProjectRepository;
         this.taskRepository = taskRepository;
         this.subTaskRepository = subTaskRepository;
-        this.statisticsService = statisticsService;
     }
-
 
     public Task findTaskById(long taskId) {
         return taskRepository.findById(taskId)
@@ -60,7 +57,7 @@ public class TaskService extends Utilities {
 
     public void deleteTask(long taskId) {
         Task task = taskRepository.findById(taskId)
-        .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
+                .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));
         taskRepository.delete(task);
     }
 
@@ -78,16 +75,9 @@ public class TaskService extends Utilities {
         return totalHours;
     }
 
-    public List<TaskDTO> findTaskStatistics(long subProjectId) {
-        return taskRepository.findTaskStatisticsBySubProjectId(subProjectId);
-    }
 
     public void completeTask(long taskId) {
         taskRepository.setCompleted(taskId);
-    }
-
-    public double calculateTimeSpent(long taskId) {
-        return taskRepository.findById(taskId).get().getTotalTimeSpent();
     }
 
     public SubTask findSubTaskById(long subTaskId) {
@@ -97,10 +87,6 @@ public class TaskService extends Utilities {
 
     public List<SubTaskDTO> findAllSubTasksForTask(long taskId) {
         return subTaskRepository.findSubTasksIdNameStartDateEndDateAndCompletedByTaskId(taskId);
-    }
-
-    public List<SubTaskDTO> findSubTaskStatistics(long taskId) {
-        return subTaskRepository.findStatisticsOnSubTasksByTaskId(taskId);
     }
 
     public SubTask saveSubTask(SubTask subTask, long taskId) {

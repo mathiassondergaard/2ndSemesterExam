@@ -33,10 +33,6 @@ public class SubProjectService extends Utilities {
                 .orElseThrow(() -> new NoResultException("Unable to find subproject by id: " + subProjectId));
     }
 
-    public List<SubProject> findAll() {
-        return subProjectRepository.findAll();
-    }
-
     public SubProjectDTO findSubProjectIdAndNameByProjectId(long projectId, long subProjectId) {
         return subProjectRepository.findSubProjectIdAndNameByProjectId(projectId, subProjectId);
     }

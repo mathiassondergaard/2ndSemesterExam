@@ -20,7 +20,8 @@
         <div id="navBar" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" th:href="@{/dashboard/projects}">Home</a>
-                <a sec:authorize="hasAuthority('PROJECT_OWNER')" class="navbar-item" th:href="@{/dashboard/projects/createProject}">Add Project</a>
+                <a sec:authorize="hasAuthority('PROJECT_OWNER')" class="navbar-item"
+                   th:href="@{/dashboard/projects/createProject}">Add Project</a>
             </div>
 
             <div class="navbar-end">

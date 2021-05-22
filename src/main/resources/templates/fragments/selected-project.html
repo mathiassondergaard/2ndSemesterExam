@@ -15,14 +15,14 @@
 
         <div class="card-content">
             <div class="content">
-                <!-- TODO: maybe add start date, end date, allocated hours? add more info -->
                 <h1 class="title is-6">Project Name:</h1>
                 <p th:text="${currentProject?.projectName}" id="currentProjectName"></p>
                 <h1 class="title is-6">Project Owner:</h1>
                 <p th:text="${currentProject?.person?.name + ' ' + currentProject?.person?.lastName}"
                    id="currentProjectOwner"></p>
                 <h1 class="title is-6">Start Date and End Date:</h1>
-                <p th:text="'Start Date: ' + ${currentProject?.utilStartDate} + ', End Date: ' + ${currentProject?.utilEndDate} " id="dates"></p>
+                <p th:text="'Start Date: ' + ${currentProject?.utilStartDate} + ', End Date: ' + ${currentProject?.utilEndDate} "
+                   id="dates"></p>
                 <h1 class="title is-6">Allocated Hours (In work hours (8 hrs/day):</h1>
                 <p th:text="${currentProject?.allocatedHours}" id="allocatedHours"></p>
             </div>
@@ -51,7 +51,8 @@
             <div class="content">
                 <div id="addTeamMemberButton">
                     <a th:href="@{'/dashboard/projects/' + ${currentProject?.id} + '/addTeamMember'}"
-                       sec:authorize="hasAuthority('PROJECT_OWNER')" class="button is-primary is-small">Add Team Members</a>
+                       sec:authorize="hasAuthority('PROJECT_OWNER')" class="button is-primary is-small">Add Team
+                        Members</a>
                 </div>
                 <h1 class="title is-6" th:case="null">No Team Members registered!</h1>
                 <div th:case="*">
@@ -71,7 +72,9 @@
                                 <td th:text="${teamMembers.person.name + ' ' + teamMembers.person.lastName}"></td>
                                 <td th:text="${teamMembers.person.competence}"></td>
                                 <td>
-                                    <a sec:authorize="hasAuthority('PROJECT_OWNER')" th:href="@{/dashboard/projects/{projectId}/deleteTeamMember/{teamMemberId}(projectId=${currentProject?.id}, teamMemberId=${teamMembers.id})}" class="button is-danger is-small">Delete</a>
+                                    <a sec:authorize="hasAuthority('PROJECT_OWNER')"
+                                       th:href="@{/dashboard/projects/{projectId}/deleteTeamMember/{teamMemberId}(projectId=${currentProject?.id}, teamMemberId=${teamMembers.id})}"
+                                       class="button is-danger is-small">Delete</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -83,7 +86,9 @@
     </div>
     <br>
     <div class="buttons">
-        <a sec:authorize="hasAuthority('PROJECT_OWNER')" th:href="@{/dashboard/projects/{projectId}/delete(projectId=${currentProject?.id})}" class="button is-danger is-small">Delete Project</a>
+        <a sec:authorize="hasAuthority('PROJECT_OWNER')"
+           th:href="@{/dashboard/projects/{projectId}/delete(projectId=${currentProject?.id})}"
+           class="button is-danger is-small">Delete Project</a>
     </div>
 </div>
 </body>

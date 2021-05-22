@@ -53,11 +53,11 @@ public class SubProject implements Serializable {
     @OneToMany(mappedBy = "subProject", cascade = CascadeType.MERGE)
     private List<Task> tasks;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_manager")
     private Person person;
 

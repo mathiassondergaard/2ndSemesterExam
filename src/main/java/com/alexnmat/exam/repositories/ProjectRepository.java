@@ -14,22 +14,12 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-    Project findByProjectName(String name);
 
     //Custom query. Solved our problem of retrieving ALL projects with all data, instead of just what we need.
     //https://thorben-janssen.com/spring-data-jpa-query-projections/ (13-05-2021)
     //Uses JPQL to make a DTO Projection via. the constructor in ProjectDTO
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) FROM Project p")
     List<ProjectDTO> findProjectIdsAndNames();
-
-    //TODO: Maybe fix this?
-    /*
-    @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.allocatedHours, p.subProjects) FROM Project p WHERE p.id = :projectId")
-    ProjectDTO findProjectIdAllocatedHoursAndSubProjectsById(@Param("projectId") long projectId);
-     */
-
-    @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.allocatedHours, p.totalTimeSpent) FROM Project p WHERE p.id = :projectId")
-    ProjectDTO findProjectStatisticsByProjectId(@Param("projectId") long projectId);
 
     //If needed
     @Query(value = "SELECT new com.alexnmat.exam.models.DTO.ProjectDTO(p.id, p.projectName) from Project p WHERE p.id = :projectId")

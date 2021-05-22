@@ -28,14 +28,6 @@ public class PersonService {
         return personRepository.findAllPersonsIdNameAndCompetence();
     }
 
-    public List<Person> findAll() {
-        return personRepository.findAll();
-    }
-
-    public Person save(Person person) {
-        return personRepository.save(person);
-    }
-
     public void delete(long personId) {
         Person person = findByPersonId(personId);
         personRepository.delete(person);
