@@ -9,4 +9,7 @@ fix middle of dashboard text
 kommentare til kode!!!
 REMOVE ALL UNUSED IMPORTS, ETC
 
+UNIT TESTS
+AUTHOR TAGS
+
 find code snippets to explainnnn
