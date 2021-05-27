@@ -2,17 +2,17 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head :: head">
-    <title>Add Team Member</title>
+    <title>Add Project Member</title>
 </head>
 <body>
-<div class="wrap" th:fragment="addTeamMember">
+<div class="wrap" th:fragment="addProjectMember">
     <div class="card">
         <div class="card-header">
-            <p class="card-header-title">Add Team Member</p>            <span>Add one person at a time</span>
+            <p class="card-header-title">Add Project Member</p>
         </div>
         <div class="card-content">
             <form action="#" th:action="@{'/dashboard/projects/' + ${currentProject?.id} + '/addMember'}"
-                  method="post" class="form-horizontal" th:object="${teamMember}"
+                  method="post" class="form-horizontal" th:object="${projectMember}"
                   role="form">
                 <div class="column">
                     <div class="form-group">
@@ -23,8 +23,9 @@
                                placeholder="Please input person ID" class="input is-primary is-normal" id="personId"
                                style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"/>
                         <br>
+                        <span>Add one person at a time</span>
                         <br>
-                        <button type="submit" class="button is-success">Add Team Member</button>
+                        <button type="submit" class="button is-success">Add Project Member</button>
                         <a th:href="@{/dashboard/projects/{id}(id=${currentProject?.id})}" class="button is-primary">Back
                             to
                             Project</a>
@@ -39,7 +40,7 @@
         <div class="card-header">
             <p class="card-header-title">Person List</p>
         </div>
-        <div class="card-contenet">
+        <div class="card-content">
             <div class="form-group" th:switch="persons">
                 <h1 class="title is-6" th:case="null">No persons in DB!</h1>
                 <div th:case="*">

@@ -1,7 +1,7 @@
 package com.alexnmat.exam.controllers;
 
-import com.alexnmat.exam.models.entities.TeamMember;
-import com.alexnmat.exam.models.DTO.TeamMemberHelper;
+import com.alexnmat.exam.models.entities.ProjectMember;
+import com.alexnmat.exam.models.DTO.ProjectMemberHelper;
 import com.alexnmat.exam.service.PersonService;
 import com.alexnmat.exam.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,45 +17,45 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping(value = "/dashboard/projects/")
-public class TeamMemberController {
+public class ProjectMemberController {
 
     private ProjectService projectService;
     private PersonService personService;
 
     @Autowired
-    public TeamMemberController(ProjectService projectService, PersonService personService) {
+    public ProjectMemberController(ProjectService projectService, PersonService personService) {
         this.projectService = projectService;
         this.personService = personService;
     }
 
-    @GetMapping("{projectId}/addTeamMember")
-    public String showAddTeamMemberForm(@PathVariable("projectId") long projectId, Model model) {
+    @GetMapping("{projectId}/addProjectMember")
+    public String showAddProjectMemberForm(@PathVariable("projectId") long projectId, Model model) {
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         model.addAttribute("persons", personService.findAllPersonsIdNameAndCompetence());
-        model.addAttribute("teamMember", new TeamMemberHelper());
+        model.addAttribute("projectMember", new ProjectMemberHelper());
         model.addAttribute("type", 8);
         return "dashboard";
     }
 
     @PostMapping("{projectId}/addMember")
-    public String addTeamMember(@PathVariable("projectId") long projectId, @Valid TeamMemberHelper teamMemberHelper, BindingResult result, Model model) {
+    public String addProjectMember(@PathVariable("projectId") long projectId, @Valid ProjectMemberHelper projectMemberHelper, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("teamMember", teamMemberHelper);
+            model.addAttribute("projectMember", projectMemberHelper);
             model.addAttribute("type", 8);
             model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
             return "dashboard";
         }
-        model.addAttribute("teamMember", teamMemberHelper);
+        model.addAttribute("projectMember", projectMemberHelper);
         model.addAttribute("type", 8);
-        model.addAttribute("successMessage", "Team members successfully added! Type another ID to add more");
+        model.addAttribute("successMessage", "Project member successfully added! Type another ID to add more");
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
-        projectService.saveTeamMemberForProject(new TeamMember(), teamMemberHelper.getPersonId(), projectId);
-        return "redirect:/dashboard/projects/" + projectId + "/addTeamMember";
+        projectService.saveProjectMemberForProject(new ProjectMember(), projectMemberHelper.getPersonId(), projectId);
+        return "redirect:/dashboard/projects/" + projectId + "/addProjectMember";
     }
 
-    @GetMapping("{projectId}/deleteTeamMember/{teamMemberId}")
-    public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("teamMemberId") long teamMemberId, Model model) {
-        projectService.removeTeamMember(teamMemberId);
+    @GetMapping("{projectId}/deleteProjectMember/{projectMemberId}")
+    public String deleteTeamMemberFromProject(@PathVariable("projectId") long projectId, @PathVariable("projectMemberId") long projectMemberId, Model model) {
+        projectService.removeProjectMember(projectMemberId);
         model.addAttribute("currentProject", projectService.findProjectNameAndId(projectId));
         return "redirect:/dashboard/projects/" + projectId;
     }

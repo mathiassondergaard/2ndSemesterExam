@@ -43,7 +43,7 @@ public class SubProjectController {
         model.getAttribute("projects");
         model.addAttribute("currentSubProject", subProjectService.findBySubProjectId(subProjectId));
         model.addAttribute("tasks", taskService.getTaskDTOList(subProjectId));
-        subProjectService.updateTotalTimeSpentForSubProject(subProjectId, projectId);
+        subProjectService.updateTotalTimeSpentForSubProject(subProjectId);
         model.addAttribute("type", 3);
         return "dashboard";
     }

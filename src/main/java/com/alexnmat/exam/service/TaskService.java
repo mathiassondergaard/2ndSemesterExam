@@ -16,13 +16,13 @@ import java.util.List;
 @Service
 public class TaskService extends Utilities {
 
-    private SubProjectRepository subProjectRepository;
     private TaskRepository taskRepository;
     private SubTaskRepository subTaskRepository;
+    private SubProjectService subProjectService;
 
     @Autowired
-    public TaskService(SubProjectRepository subProjectRepository, TaskRepository taskRepository, SubTaskRepository subTaskRepository) {
-        this.subProjectRepository = subProjectRepository;
+    public TaskService(SubProjectService subProjectService, TaskRepository taskRepository, SubTaskRepository subTaskRepository) {
+        this.subProjectService = subProjectService;
         this.taskRepository = taskRepository;
         this.subTaskRepository = subTaskRepository;
     }
@@ -41,8 +41,7 @@ public class TaskService extends Utilities {
     }
 
     public Task saveTask(Task task, long subProjectId) {
-        SubProject subProject = subProjectRepository.findById(subProjectId)
-                .orElseThrow(() -> new NoResultException("Unable to find sub project by id: " + subProjectId));
+        SubProject subProject = subProjectService.findBySubProjectId(subProjectId);
         if (dateChecker(task.getUtilStartDate(), task.getUtilEndDate())) {
             throw new DateTimeException("End date cannot be before start date!");
         }

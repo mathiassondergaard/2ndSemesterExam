@@ -15,7 +15,7 @@ import javax.validation.Valid;
 public class ProjectController {
 
     //We fetch all projects from the database due to our left menu on dashboard, that enables you to navigate between projects. However we only fetch name and ID.
-    //Database optimization is therefore done in Service class.
+    //Database optimization is therefore done in respective Repository class.
 
     private ProjectService projectService;
 
@@ -35,7 +35,7 @@ public class ProjectController {
         model.getAttribute("projects");
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
         model.addAttribute("type", 1);
-        model.addAttribute("teamMembersForProject", projectService.getAllTeamMembersForProject(projectId));
+        model.addAttribute("projectMembersForProject", projectService.getAllProjectMembersForProject(projectId));
         projectService.updateTotalTimeSpentForProject(projectId);
         return "dashboard";
     }

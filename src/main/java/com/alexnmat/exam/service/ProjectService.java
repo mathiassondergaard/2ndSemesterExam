@@ -1,12 +1,13 @@
 package com.alexnmat.exam.service;
 
-import com.alexnmat.exam.models.DTO.TeamMemberDTO;
+import com.alexnmat.exam.models.DTO.ProjectMemberDTO;
 import com.alexnmat.exam.models.entities.Project;
 import com.alexnmat.exam.models.DTO.ProjectDTO;
-import com.alexnmat.exam.models.entities.TeamMember;
+import com.alexnmat.exam.models.entities.ProjectMember;
+import com.alexnmat.exam.models.entities.SubProject;
 import com.alexnmat.exam.repositories.PersonRepository;
 import com.alexnmat.exam.repositories.ProjectRepository;
-import com.alexnmat.exam.repositories.TeamMemberRepository;
+import com.alexnmat.exam.repositories.ProjectMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +19,24 @@ import java.util.List;
 public class ProjectService extends Utilities {
 
     private ProjectRepository projectRepository;
-    private PersonRepository personRepository;
-    private TeamMemberRepository teamMemberRepository;
-    private SubProjectService subProjectService;
+    private ProjectMemberRepository projectMemberRepository;
+    private PersonService personService;
     private StatisticsService statisticsService;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository, PersonRepository personRepository, TeamMemberRepository teamMemberRepository, SubProjectService subProjectService, StatisticsService statisticsService) {
+    public ProjectService(ProjectRepository projectRepository, PersonService personService, ProjectMemberRepository projectMemberRepository, StatisticsService statisticsService) {
         this.projectRepository = projectRepository;
-        this.personRepository = personRepository;
-        this.teamMemberRepository = teamMemberRepository;
-        this.subProjectService = subProjectService;
+        this.personService = personService;
+        this.projectMemberRepository = projectMemberRepository;
         this.statisticsService = statisticsService;
     }
 
     public ProjectService() {
+    }
+
+    //For testing purposes
+    public ProjectService(ProjectRepository projectRepository) {
+        super();
     }
 
     public Project findByProjectId(long projectId) {
@@ -64,24 +68,28 @@ public class ProjectService extends Utilities {
     }
 
     public void updateTotalTimeSpentForProject(long projectId) {
-        double calculatedHours = subProjectService.calculateTotalHoursForAllSubProjects(projectId);
+        List<SubProject> subProjectList = findByProjectId(projectId).getSubProjects();
+        double calculatedHours = 0;
+        for (int i = 0; i < subProjectList.size(); i++) {
+            calculatedHours += subProjectList.get(i).getTotalTimeSpent();
+        }
         statisticsService.updateProjectHoursInStatistics(calculatedHours, projectId);
         projectRepository.updateTotalTimeSpent(projectId, calculatedHours);
     }
 
-    public TeamMember saveTeamMemberForProject(TeamMember teamMember, long personId, long projectId) {
-        teamMember.setPerson(personRepository.findById(personId).orElseThrow(() -> new NoResultException("Unable to find person by id: " + personId)));
-        teamMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
-        return teamMemberRepository.save(teamMember);
+    public ProjectMember saveProjectMemberForProject(ProjectMember projectMember, long personId, long projectId) {
+        projectMember.setPerson(personService.findByPersonId(personId));
+        projectMember.setProject(projectRepository.findById(projectId).orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId)));
+        return projectMemberRepository.save(projectMember);
     }
 
-    public List<TeamMemberDTO> getAllTeamMembersForProject(long projectId) {
-        return teamMemberRepository.getTeamMembersIdAndPersonForProject(projectId);
+    public List<ProjectMemberDTO> getAllProjectMembersForProject(long projectId) {
+        return projectMemberRepository.getTeamMembersIdAndPersonForProject(projectId);
     }
 
-    public void removeTeamMember(long teamMemberId) {
-        TeamMember teamMember = teamMemberRepository.findById(teamMemberId).orElseThrow(() -> new NoResultException("Unable to find team member by id: " + teamMemberId));
-        teamMemberRepository.delete(teamMember);
+    public void removeProjectMember(long teamMemberId) {
+        ProjectMember projectMember = projectMemberRepository.findById(teamMemberId).orElseThrow(() -> new NoResultException("Unable to find team member by id: " + teamMemberId));
+        projectMemberRepository.delete(projectMember);
     }
 
 

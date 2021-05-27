@@ -3,13 +3,13 @@ package com.alexnmat.exam.models.DTO;
 import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.models.entities.Project;
 
-public class TeamMemberDTO {
+public class ProjectMemberDTO {
 
     private long id;
     private Person person;
     private Project project;
 
-    public TeamMemberDTO(long id, Person person) {
+    public ProjectMemberDTO(long id, Person person) {
         this.id = id;
         this.person = person;
     }
@@ -37,4 +37,5 @@ public class TeamMemberDTO {
     public void setProject(Project project) {
         this.project = project;
     }
+
 }

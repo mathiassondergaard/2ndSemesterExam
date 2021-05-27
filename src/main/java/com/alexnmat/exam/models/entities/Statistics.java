@@ -22,9 +22,6 @@ public class Statistics implements Serializable {
     @Column(name = "project_hours")
     private double projectHours;
 
-    @Column(name = "sub_project_hours")
-    private double subProjectHours;
-
     public Statistics() {
     }
 
@@ -50,13 +47,5 @@ public class Statistics implements Serializable {
 
     public void setProjectHours(double projectHours) {
         this.projectHours = projectHours;
-    }
-
-    public double getSubProjectHours() {
-        return subProjectHours;
-    }
-
-    public void setSubProjectHours(double subProjectHours) {
-        this.subProjectHours = subProjectHours;
     }
 }

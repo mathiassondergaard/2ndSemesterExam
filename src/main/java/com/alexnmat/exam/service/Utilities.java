@@ -12,12 +12,12 @@ import java.time.temporal.ChronoUnit;
 public abstract class Utilities {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public Person getCurrentLoggedInPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentLoggedInUsersUsername = authentication.getName();
-        return userRepository.findByUsername(currentLoggedInUsersUsername).getPerson();
+        return userService.findUserByUsername(currentLoggedInUsersUsername).getPerson();
     }
 
     public boolean dateChecker(LocalDate startDate, LocalDate endDate) {

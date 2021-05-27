@@ -1,14 +1,14 @@
 package com.alexnmat.exam.models.DTO;
 
-public class TeamMemberHelper {
+public class ProjectMemberHelper {
 
     private long personId;
 
-    public TeamMemberHelper(long personId) {
+    public ProjectMemberHelper(long personId) {
         this.personId = personId;
     }
 
-    public TeamMemberHelper() {
+    public ProjectMemberHelper() {
 
     }
 

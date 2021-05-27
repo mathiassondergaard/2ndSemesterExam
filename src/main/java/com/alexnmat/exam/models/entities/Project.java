@@ -52,7 +52,7 @@ public class Project implements Serializable {
     private Person person;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<TeamMember> teamMembers;
+    private List<ProjectMember> projectMembers;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Statistics> statistics;
@@ -66,6 +66,10 @@ public class Project implements Serializable {
     public Project(long id, String projectName) {
         this.id = id;
         this.projectName = projectName;
+    }
+
+    //For unit testing
+    public Project(long projectId, String projectName, LocalDate utilStartDate, LocalDate utilEndDate, double allocatedHours, double totalTimeSpent) {
     }
 
     public long getId() {
@@ -132,12 +136,12 @@ public class Project implements Serializable {
         this.person = person;
     }
 
-    public List<TeamMember> getTeamMembers() {
-        return teamMembers;
+    public List<ProjectMember> getTeamMembers() {
+        return projectMembers;
     }
 
-    public void setTeamMembers(List<TeamMember> teams) {
-        this.teamMembers = teams;
+    public void setTeamMembers(List<ProjectMember> teams) {
+        this.projectMembers = teams;
     }
 
     public List<Statistics> getStatistics() {

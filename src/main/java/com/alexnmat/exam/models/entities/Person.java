@@ -27,7 +27,7 @@ public class Person implements Serializable {
     private String competence;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
-    private List<TeamMember> teamMember;
+    private List<ProjectMember> projectMember;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     private List<Project> projects;
@@ -78,12 +78,12 @@ public class Person implements Serializable {
         this.competence = competence;
     }
 
-    public List<TeamMember> getTeamMember() {
-        return teamMember;
+    public List<ProjectMember> getTeamMember() {
+        return projectMember;
     }
 
-    public void setTeamMember(List<TeamMember> teamMember) {
-        this.teamMember = teamMember;
+    public void setTeamMember(List<ProjectMember> projectMember) {
+        this.projectMember = projectMember;
     }
 
     public List<Project> getProjects() {

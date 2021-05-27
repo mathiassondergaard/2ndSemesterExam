@@ -5,15 +5,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "team_member")
-public class TeamMember implements Serializable {
+@Table(name = "project_member")
+public class ProjectMember implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "team_member_id_seq", sequenceName = "team_member_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_member_id_seq")
-    @Column(name = "team_member_id")
+    @SequenceGenerator(name = "project_member_id_seq", sequenceName = "project_member_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_member_id_seq")
+    @Column(name = "project_member_id")
     private long id;
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -24,7 +24,7 @@ public class TeamMember implements Serializable {
     @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Person person;
 
-    public TeamMember() {
+    public ProjectMember() {
     }
 
     public long getId() {

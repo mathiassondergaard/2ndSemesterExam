@@ -22,14 +22,11 @@
                     Sub Projects
                 </a>
 
-                <a class="navbar-item"
+                <a class="navbar-item" sec:authorize="hasAuthority('PROJECT_OWNER')"
                    th:href="@{/dashboard/projects/{projectId}/statistics/(projectId=${currentProject?.id})}">
                     Statistics
                 </a>
 
-                <a class="navbar-item">
-                    Blabla?
-                </a>
             </div>
 
             <div class="navbar-end">

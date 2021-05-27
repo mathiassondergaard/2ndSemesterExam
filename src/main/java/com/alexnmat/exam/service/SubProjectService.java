@@ -18,14 +18,12 @@ public class SubProjectService extends Utilities {
     private SubProjectRepository subProjectRepository;
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
-    private StatisticsService statisticsService;
 
     @Autowired
-    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository, TaskRepository taskRepository, StatisticsService statisticsService) {
+    public SubProjectService(SubProjectRepository subProjectRepository, ProjectRepository projectRepository, TaskRepository taskRepository) {
         this.subProjectRepository = subProjectRepository;
         this.projectRepository = projectRepository;
         this.taskRepository = taskRepository;
-        this.statisticsService = statisticsService;
     }
 
     public SubProject findBySubProjectId(long subProjectId) {
@@ -68,20 +66,9 @@ public class SubProjectService extends Utilities {
         subProjectRepository.delete(subProject);
     }
 
-    public void updateTotalTimeSpentForSubProject(long subProjectId, long projectId) {
+    public void updateTotalTimeSpentForSubProject(long subProjectId) {
         double calculatedHours = calculateTotalHoursForSubProject(subProjectId);
-        double totalSubProjectHours = calculateTotalHoursForAllSubProjects(projectId);
-        statisticsService.updateSubProjectHoursInStatistics(totalSubProjectHours, projectId);
         subProjectRepository.updateTotalTimeSpent(subProjectId, calculatedHours);
-    }
-
-    public double calculateTotalHoursForAllSubProjects(long projectId) {
-        double totalHours = 0;
-        List<SubProjectDTO> subProjectDTOList = subProjectRepository.findSubProjectStatisticsByProjectId(projectId);
-        for (int i = 0; i < subProjectDTOList.size(); i++) {
-            totalHours += subProjectDTOList.get(i).getTotalTimeSpent();
-        }
-        return totalHours;
     }
 
     private double calculateTotalHoursForSubProject(long subProjectId) {
