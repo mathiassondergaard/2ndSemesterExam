@@ -1,3 +1,7 @@
+<!--
+@Author: MSN
+-->
+
 //Get the button:
 mybutton = document.getElementById("myBtn");
 
