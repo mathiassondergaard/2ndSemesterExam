@@ -13,6 +13,10 @@ import javax.persistence.NoResultException;
 import java.time.DateTimeException;
 import java.util.List;
 
+/*
+@Author: AFC
+ */
+
 @Service
 public class TaskService extends Utilities {
 
@@ -27,6 +31,8 @@ public class TaskService extends Utilities {
         this.subTaskRepository = subTaskRepository;
     }
 
+    //orElseThrow() used repeatedly, in order for us to throw custom exceptions with lambda functions.
+
     public Task findTaskById(long taskId) {
         return taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoResultException("Unable to find Task by id: " + taskId));
@@ -40,6 +46,7 @@ public class TaskService extends Utilities {
         return taskRepository.findAllByProjectId(subProjectId);
     }
 
+    //Runs two date-checkers for validiation, uses Utilities method calculateTotalWorkdayHours for allocated hours and sets var completed to false before persisting.
     public Task saveTask(Task task, long subProjectId) {
         SubProject subProject = subProjectService.findBySubProjectId(subProjectId);
         if (dateChecker(task.getUtilStartDate(), task.getUtilEndDate())) {
@@ -65,6 +72,7 @@ public class TaskService extends Utilities {
         taskRepository.updateTotalTimeSpent(taskId, calculatedHours);
     }
 
+    //Helper method. Iterates through a list in orter to get total time spent for all subtasks, based on a task.
     private double calculateTotalHoursForTask(long taskId) {
         double totalHours = 0;
         List<SubTaskDTO> subTaskStatistics = subTaskRepository.findStatisticsOnSubTasksByTaskId(taskId);
@@ -88,6 +96,7 @@ public class TaskService extends Utilities {
         return subTaskRepository.findSubTasksIdNameStartDateEndDateAndCompletedByTaskId(taskId);
     }
 
+    //Runs two date-checkers for validiation, uses Utilities method calculateTotalWorkdayHours for allocated hours and sets var completed to false before persisting.
     public SubTask saveSubTask(SubTask subTask, long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoResultException("Unable to find task by id: " + taskId));

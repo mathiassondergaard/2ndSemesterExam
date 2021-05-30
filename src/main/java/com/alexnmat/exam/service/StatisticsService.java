@@ -6,6 +6,10 @@ import com.alexnmat.exam.repositories.StatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+@Author: MSN
+ */
+
 @Service
 public class StatisticsService {
 
@@ -24,10 +28,6 @@ public class StatisticsService {
 
     public void updateProjectHoursInStatistics(double totalHoursForProject, long projectId) {
         statisticsRepository.updateStatisticsProjectHours(projectId, totalHoursForProject);
-    }
-
-    public void updateSubProjectHoursInStatistics(double totalHoursForSubProjects, long projectId) {
-        statisticsRepository.updateStatisticsSubProjectHours(projectId, totalHoursForSubProjects);
     }
 
     public Statistics findHoursForProject(long projectId) {

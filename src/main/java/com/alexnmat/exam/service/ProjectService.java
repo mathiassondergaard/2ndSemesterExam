@@ -15,6 +15,10 @@ import javax.persistence.NoResultException;
 import java.time.DateTimeException;
 import java.util.List;
 
+/*
+@Author: MSN
+ */
+
 @Service
 public class ProjectService extends Utilities {
 
@@ -31,10 +35,12 @@ public class ProjectService extends Utilities {
         this.statisticsService = statisticsService;
     }
 
+    //orElseThrow() used repeatedly, in order for us to throw custom exceptions with lambda functions.
+
     public ProjectService() {
     }
 
-    //For testing purposes
+    //For Unit testing
     public ProjectService(ProjectRepository projectRepository) {
         super();
     }
@@ -52,6 +58,8 @@ public class ProjectService extends Utilities {
         return projectRepository.findProjectIdsAndNames();
     }
 
+    //Runs a single date-checker for validiation, uses Utilities method calculateTotalWorkdayHours for allocated hours before persisting.
+    //Gets current authenticated in user as project Owner.
     public void save(Project project) {
         project.setPerson(getCurrentLoggedInPerson());
         project.setAllocatedHours(calculateTotalWorkdayHours(project.getUtilStartDate(), project.getUtilEndDate()));
@@ -67,6 +75,7 @@ public class ProjectService extends Utilities {
         projectRepository.delete(project);
     }
 
+    //Iterates through a list of sub-projects in order to calculate total time spent on a project.
     public void updateTotalTimeSpentForProject(long projectId) {
         List<SubProject> subProjectList = findByProjectId(projectId).getSubProjects();
         double calculatedHours = 0;

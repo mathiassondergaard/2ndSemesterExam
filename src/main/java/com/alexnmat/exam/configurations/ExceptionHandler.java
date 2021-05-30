@@ -7,11 +7,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+/*
+@Author: MSN
+ */
+
 @ControllerAdvice
 public class ExceptionHandler {
 
     //https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc (15-05-2021)
-    //Used for exception handling, so we can display a default page when an exception occurs, in order to add a "Back to Dashboard" button as well.
+    //Used for exception handling, so we can display a default page when an exception occurs without explicit info, also in order to add a "Back to Dashboard" button as well.
 
     public static final String DEFAULT_ERROR_VIEW = "custom-error";
 

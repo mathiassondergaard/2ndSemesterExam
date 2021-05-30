@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Controller
 @RequestMapping("/dashboard/tasks/")
 public class SubTaskController {
@@ -27,7 +31,6 @@ public class SubTaskController {
         this.taskService = taskService;
     }
 
-    //TODO: comment why u did this shit
     @GetMapping(value = "{taskId}/subTasks/{subTaskId}")
     public String currentSubTask(@PathVariable("taskId") long taskId, @PathVariable("subTaskId") long subTaskId, Model model) {
         Task task = taskService.findTaskById(taskId);
@@ -49,6 +52,7 @@ public class SubTaskController {
         return "dashboard";
     }
 
+    //Model attributes added to bindingResult as well, since we use fragments for these as well.
     @PostMapping(value = "{taskId}/subTasks/addSubTask")
     public String createNewSubTask(@PathVariable("taskId") long taskId, @Valid SubTask subTask, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {

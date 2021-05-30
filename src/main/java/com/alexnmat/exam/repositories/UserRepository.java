@@ -4,6 +4,10 @@ import com.alexnmat.exam.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findById(long id);

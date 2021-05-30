@@ -9,11 +9,19 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Entity
 @Table(name = "sub_task")
 public class SubTask implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    //NotNull, NotEmpty etc. used for validiation
+
+    //Sequence Generator. Enables us to start every entity with id 1.
 
     @Id
     @SequenceGenerator(name = "sub_task_id_seq", sequenceName = "sub_task_id_seq", allocationSize = 1)
@@ -29,6 +37,7 @@ public class SubTask implements Serializable {
     @NotEmpty(message = "Please provide a name!")
     private String subTaskName;
 
+    //DateTimeFormat used for JPA to specify date format, since we are using LocalDate
     @Column(name = "start_date")
     @NotNull(message = "Please provide a date!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

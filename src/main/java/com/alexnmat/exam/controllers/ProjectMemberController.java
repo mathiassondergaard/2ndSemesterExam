@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+/*
+@Author: MSN
+ */
+
 @Controller
 @RequestMapping(value = "/dashboard/projects/")
 public class ProjectMemberController {
@@ -37,6 +41,7 @@ public class ProjectMemberController {
         return "dashboard";
     }
 
+    //Model attributes added to bindingResult as well, since we use fragments for these as well.
     @PostMapping("{projectId}/addMember")
     public String addProjectMember(@PathVariable("projectId") long projectId, @Valid ProjectMemberHelper projectMemberHelper, BindingResult result, Model model) {
         if (result.hasErrors()) {

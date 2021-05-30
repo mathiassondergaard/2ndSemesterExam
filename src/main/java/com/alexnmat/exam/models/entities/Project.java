@@ -10,12 +10,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+/*
+@Author: MSN
+ */
+
 @Entity
 @Table(name = "project")
 public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    //TODO: Should project have a isCompleted boolean as in task?
+
+    //NotNull, NotEmpty etc. used for validiation
+
+    //Sequence Generator. Enables us to start every entity with id 1.
     @Id
     @SequenceGenerator(name = "project_id_seq", sequenceName = "project_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_id_seq")
@@ -31,6 +38,7 @@ public class Project implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate utilStartDate;
 
+    //DateTimeFormat used for JPA to specify date format, since we are using LocalDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Please provide a date!")
     @Column(name = "end_date")

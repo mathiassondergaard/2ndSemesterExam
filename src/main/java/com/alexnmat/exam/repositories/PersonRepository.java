@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/*
+@Author: MSN
+ */
+
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 

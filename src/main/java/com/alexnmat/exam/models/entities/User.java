@@ -8,6 +8,10 @@ import org.hibernate.validator.constraints.Length;
 import java.io.Serializable;
 import java.util.Set;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Entity
 @Table(name = "users")
 public class User implements Serializable {

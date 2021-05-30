@@ -3,7 +3,13 @@ package com.alexnmat.exam.models.DTO;
 import com.alexnmat.exam.models.entities.Person;
 import com.alexnmat.exam.models.entities.Project;
 
+/*
+@Author: MSN
+ */
+
 public class ProjectMemberDTO {
+
+    //DTO's used for DTO Projection by JPA
 
     private long id;
     private Person person;

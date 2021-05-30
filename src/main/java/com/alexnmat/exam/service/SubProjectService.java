@@ -12,6 +12,10 @@ import javax.persistence.NoResultException;
 import java.time.DateTimeException;
 import java.util.List;
 
+/*
+@Author: AFC
+ */
+
 @Service
 public class SubProjectService extends Utilities {
 
@@ -26,6 +30,8 @@ public class SubProjectService extends Utilities {
         this.taskRepository = taskRepository;
     }
 
+    //orElseThrow() used repeatedly, in order for us to throw custom exceptions with lambda functions.
+
     public SubProject findBySubProjectId(long subProjectId) {
         return subProjectRepository.findById(subProjectId)
                 .orElseThrow(() -> new NoResultException("Unable to find subproject by id: " + subProjectId));
@@ -39,6 +45,8 @@ public class SubProjectService extends Utilities {
         return subProjectRepository.findAllByProjectId(projectId);
     }
 
+    //Runs two date-checkers for validiation, uses Utilities method calculateTotalWorkdayHours for allocated hours and sets var completed to false before persisting.
+    //Gets current authenticated person to set as sub-project-manager
     public SubProject save(SubProject subProject, long projectId) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new NoResultException("Unable to find project by id: " + projectId));
@@ -71,6 +79,7 @@ public class SubProjectService extends Utilities {
         subProjectRepository.updateTotalTimeSpent(subProjectId, calculatedHours);
     }
 
+    //Helper method. Iterates through a list in orter to get total time spent for all tasks, based on a sub-project.
     private double calculateTotalHoursForSubProject(long subProjectId) {
         double totalHours = 0;
         List<TaskDTO> taskStatistics = taskRepository.findTaskStatisticsBySubProjectId(subProjectId);

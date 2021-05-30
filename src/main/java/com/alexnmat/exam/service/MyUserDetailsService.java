@@ -16,6 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -34,6 +38,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return buildUserForAuthentication(user, authorities);
     }
 
+    //Gets user authority based on appropriate role in database, helper method
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         for (Role role : userRoles) {
@@ -43,6 +48,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return grantedAuthorities;
     }
 
+    //Builds authentication for user, helper method
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 user.getActive(), true, true, true, authorities);

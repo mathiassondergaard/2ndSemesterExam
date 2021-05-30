@@ -11,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -26,6 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService((userDetailsService)).passwordEncoder(bCryptPasswordEncoder);
     }
 
+    //Configures HTTP Security to limit pages to authority, allow authentication etc.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.

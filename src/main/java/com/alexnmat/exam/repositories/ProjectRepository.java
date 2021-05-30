@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/*
+@Author: MSN
+ */
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
@@ -26,6 +30,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
     ProjectDTO findProjectNameAndId(@Param("projectId") long projectId);
 
     /*
+    If needed for complete project functionality.
     @Transactional
     @Modifying
     @Query(value = "UPDATE Project SET completed = true WHERE id = :projectId")

@@ -9,21 +9,28 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/*
+@Author: MSN & AFC
+ */
+
 public abstract class Utilities {
 
     @Autowired
     private UserService userService;
 
+    //Used for setting a project/sub-projects person equal to the person who is authenticated
     public Person getCurrentLoggedInPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentLoggedInUsersUsername = authentication.getName();
         return userService.findUserByUsername(currentLoggedInUsersUsername).getPerson();
     }
 
+    //Date validiation for if end date is before start date
     public boolean dateChecker(LocalDate startDate, LocalDate endDate) {
         return endDate.isBefore(startDate);
     }
 
+    //Used for date validiation, when creating sub-project for project etc.
     public boolean dateInBetweenChecker(LocalDate existingStartDate, LocalDate startDate, LocalDate existingEndDate, LocalDate endDate) {
         return startDate.isEqual(existingStartDate) || startDate.isAfter(existingStartDate) && endDate.isEqual(existingEndDate) || endDate.isBefore(existingEndDate);
     }

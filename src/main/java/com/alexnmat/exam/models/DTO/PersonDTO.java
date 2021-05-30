@@ -1,6 +1,12 @@
 package com.alexnmat.exam.models.DTO;
 
+/*
+@Author: MSN
+ */
+
 public class PersonDTO {
+
+    //DTO's used for DTO Projection by JPA
 
     private long id;
     private String name;

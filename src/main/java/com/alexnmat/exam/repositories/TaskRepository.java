@@ -12,8 +12,14 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/*
+@Author: AFC
+ */
+
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
+
+    //Multiple custom queries, used for DB optimization with DTO Projection
 
     @Query("SELECT new com.alexnmat.exam.models.DTO.TaskDTO(t.id, t.taskName, t.utilStartDate, t.utilEndDate, t.completed) FROM Task t WHERE t.subProject.id = :subProjectId")
     List<TaskDTO> findAllByProjectId(@Param("subProjectId") long subProjectId);

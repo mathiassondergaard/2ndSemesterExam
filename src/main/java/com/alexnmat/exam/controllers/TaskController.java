@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/*
+@Author: AFC
+ */
+
 @Controller
 @RequestMapping("/dashboard/tasks/")
 public class TaskController {
@@ -23,10 +27,11 @@ public class TaskController {
         this.taskService = taskService;
     }
 
+    //Retrieving DTO or long based on task, so it's possible to use the project navbar when viewing a task/sub-task
+
     @GetMapping(value = "{taskId}")
     public String currentTask(@PathVariable("taskId") long taskId, Model model) {
         model.getAttribute("projects");
-        //TODO: comment why u did this shit
         Task task = taskService.findTaskById(taskId);
         ProjectDTO projectDTO = new ProjectDTO(task.getSubProject().getProject().getId());
         SubProjectDTO subProjectDTO = new SubProjectDTO(task.getSubProject().getId());
@@ -46,6 +51,7 @@ public class TaskController {
         return "dashboard";
     }
 
+    //Model attributes added to bindingResult as well, since we use fragments for these as well.
     @PostMapping(value = "addTask/{subProjectId}")
     public String createNewTask(@PathVariable("subProjectId") long subProjectId, @Valid Task task, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -60,8 +66,6 @@ public class TaskController {
         taskService.saveTask(task, subProjectId);
         return "redirect:/dashboard/tasks/" + task.getId();
     }
-
-    //TODO: HARAM
 
     @GetMapping(value = "{taskId}/complete")
     public String completeTask(@PathVariable("taskId") long taskId, Model model) {

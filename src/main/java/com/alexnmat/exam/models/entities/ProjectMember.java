@@ -4,11 +4,17 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 
+/*
+@Author: MSN
+ */
+
 @Entity
 @Table(name = "project_member")
 public class ProjectMember implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    //Sequence Generator. Enables us to start every entity with id 1.
 
     @Id
     @SequenceGenerator(name = "project_member_id_seq", sequenceName = "project_member_id_seq", allocationSize = 1)

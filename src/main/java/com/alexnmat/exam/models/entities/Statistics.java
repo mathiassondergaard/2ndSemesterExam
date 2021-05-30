@@ -3,12 +3,18 @@ package com.alexnmat.exam.models.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/*
+@Author: MSN
+ */
+
 @Entity
 @Table(name = "statistics")
 public class Statistics implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+    //Sequence Generator. Enables us to start every entity with id 1.
     @Id
     @SequenceGenerator(name = "statistics_id_seq", sequenceName = "statistics_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "statistics_id_seq")

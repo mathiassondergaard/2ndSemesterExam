@@ -10,11 +10,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+/*
+@Author: AFC
+ */
+
 @Entity
 @Table(name = "task")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    //NotNull, NotEmpty etc. used for validiation
+
+    //Sequence Generator. Enables us to start every entity with id 1.
 
     @Id
     @SequenceGenerator(name = "task_id_seq", sequenceName = "task_id_seq", allocationSize = 1)
@@ -33,6 +41,7 @@ public class Task implements Serializable {
     @OneToMany(mappedBy = "task", cascade = CascadeType.MERGE)
     private List<SubTask> subTasks;
 
+    //DateTimeFormat used for JPA to specify date format, since we are using LocalDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Please provide a date!")
     @Column(name = "start_date")

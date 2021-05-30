@@ -2,9 +2,6 @@
 TODO: LAST SHIT
 
 add app or projectory/dashboard/**
-
-
 kommentare til kode!!!
-UNIT TESTS
 AUTHOR TAGS
 

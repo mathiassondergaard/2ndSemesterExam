@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {

@@ -7,6 +7,10 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/*
+@Author: MSN
+ */
+
 @Configuration
 public class TomcatConfig {
     //From stacko: https://stackoverflow.com/questions/46251131/invalid-character-found-in-the-request-target-in-spring-boot

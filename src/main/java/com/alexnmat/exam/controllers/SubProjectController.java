@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+/*
+@Author: AFC
+ */
+
 @Controller
 @RequestMapping("/dashboard/projects/")
 public class SubProjectController {
@@ -55,6 +59,7 @@ public class SubProjectController {
         return "dashboard";
     }
 
+    //Model attributes added to bindingResult as well, since we use fragments for these as well.
     @PostMapping(value = "{projectId}/addSubProject")
     public String createNewSubProject(@PathVariable("projectId") long projectId, @Valid SubProject subProject, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {

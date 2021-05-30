@@ -1,6 +1,12 @@
 package com.alexnmat.exam.models.DTO;
 
+/*
+@Author: MSN
+ */
+
 public class HoursHelper {
+
+    //Used for assisting the service method for adding a hours to a sub-task.
 
     private int hours;
 

@@ -3,6 +3,10 @@ package com.alexnmat.exam.models.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/*
+@Author: MSN & AFC
+ */
+
 @Entity
 @Table(name = "roles")
 public class Role implements Serializable {

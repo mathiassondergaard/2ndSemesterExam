@@ -4,7 +4,13 @@ import com.alexnmat.exam.models.entities.SubProject;
 
 import java.util.List;
 
+/*
+@Author: MSN
+ */
+
 public class ProjectDTO {
+
+    //DTO's used for DTO Projection by JPA
 
     private long id;
     private String projectName;

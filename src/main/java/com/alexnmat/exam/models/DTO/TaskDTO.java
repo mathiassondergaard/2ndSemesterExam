@@ -2,7 +2,13 @@ package com.alexnmat.exam.models.DTO;
 
 import java.time.LocalDate;
 
+/*
+@Author: MSN
+ */
+
 public class TaskDTO {
+
+    //DTO's used for DTO Projection by JPA
 
     private long id;
     private String taskName;

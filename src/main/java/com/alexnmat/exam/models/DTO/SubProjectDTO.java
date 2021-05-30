@@ -4,7 +4,13 @@ import com.alexnmat.exam.models.entities.Person;
 
 import java.time.LocalDate;
 
+/*
+@Author: MSN
+ */
+
 public class SubProjectDTO {
+
+    //DTO's used for DTO Projection by JPA
 
     private long id;
     private String subProjectName;
