@@ -38,6 +38,7 @@ public class ProjectController {
     public String currentProject(@PathVariable("projectId") long projectId, Model model) {
         model.getAttribute("projects");
         model.addAttribute("currentProject", projectService.findByProjectId(projectId));
+        //Type indicates what fragment dashboard needs to replace into.
         model.addAttribute("type", 1);
         model.addAttribute("projectMembersForProject", projectService.getAllProjectMembersForProject(projectId));
         projectService.updateTotalTimeSpentForProject(projectId);

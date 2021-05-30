@@ -40,6 +40,7 @@
                               style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black;"
                     ></textarea>
                     <p id="lblRemainingCount"></p>
+                    <!-- script used for displaying characters written for validiation -->
                     <script>
                         function textareaLengthCheck(el) {
                             var textArea = el.value.length;
@@ -48,11 +49,6 @@
                             count.innerHTML = "Characters left: " + charactersLeft;
                         }
                     </script>
-                    <!--
-                    <input type="text" th:field="*{projectName}"
-                           placeholder="Project Description" class="input is-primary is-normal" id="projectDescription"
-                           style="box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); border-color: black; height: 100px"/>
-                -->
                 </div>
             </div>
             <div class="form-group">
