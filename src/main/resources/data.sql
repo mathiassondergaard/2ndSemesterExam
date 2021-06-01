@@ -45,7 +45,7 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 2);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 3);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 1); -- User "admin" has role PROJECT OWNER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (4, 2); -- User "user" has role PROJECT MANAGER
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 1); -- User "janlevinson" has role PROJECT MANAGER
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 1); -- User "janlevinson" has role PROJECT OWNER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 2); -- User "michaelscott" has role PROJECT MANAGER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (9, 3); -- User "teamman1" has role TEAM MEMBER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (10, 3); -- User "teamman2" has role TEAM MEMBER
