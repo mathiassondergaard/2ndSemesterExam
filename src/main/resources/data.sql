@@ -5,9 +5,8 @@ INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (1,
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (2, 'sysdev', 'Soendergaard', 'mathias');
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (3, 'admin', 'admin', 'admin');
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (4, 'user', 'user', 'user');
-INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (5, 'projectmanager', 'scott', 'michael');
-INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (6, 'projectmanager', 'levinson', 'jan');
-INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (7, 'projectmanager', 'packer', 'todd');
+INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (5, 'projectowner', 'levinson', 'jan');
+INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (6, 'projectmanager', 'scott', 'michael');
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (9, 'temp', 'temp', 'temp');
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (10, 'developer', 'howard_the_temp', 'ryan');
 INSERT INTO `person` (`person_id`, `competence`, `last_name`, `name`) VALUES (11, 'developer', 'hudson', 'stanley');
@@ -24,9 +23,8 @@ INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) 
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (2, 'mathias', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 2);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (3, 'admin', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 3);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (4, 'user', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 4);
-INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (5, 'michaelscott', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 5);
-INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (6, 'janlevinson', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 6);
-INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (7, 'toddpacker', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 7);
+INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (5, 'janlevinson', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 5);
+INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (6, 'michaelscott', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 6);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (9, 'teamman1', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 9);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (10, 'teamman2', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 10);
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `active`, `person_id`) VALUES (11, 'teamman3', '$2a$10$EZ1TVvvwsiHGnjXtmeMOQuJFlUXpxI4kjOGdOPhLD6o9kAzWqh38y', 1, 11);
@@ -47,9 +45,8 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 2);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (2, 3);
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (3, 1); -- User "admin" has role PROJECT OWNER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (4, 2); -- User "user" has role PROJECT MANAGER
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 2); -- User "projectman1" has role PROJECT MANAGER
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 2); -- User "Projectman2" has role PROJECT MANAGER
-INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (7, 2); -- User "Projectman1" has role PROJECT MANAGER
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (5, 1); -- User "janlevinson" has role PROJECT MANAGER
+INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (6, 2); -- User "michaelscott" has role PROJECT MANAGER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (9, 3); -- User "teamman1" has role TEAM MEMBER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (10, 3); -- User "teamman2" has role TEAM MEMBER
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES (11, 3); -- User "teamman3" has role TEAM MEMBER
