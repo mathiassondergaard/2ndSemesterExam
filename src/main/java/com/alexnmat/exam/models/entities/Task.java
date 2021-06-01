@@ -38,7 +38,7 @@ public class Task implements Serializable {
     @NotEmpty(message = "Please provide a name!")
     private String taskName;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<SubTask> subTasks;
 
     //DateTimeFormat used for JPA to specify date format, since we are using LocalDate

@@ -59,7 +59,7 @@ public class SubProject implements Serializable {
     @Column(name = "total_time_spent")
     private double totalTimeSpent;
 
-    @OneToMany(mappedBy = "subProject", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "subProject", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     @ManyToOne(cascade = CascadeType.MERGE)
