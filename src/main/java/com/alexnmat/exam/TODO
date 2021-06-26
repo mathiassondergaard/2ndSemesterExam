@@ -1,0 +1,22 @@
+TODO: CODE
+
+ProjectService should be split up, so that project members have their own service class
+Maybe look into interfaces for service classes instead
+
+ProjectMembers should be added to every subproject, task, subtask
+- including html
+
+reset buttons for html forms
+
+fix hackerløsninger over det hele
+
+fix dependencies
+
+add DTOs to everything, maybe a mapper layer??
+
+repository manager?
+
+andet advanced shit der skal med og findes ud af undervejs
+
+
+TODO: DESIGN
